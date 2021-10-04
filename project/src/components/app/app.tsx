@@ -1,13 +1,13 @@
 import {MainScreen} from '../main/main';
 
 type AppProps = {
-  AmountPlacesToLive: number;
+  amountPlacesToLive: number;
 };
 
-function App({AmountPlacesToLive}: AppProps): JSX.Element {
+function App({amountPlacesToLive}: AppProps): JSX.Element {
   return (
     <MainScreen
-      AmountPlacesToLive={AmountPlacesToLive}
+      amountPlacesToLive={amountPlacesToLive}
     />
   );
 }

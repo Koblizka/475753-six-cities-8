@@ -1,7 +1,7 @@
-import {LivePlaceProps} from '../types/live-place';
+import {Place} from '../types/live-place';
 import {PlaceType} from '../common/const';
 
-const LivePlaces: LivePlaceProps[] = [
+const LivePlaces: Place[] = [
   {
     id: '1',
     isPremium: true,

@@ -2,10 +2,10 @@ import {PlaceCard} from '../place-card/place-card';
 import {LivePlaces as LivePlacesMoks} from '../../moks/const';
 
 type MainPageProps = {
-  AmountPlacesToLive: number,
+  amountPlacesToLive: number,
 };
 
-function MainScreen({AmountPlacesToLive}: MainPageProps): JSX.Element {
+function MainScreen({amountPlacesToLive}: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -78,7 +78,7 @@ function MainScreen({AmountPlacesToLive}: MainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{AmountPlacesToLive} places to stay in Amsterdam</b>
+              <b className="places__found">{amountPlacesToLive} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>

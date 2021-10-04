@@ -1,8 +1,8 @@
-import {LivePlaceProps} from '../../types/live-place';
+import {Place} from '../../types/live-place';
 import {percentageRating} from '../../utils/utils';
 
 type PlaceCardProps = {
-  offer: LivePlaceProps;
+  offer: Place;
 }
 
 function PlaceCard({offer}: PlaceCardProps): JSX.Element {
