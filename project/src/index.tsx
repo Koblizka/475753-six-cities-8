@@ -6,7 +6,7 @@ import {Setting} from './common/const';
 ReactDOM.render(
   <React.StrictMode>
     <App
-      AmountPlacesToLive = {Setting.PlaceAmount}
+      amountPlacesToLive = {Setting.PlaceAmount}
     />
   </React.StrictMode>,
   document.getElementById('root'));
