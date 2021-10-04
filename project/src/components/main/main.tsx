@@ -1,8 +1,9 @@
 import {PlaceCard} from '../place-card/place-card';
-import {LivePlaceProps} from '../../types/live-place';
-import {MainPageProps} from '../../types/main';
 import {LivePlaces as LivePlacesMoks} from '../../moks/const';
-import {nanoid} from 'nanoid';
+
+type MainPageProps = {
+  AmountPlacesToLive: number,
+};
 
 function MainScreen({AmountPlacesToLive}: MainPageProps): JSX.Element {
   return (
@@ -94,7 +95,13 @@ function MainScreen({AmountPlacesToLive}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {LivePlacesMoks.map((item: LivePlaceProps): JSX.Element => <PlaceCard key={nanoid()} {...item}/>)}
+                {LivePlacesMoks.map((offer): JSX.Element =>
+                  (
+                    <PlaceCard
+                      key={offer.id}
+                      offer={offer}
+                    />),
+                )}
               </div>
             </section>
             <div className="cities__right-section">

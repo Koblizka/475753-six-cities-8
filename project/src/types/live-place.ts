@@ -1,4 +1,5 @@
 export type LivePlaceProps = {
+  id: string,
   isPremium: boolean,
   isBookmarked: boolean,
   placeType: string,
@@ -6,5 +7,5 @@ export type LivePlaceProps = {
   rating: number,
   name: string,
   photoSrc: string,
-  city?: string,
+  city: string,
 }
