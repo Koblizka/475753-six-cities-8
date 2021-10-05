@@ -31,7 +31,7 @@ function App({amountPlacesToLive}: AppProps): JSX.Element {
           exact
           path={AppRoute.Favorites}
           authorizationStatus={AuthorizationStatus.NotAuth}
-          component={FavoritesScreen}
+          render={() => <FavoritesScreen />}
         />
         <Route exact path={AppRoute.Offer}>
           <OfferScreen />

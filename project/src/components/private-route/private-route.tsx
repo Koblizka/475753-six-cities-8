@@ -1,6 +1,5 @@
 import {AuthorizationStatus} from '../../common/const';
 import {AppRoute} from '../../common/const';
-import {Component} from 'react';
 import {
   Route,
   RouteProps,
@@ -8,18 +7,19 @@ import {
 } from 'react-router';
 
 type PrivateRouteProps = RouteProps & {
+  render: () => JSX.Element;
   authorizationStatus: string;
 }
 
 function PrivateRoute(props: PrivateRouteProps): JSX.Element {
-  const {authorizationStatus, component, ...rest} = props;
+  const {authorizationStatus, render, ...rest} = props;
 
   return (
     <Route
       {...rest}
-      render = {(routeProps) => (
+      render = {() => (
         (authorizationStatus === AuthorizationStatus.IsAuth)
-          ? <Component {...routeProps}/>
+          ? render()
           : <Redirect to={AppRoute.SignIn} />
       )}
     />
