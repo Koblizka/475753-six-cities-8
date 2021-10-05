@@ -6,6 +6,18 @@ enum PlaceType {
   PrivateRoom = 'Private room',
 }
 
+enum AppRoute {
+  Main = '/',
+  SignIn = '/login',
+  Favorites = '/favorites',
+  Room = '/offer/:id?',
+}
+
+enum AuthorizationStatus {
+  IsAuth = 'IS_AUTH',
+  NotAuth = 'NOT_AUTH',
+}
+
 const Setting = {
   PlaceAmount: 132,
 } as const;
@@ -13,6 +25,8 @@ const Setting = {
 export {
   MAX_PERCENTAGE,
   MAX_OFFER_RATING,
+  AppRoute,
   PlaceType,
+  AuthorizationStatus,
   Setting
 };
