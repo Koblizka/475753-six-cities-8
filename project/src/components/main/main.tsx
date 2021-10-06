@@ -2,7 +2,7 @@ import {PlaceCard} from '../place-card/place-card';
 import {LivePlaces as LivePlacesMoks} from '../../moks/const';
 
 type MainPageProps = {
-  amountPlacesToLive: number,
+  amountPlacesToLive: number;
 };
 
 function MainScreen({amountPlacesToLive}: MainPageProps): JSX.Element {
