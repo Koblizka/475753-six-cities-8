@@ -8,7 +8,10 @@ type Place = {
   price: number;
   rating: number;
   name: string;
-  photoSrc: string;
+  photoSrc: {
+    big: string[];
+    small: string[];
+  };
   city: string;
 }
 

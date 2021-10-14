@@ -1,11 +1,12 @@
-import {PlaceCard} from '../place-card/place-card';
-import {LivePlaces as LivePlacesMoks} from '../../moks/const';
+import {Place} from '../../types/place';
+import {OffersList} from '../../components/offers-list/offers-list';
 
 type MainPageProps = {
   amountPlacesToLive: number;
+  offers: Place[];
 };
 
-function MainScreen({amountPlacesToLive}: MainPageProps): JSX.Element {
+function MainScreen({amountPlacesToLive, offers}: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -94,15 +95,9 @@ function MainScreen({amountPlacesToLive}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {LivePlacesMoks.map((offer): JSX.Element =>
-                  (
-                    <PlaceCard
-                      key={offer.id}
-                      offer={offer}
-                    />),
-                )}
-              </div>
+              <OffersList
+                offers={offers}
+              />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
