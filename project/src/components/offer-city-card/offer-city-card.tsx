@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 type CityPlaceCardProps = {
   offer: Place;
-  onOfferChoose?: (offer: Place | null) => void;
+  onOfferChoose: (offer: Place | null) => void;
 }
 
 function CityPlaceCard({offer, onOfferChoose}: CityPlaceCardProps): JSX.Element {
