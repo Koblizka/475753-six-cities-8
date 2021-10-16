@@ -1,14 +1,16 @@
 const MAX_PERCENTAGE = 100 as const;
 const MAX_OFFER_RATING = 5 as const;
 
-enum Gap {
+enum TimeGap {
   Zero = 0,
   Week = 7,
 }
 
 enum PlaceType {
   Apartment = 'Apartment',
-  PrivateRoom = 'Private room',
+  Room = 'Private room',
+  House = 'House',
+  Hotel = 'Hotel',
 }
 
 enum AppRoute {
@@ -29,26 +31,30 @@ const Setting = {
   PlaceAmount: 132,
 } as const;
 
-enum CardType {
-  Favorites = 'favorites',
-  Cities = 'cities'
-}
-
-enum photoSize {
+enum PhotoSize {
   smallWidth = '150',
   smallHeight = '110',
   bigWidth = '260',
   bigHeight = '200',
 }
 
+enum City {
+  Amsterdam = 'Amsterdam',
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}
+
 export {
-  Gap,
+  TimeGap,
   MAX_PERCENTAGE,
   MAX_OFFER_RATING,
   AppRoute,
   PlaceType,
   AuthorizationStatus,
   Setting,
-  CardType,
-  photoSize
+  PhotoSize,
+  City
 };

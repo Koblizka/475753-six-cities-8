@@ -1,27 +1,28 @@
 import {useState} from 'react';
-import {CardType} from '../../common/const';
 import {Place} from '../../types/place';
-import {PlaceCard} from '../place-card/place-card';
+import {CityPlaceCard} from '../offer-city-card/offer-city-card';
 
 type OffersListProps = {
   offers: Place[];
 }
 
 function OffersList({offers}: OffersListProps): JSX.Element {
-  const [, setActiveOffer] = useState<Place | null>(null);
+  const [activeOffer, setActiveOffer] = useState<Place | null>(null);
 
   const handleOfferChoose = (offer: Place | null):void => {
-    offer ? setActiveOffer(offer) : setActiveOffer(null);
+    setActiveOffer(offer);
+
+    // eslint-disable-next-line
+    console.log(activeOffer);
   };
 
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer): JSX.Element =>
         (
-          <PlaceCard
+          <CityPlaceCard
             key={offer.id}
             offer={offer}
-            cardType={CardType.Cities}
             onOfferChoose={handleOfferChoose}
           />
         ),

@@ -1,6 +1,5 @@
-import {CardType} from '../../common/const';
 import {Place} from '../../types/place';
-import {PlaceCard} from '../place-card/place-card';
+import {FavoriteOfferCard} from '../offer-favorite-card/offer-favorite-card';
 
 type favoriteItemProps = {
   offers: Place[]
@@ -9,7 +8,7 @@ type favoriteItemProps = {
 function FavoriteItem({offers}: favoriteItemProps): JSX.Element{
   const distinctPlaces = new Set<string>();
 
-  offers.map((offer) => distinctPlaces.add(offer.city));
+  offers.forEach((offer) => distinctPlaces.add(offer.city.name));
 
   return (
     <ul className="favorites__list">
@@ -27,12 +26,11 @@ function FavoriteItem({offers}: favoriteItemProps): JSX.Element{
               <div className="favorites__places">
                 {
                   offers
-                    .filter((offer) => offer.city === city)
+                    .filter((offer) => offer.city.name === city)
                     .map((location): JSX.Element => (
-                      <PlaceCard
+                      <FavoriteOfferCard
                         offer={location}
                         key={location.id}
-                        cardType={CardType.Favorites}
                       />
                     ),
                     )

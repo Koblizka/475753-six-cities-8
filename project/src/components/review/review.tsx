@@ -1,5 +1,8 @@
-import { Review } from '../../types/review';
-import { getDateMonthYear, percentageRating } from '../../utils/utils';
+import {Review} from '../../types/review';
+import {
+  getDateMonthYear,
+  percentageRating
+} from '../../utils/utils';
 
 type ReviewProps = {
   review: Review

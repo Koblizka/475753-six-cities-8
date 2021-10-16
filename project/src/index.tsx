@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import App from './components/app/app';
 import {Setting} from './common/const';
 import {LivePlaces} from './mocks/offers';
-import {Reviews} from './mocks/reviews';
+import {reviews} from './mocks/reviews';
 
 ReactDOM.render(
   <React.StrictMode>
     <App
       amountPlacesToLive={Setting.PlaceAmount}
       offers={LivePlaces}
-      reviews={Reviews}
+      reviews={reviews}
     />
   </React.StrictMode>,
   document.getElementById('root'));

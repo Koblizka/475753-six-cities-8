@@ -1,13 +1,17 @@
 import {Place} from '../types/place';
 import {Review} from '../types/review';
+import {City} from '../types/city';
+import {cities} from '../mocks/cities';
 import {
   MAX_PERCENTAGE,
   MAX_OFFER_RATING,
-  Gap
+  TimeGap
 } from '../common/const';
 
+const ONE_GUEST = 1;
+
 const percentageRating = (rating: number): number => (Math.round(rating) / MAX_OFFER_RATING) * MAX_PERCENTAGE;
-const sortFavoritesPlaces = (place: Place): boolean => place.isBookmarked;
+const sortFavoritesPlaces = (place: Place): boolean => place.isFavorite;
 const getFavoritesPlaces = (places: Place[]): Place[] => places.filter(sortFavoritesPlaces);
 
 const getRandomIntInclusive = (min: number, max: number): number => {
@@ -19,7 +23,7 @@ const getRandomIntInclusive = (min: number, max: number): number => {
 const getRandomeDate = (): Date => {
   const date = new Date();
 
-  return new Date(date.setDate(date.getDate() - getRandomIntInclusive(Gap.Zero, Gap.Week)));
+  return new Date(date.setDate(date.getDate() - getRandomIntInclusive(TimeGap.Zero, TimeGap.Week)));
 };
 
 const getOfferRank = (offerId: string, reviews: Review[]): number => {
@@ -32,11 +36,17 @@ const getOfferRank = (offerId: string, reviews: Review[]): number => {
 
 const getDateMonthYear = (date: Date): string => date.toLocaleDateString('En-en', {month: 'long', year: 'numeric'});
 
+const getCity = (cityName: string): City => cities.find((city) => cityName === city.name) as City;
+
+const getOfferCapacity = (capacity: number): string => capacity === ONE_GUEST ? `${capacity} adult` : `${capacity} adults`;
+
 export {
   percentageRating,
   sortFavoritesPlaces,
   getFavoritesPlaces,
   getRandomeDate,
   getOfferRank,
-  getDateMonthYear
+  getDateMonthYear,
+  getCity,
+  getOfferCapacity
 };

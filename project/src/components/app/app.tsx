@@ -1,6 +1,6 @@
 import {MainScreen} from '../main/main';
 import {FavoritesScreen} from '../favorites/favorites';
-import {OfferScreen} from '../offer/offer';
+import {OfferScreen} from '../offer-details/offer-details';
 import LoginScreen from '../login/login';
 import {NotFoundScreen} from '../not-found/not-found';
 import {PrivateRoute} from '../private-route/private-route';
@@ -36,7 +36,7 @@ function App({amountPlacesToLive, offers, reviews}: AppProps): JSX.Element {
         <PrivateRoute
           exact
           path={AppRoute.Favorites}
-          authorizationStatus={AuthorizationStatus.NotAuth}
+          authorizationStatus={AuthorizationStatus.IsAuth}
           render={() => <FavoritesScreen offers={offers} />}
         />
         <Route exact path={AppRoute.Offers}>

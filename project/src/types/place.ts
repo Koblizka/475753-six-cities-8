@@ -1,18 +1,28 @@
 import {PlaceType} from '../common/const';
+import {City} from './city';
+import {User} from './user';
 
 type Place = {
   id: string;
   isPremium: boolean;
-  isBookmarked: boolean;
+  isFavorite: boolean;
   placeType: PlaceType;
   price: number;
   rating: number;
-  name: string;
-  photoSrc: {
-    big: string[];
-    small: string[];
+  title: string;
+  description: string;
+  images: string[];
+  city: City;
+  bedrooms: number;
+  goods: string[];
+  host: User;
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
   };
-  city: string;
+  maxAdults: number;
+  previewImage: string;
 }
 
 export type {Place};
