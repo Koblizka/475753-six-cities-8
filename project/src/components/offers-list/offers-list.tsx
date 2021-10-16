@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Place} from '../../types/place';
-import {CityPlaceCard} from '../offer-city-card/offer-city-card';
+import {OfferCityCard} from '../offer-city-card/offer-city-card';
 
 type OffersListProps = {
   offers: Place[];
@@ -20,7 +20,7 @@ function OffersList({offers}: OffersListProps): JSX.Element {
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer): JSX.Element =>
         (
-          <CityPlaceCard
+          <OfferCityCard
             key={offer.id}
             offer={offer}
             onOfferChoose={handleOfferChoose}

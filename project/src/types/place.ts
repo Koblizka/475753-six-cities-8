@@ -1,4 +1,3 @@
-import {PlaceType} from '../common/const';
 import {City} from './city';
 import {User} from './user';
 
@@ -6,7 +5,7 @@ type Place = {
   id: string;
   isPremium: boolean;
   isFavorite: boolean;
-  placeType: PlaceType;
+  placeType: string;
   price: number;
   rating: number;
   title: string;

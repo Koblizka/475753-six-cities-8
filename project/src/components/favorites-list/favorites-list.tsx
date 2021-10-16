@@ -1,5 +1,5 @@
 import {Place} from '../../types/place';
-import {FavoriteOfferCard} from '../offer-favorite-card/offer-favorite-card';
+import {OfferFavoriteCard} from '../offer-favorite-card/offer-favorite-card';
 
 type favoriteItemProps = {
   offers: Place[]
@@ -28,7 +28,7 @@ function FavoriteItem({offers}: favoriteItemProps): JSX.Element{
                   offers
                     .filter((offer) => offer.city.name === city)
                     .map((location): JSX.Element => (
-                      <FavoriteOfferCard
+                      <OfferFavoriteCard
                         offer={location}
                         key={location.id}
                       />

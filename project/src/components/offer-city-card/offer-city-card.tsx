@@ -2,7 +2,7 @@ import {Place} from '../../types/place';
 import {percentageRating} from '../../utils/utils';
 import {
   AppRoute,
-  PhotoSize
+  OfferCardPhotoSize
 } from '../../common/const';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ type CityPlaceCardProps = {
   onOfferChoose: (offer: Place | null) => void;
 }
 
-function CityPlaceCard({offer, onOfferChoose}: CityPlaceCardProps): JSX.Element {
+function OfferCityCard({offer, onOfferChoose}: CityPlaceCardProps): JSX.Element {
 
   const handleMouseEnterEvent = () => onOfferChoose ? onOfferChoose(offer) : undefined;
   const handleMouseLeaveEvent = () => onOfferChoose ? onOfferChoose(null) : undefined;
@@ -27,8 +27,8 @@ function CityPlaceCard({offer, onOfferChoose}: CityPlaceCardProps): JSX.Element 
         <Link to={`${AppRoute.Offer}${offer.id}`}>
           <img className="place-card__image"
             src={offer.images[0]}
-            width={PhotoSize.bigWidth}
-            height={PhotoSize.bigHeight}
+            width={OfferCardPhotoSize.bigWidth}
+            height={OfferCardPhotoSize.bigHeight}
             alt="Place presentation"
           />
         </Link>
@@ -61,4 +61,4 @@ function CityPlaceCard({offer, onOfferChoose}: CityPlaceCardProps): JSX.Element 
   );
 }
 
-export {CityPlaceCard};
+export {OfferCityCard};

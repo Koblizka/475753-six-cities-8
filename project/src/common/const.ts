@@ -31,7 +31,7 @@ const Setting = {
   PlaceAmount: 132,
 } as const;
 
-enum PhotoSize {
+enum OfferCardPhotoSize {
   smallWidth = '150',
   smallHeight = '110',
   bigWidth = '260',
@@ -55,6 +55,6 @@ export {
   PlaceType,
   AuthorizationStatus,
   Setting,
-  PhotoSize,
+  OfferCardPhotoSize,
   City
 };

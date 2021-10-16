@@ -2,7 +2,7 @@ import {Place} from '../../types/place';
 import {percentageRating} from '../../utils/utils';
 import {
   AppRoute,
-  PhotoSize
+  OfferCardPhotoSize
 } from '../../common/const';
 import { Link } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ type FavoriteOfferCardProps = {
   offer: Place;
 }
 
-function FavoriteOfferCard({offer}: FavoriteOfferCardProps): JSX.Element {
+function OfferFavoriteCard({offer}: FavoriteOfferCardProps): JSX.Element {
   return (
     <article
       className="favorites__card place-card"
@@ -20,8 +20,8 @@ function FavoriteOfferCard({offer}: FavoriteOfferCardProps): JSX.Element {
         <Link to={`${AppRoute.Offer}${offer.id}`}>
           <img className="place-card__image"
             src={offer.previewImage}
-            width={PhotoSize.smallWidth}
-            height={PhotoSize.smallHeight}
+            width={OfferCardPhotoSize.smallWidth}
+            height={OfferCardPhotoSize.smallHeight}
             alt="Place presentation"
           />
         </Link>
@@ -54,4 +54,4 @@ function FavoriteOfferCard({offer}: FavoriteOfferCardProps): JSX.Element {
   );
 }
 
-export {FavoriteOfferCard};
+export {OfferFavoriteCard};
