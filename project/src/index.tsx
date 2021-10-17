@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 import {Setting} from './common/const';
-import {LivePlaces} from './mocks/offers';
+import {offers} from './mocks/offers';
 import {reviews} from './mocks/reviews';
 
 ReactDOM.render(
   <React.StrictMode>
     <App
       amountPlacesToLive={Setting.PlaceAmount}
-      offers={LivePlaces}
+      offers={offers}
       reviews={reviews}
     />
   </React.StrictMode>,

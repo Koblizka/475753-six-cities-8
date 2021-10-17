@@ -15,7 +15,7 @@ function OfferFavoriteCard({offer}: FavoriteOfferCardProps): JSX.Element {
     <article
       className="favorites__card place-card"
     >
-      {offer.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
+      {offer.isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`${AppRoute.Offer}${offer.id}`}>
           <img className="place-card__image"

@@ -13,14 +13,14 @@ type CityPlaceCardProps = {
 
 function OfferCityCard({offer, onOfferChoose}: CityPlaceCardProps): JSX.Element {
 
-  const handleMouseEnterEvent = () => onOfferChoose ? onOfferChoose(offer) : undefined;
-  const handleMouseLeaveEvent = () => onOfferChoose ? onOfferChoose(null) : undefined;
+  const handleMouseEnter = () => onOfferChoose(offer);
+  const handleMouseLeave = () => onOfferChoose(null);
 
   return (
     <article
       className="cities__place-card place-card"
-      onMouseEnter={handleMouseEnterEvent}
-      onMouseLeave={handleMouseLeaveEvent}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {offer.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
       <div className="cities__image-wrapper place-card__image-wrapper">

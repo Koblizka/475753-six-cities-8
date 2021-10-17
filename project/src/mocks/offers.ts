@@ -6,7 +6,7 @@ import {
   PlaceType
 } from '../common/const';
 
-const LivePlaces: Place[] = [
+const offers: Place[] = [
   {
     id: '1',
     isPremium: true,
@@ -141,4 +141,4 @@ const LivePlaces: Place[] = [
   },
 ];
 
-export {LivePlaces};
+export {offers};
