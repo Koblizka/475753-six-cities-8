@@ -1,16 +1,25 @@
 const MAX_PERCENTAGE = 100 as const;
 const MAX_OFFER_RATING = 5 as const;
 
+enum TimeGap {
+  Zero = 0,
+  Week = 7,
+}
+
 enum PlaceType {
   Apartment = 'Apartment',
-  PrivateRoom = 'Private room',
+  Room = 'Private room',
+  House = 'House',
+  Hotel = 'Hotel',
 }
 
 enum AppRoute {
   Main = '/',
   SignIn = '/login',
   Favorites = '/favorites',
-  Offer = '/offer/:id',
+  Offers = '/offer/:id',
+  Offer = '/offer/',
+  NotFound = '/404',
 }
 
 enum AuthorizationStatus {
@@ -22,11 +31,30 @@ const Setting = {
   PlaceAmount: 132,
 } as const;
 
+enum OfferCardPhotoSize {
+  smallWidth = '150',
+  smallHeight = '110',
+  bigWidth = '260',
+  bigHeight = '200',
+}
+
+enum City {
+  Amsterdam = 'Amsterdam',
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}
+
 export {
+  TimeGap,
   MAX_PERCENTAGE,
   MAX_OFFER_RATING,
   AppRoute,
   PlaceType,
   AuthorizationStatus,
-  Setting
+  Setting,
+  OfferCardPhotoSize,
+  City
 };
