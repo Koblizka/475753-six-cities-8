@@ -1,4 +1,4 @@
-import {Place} from '../../types/place';
+import {Offer} from '../../types/offer';
 import {percentageRating} from '../../utils/utils';
 import {
   AppRoute,
@@ -7,8 +7,8 @@ import {
 import { Link } from 'react-router-dom';
 
 type CityPlaceCardProps = {
-  offer: Place;
-  onOfferChoose: (offer: Place | null) => void;
+  offer: Offer;
+  onOfferChoose: (offer: Offer | null) => void;
 }
 
 function OfferCityCard({offer, onOfferChoose}: CityPlaceCardProps): JSX.Element {

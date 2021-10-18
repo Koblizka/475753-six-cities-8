@@ -1,13 +1,13 @@
-import {Place} from '../../types/place';
+import {Offer} from '../../types/offer';
 import {percentageRating} from '../../utils/utils';
+import {Link} from 'react-router-dom';
 import {
   AppRoute,
   OfferCardPhotoSize
 } from '../../common/const';
-import { Link } from 'react-router-dom';
 
 type FavoriteOfferCardProps = {
-  offer: Place;
+  offer: Offer;
 }
 
 function OfferFavoriteCard({offer}: FavoriteOfferCardProps): JSX.Element {

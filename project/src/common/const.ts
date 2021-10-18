@@ -1,6 +1,11 @@
 const MAX_PERCENTAGE = 100 as const;
 const MAX_OFFER_RATING = 5 as const;
 
+enum UrlMarker {
+  Default = 'img/pin.svg',
+  Custom = 'img/pin-active.svg',
+}
+
 enum TimeGap {
   Zero = 0,
   Week = 7,
@@ -56,5 +61,6 @@ export {
   AuthorizationStatus,
   Setting,
   OfferCardPhotoSize,
-  City
+  City,
+  UrlMarker
 };

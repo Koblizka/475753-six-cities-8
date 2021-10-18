@@ -1,4 +1,4 @@
-import {Place} from '../types/place';
+import {Offer} from '../types/offer';
 import {Review} from '../types/review';
 import {City} from '../types/city';
 import {cities} from '../mocks/cities';
@@ -11,8 +11,8 @@ import {
 const ONE_GUEST = 1;
 
 const percentageRating = (rating: number): number => (Math.round(rating) / MAX_OFFER_RATING) * MAX_PERCENTAGE;
-const sortFavoritesPlaces = (place: Place): boolean => place.isFavorite;
-const getFavoritesPlaces = (places: Place[]): Place[] => places.filter(sortFavoritesPlaces);
+const sortFavoritesPlaces = (place: Offer): boolean => place.isFavorite;
+const getFavoritesPlaces = (places: Offer[]): Offer[] => places.filter(sortFavoritesPlaces);
 
 const getRandomIntInclusive = (min: number, max: number): number => {
   min = Math.ceil(min);
