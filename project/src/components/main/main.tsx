@@ -14,7 +14,7 @@ type MainPageProps = {
 function MainScreen({amountPlacesToLive, offers}: MainPageProps): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
 
-  const handleOfferChoose = (offer: Offer | null):void => {
+  const onOfferChoose = (offer: Offer | null):void => {
     setActiveOffer(offer);
   };
 
@@ -80,7 +80,8 @@ function MainScreen({amountPlacesToLive, offers}: MainPageProps): JSX.Element {
               </form>
               <OffersList
                 offers={offers}
-                handleOfferChoose={handleOfferChoose}
+                activeCity={City.Amsterdam}
+                onOfferChoose={onOfferChoose}
               />
             </section>
             <div className="cities__right-section">

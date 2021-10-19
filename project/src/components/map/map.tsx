@@ -21,14 +21,14 @@ type MapProps = {
 
 const defaultPin = new Icon({
   iconUrl: UrlMarker.Default,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: [28, 40],
+  iconAnchor: [12, 40],
 });
 
 const customPin = new Icon({
   iconUrl: UrlMarker.Custom,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: [28, 40],
+  iconAnchor: [12, 40],
 });
 
 function Map({offers, city, selectedOffer}: MapProps): JSX.Element {

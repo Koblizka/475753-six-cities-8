@@ -1,3 +1,4 @@
+import {PlaceType} from '../common/const';
 import {City} from './city';
 import {Place} from './place';
 import {User} from './user';
@@ -6,7 +7,7 @@ type Offer = {
   id: string;
   isPremium: boolean;
   isFavorite: boolean;
-  placeType: string;
+  placeType: PlaceType;
   price: number;
   rating: number;
   title: string;
