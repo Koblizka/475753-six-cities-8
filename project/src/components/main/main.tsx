@@ -1,10 +1,14 @@
 import {Offer} from '../../types/offer';
-import {OffersList} from '../../components/offers-list/offers-list';
+import {OffersCitiesList} from '../offers-cities-list/offers-cities-list';
 import {Map} from '../../components/map/map';
 import {CitiesList} from '../cities-list/cities-list';
 import {cities} from '../../mocks/cities';
-import {City} from '../../common/const';
 import {useState} from 'react';
+
+import {
+  CardClassType,
+  City
+} from '../../common/const';
 
 type MainPageProps = {
   amountPlacesToLive: number;
@@ -78,18 +82,21 @@ function MainScreen({amountPlacesToLive, offers}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OffersList
+              <OffersCitiesList
                 offers={offers}
                 activeCity={City.Amsterdam}
                 onOfferChoose={onOfferChoose}
+                className={CardClassType.Cities}
               />
             </section>
             <div className="cities__right-section">
-              <Map
-                offers={offers}
-                city={cities[3]}
-                selectedOffer={activeOffer}
-              />
+              <section className="cities__map map">
+                <Map
+                  offers={offers}
+                  city={cities[3]}
+                  selectedOffer={activeOffer}
+                />
+              </section>
             </div>
           </div>
         </div>

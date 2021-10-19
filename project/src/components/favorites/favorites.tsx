@@ -1,4 +1,4 @@
-import {FavoriteItem} from '../favorites-list/favorites-list';
+import {OffersFavoritesList} from '../offers-favorites-list/offers-favorites-list';
 import {getFavoritesPlaces} from '../../utils/utils';
 import {Offer} from '../../types/offer';
 
@@ -40,7 +40,10 @@ function FavoritesScreen({offers}: favoritesScreenProps): JSX.Element {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <FavoriteItem offers={getFavoritesPlaces(offers)}/>
+            <OffersFavoritesList
+              offers={getFavoritesPlaces(offers)}
+              className={null}
+            />
           </section>
         </div>
       </main>

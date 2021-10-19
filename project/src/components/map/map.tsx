@@ -32,7 +32,7 @@ const customPin = new Icon({
 });
 
 function Map({offers, city, selectedOffer}: MapProps): JSX.Element {
-  const mapRef = useRef<HTMLElement | null>(null);
+  const mapRef = useRef<HTMLDivElement | null>(null);
   const map = useMap(mapRef, city);
 
   useEffect(() => {
@@ -55,12 +55,11 @@ function Map({offers, city, selectedOffer}: MapProps): JSX.Element {
   }, [map, offers, selectedOffer]);
 
   return (
-    <section
-      className="cities__map map"
-      style={ {height: '100%', width: '512px'} }
+    <div
+      style={ {height: '100%'} }
       ref={mapRef}
     >
-    </section>
+    </div>
   );
 }
 
