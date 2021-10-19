@@ -19,6 +19,8 @@ import {
   useParams
 } from 'react-router-dom';
 
+const OFFERS_LENGTH_CONSTRAINT = 3;
+
 type OfferScreenProps = {
   offers: Offer[];
   reviews: Review[];
@@ -27,6 +29,7 @@ type OfferScreenProps = {
 function OfferScreen({offers, reviews}: OfferScreenProps): JSX.Element{
   const { id }  = useParams<{id: string}>();
 
+  const offersNear = offers.slice(0, OFFERS_LENGTH_CONSTRAINT);
   const offerData = offers.find((offer) => offer.id === id) as Offer;
   const reviewData = reviews.filter((review) => review.offerId === id);
 
@@ -174,7 +177,7 @@ function OfferScreen({offers, reviews}: OfferScreenProps): JSX.Element{
             style={ {maxWidth: '1144px', margin: '0 auto 50px'} }
           >
             <Map
-              offers={offers.slice(0, 3)}
+              offers={offersNear}
               city={cities[3]}
               selectedOffer={null}
             />
@@ -183,7 +186,7 @@ function OfferScreen({offers, reviews}: OfferScreenProps): JSX.Element{
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OffersNearList offers={offers} className={CardClassType.NearPlaces} />
+            <OffersNearList offers={offersNear} className={CardClassType.NearPlaces} />
           </section>
         </div>
       </main>
