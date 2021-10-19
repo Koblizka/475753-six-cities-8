@@ -1,13 +1,13 @@
-import {Place} from '../../types/place';
+import {Offer} from '../../types/offer';
 import {percentageRating} from '../../utils/utils';
+import {Link} from 'react-router-dom';
 import {
   AppRoute,
   OfferCardPhotoSize
 } from '../../common/const';
-import { Link } from 'react-router-dom';
 
 type FavoriteOfferCardProps = {
-  offer: Place;
+  offer: Offer;
 }
 
 function OfferFavoriteCard({offer}: FavoriteOfferCardProps): JSX.Element {
@@ -15,7 +15,7 @@ function OfferFavoriteCard({offer}: FavoriteOfferCardProps): JSX.Element {
     <article
       className="favorites__card place-card"
     >
-      {offer.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
+      {offer.isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`${AppRoute.Offer}${offer.id}`}>
           <img className="place-card__image"

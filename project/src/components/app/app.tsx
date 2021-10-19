@@ -4,8 +4,8 @@ import {OfferScreen} from '../offer-details/offer-details';
 import LoginScreen from '../login/login';
 import {NotFoundScreen} from '../not-found/not-found';
 import {PrivateRoute} from '../private-route/private-route';
-import {Place} from '../../types/place';
-import { Review } from '../../types/review';
+import {Offer} from '../../types/offer';
+import {Review} from '../../types/review';
 
 import {
   AppRoute,
@@ -19,7 +19,7 @@ import {
 
 type AppProps = {
   amountPlacesToLive: number;
-  offers: Place[];
+  offers: Offer[];
   reviews: Review[]
 };
 

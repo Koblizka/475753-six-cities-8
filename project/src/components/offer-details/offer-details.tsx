@@ -1,8 +1,8 @@
-import { AppRoute } from '../../common/const';
-import { Place } from '../../types/place';
-import { Review } from '../../types/review';
-import { UserReview } from '../review/review';
-import { ReviewForm } from '../review-form/review-form';
+import {AppRoute} from '../../common/const';
+import {Offer} from '../../types/offer';
+import {Review } from '../../types/review';
+import {UserReview } from '../review/review';
+import {ReviewForm} from '../review-form/review-form';
 import {
   getOfferCapacity,
   percentageRating
@@ -13,14 +13,14 @@ import {
 } from 'react-router-dom';
 
 type OfferScreenProps = {
-  offers: Place[];
+  offers: Offer[];
   reviews: Review[];
 }
 
 function OfferScreen({offers, reviews}: OfferScreenProps): JSX.Element{
   const { id }  = useParams<{id: string}>();
 
-  const offerData = offers.find((offer) => offer.id === id) as Place;
+  const offerData = offers.find((offer) => offer.id === id) as Offer;
   const reviewData = reviews.filter((review) => review.offerId === id);
 
   if (!offerData) {

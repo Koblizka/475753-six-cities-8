@@ -1,4 +1,4 @@
-import {Place} from '../types/place';
+import {Offer} from '../types/offer';
 import {getCity } from '../utils/utils';
 import {users} from './users';
 import {
@@ -6,7 +6,7 @@ import {
   PlaceType
 } from '../common/const';
 
-const LivePlaces: Place[] = [
+const offers: Offer[] = [
   {
     id: '1',
     isPremium: true,
@@ -23,8 +23,8 @@ const LivePlaces: Place[] = [
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: users[0],
     location: {
-      latitude: 50.935173,
-      longitude: 6.953101,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     maxAdults: 4,
@@ -45,8 +45,8 @@ const LivePlaces: Place[] = [
     goods: ['Heating', 'Cable TV', 'Coffee machine', 'Dishwasher'],
     host: users[1],
     location: {
-      latitude: 50.935173,
-      longitude: 6.953101,
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     maxAdults: 2,
@@ -67,8 +67,8 @@ const LivePlaces: Place[] = [
     goods: ['Heating', 'Kitchen'],
     host: users[0],
     location: {
-      latitude: 50.935173,
-      longitude: 6.953101,
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
       zoom: 8,
     },
     maxAdults: 1,
@@ -89,8 +89,8 @@ const LivePlaces: Place[] = [
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     host: users[0],
     location: {
-      latitude: 50.935173,
-      longitude: 6.953101,
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
       zoom: 8,
     },
     maxAdults: 4,
@@ -141,4 +141,4 @@ const LivePlaces: Place[] = [
   },
 ];
 
-export {LivePlaces};
+export {offers};

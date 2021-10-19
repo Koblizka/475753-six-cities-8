@@ -1,9 +1,9 @@
 import {FavoriteItem} from '../favorites-list/favorites-list';
 import {getFavoritesPlaces} from '../../utils/utils';
-import {Place} from '../../types/place';
+import {Offer} from '../../types/offer';
 
 type favoritesScreenProps = {
-  offers: Place[]
+  offers: Offer[]
 }
 
 function FavoritesScreen({offers}: favoritesScreenProps): JSX.Element {
