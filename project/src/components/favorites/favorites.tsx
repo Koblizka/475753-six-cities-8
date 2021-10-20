@@ -42,7 +42,6 @@ function FavoritesScreen({offers}: favoritesScreenProps): JSX.Element {
             <h1 className="favorites__title">Saved listing</h1>
             <OffersFavoritesList
               offers={getFavoritesPlaces(offers)}
-              className={null}
             />
           </section>
         </div>

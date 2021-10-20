@@ -1,4 +1,5 @@
 import {Offer} from '../../types/offer';
+import {City} from '../../types/city';
 import {OffersCitiesList} from '../offers-cities-list/offers-cities-list';
 import {Map} from '../../components/map/map';
 import {CitiesList} from '../cities-list/cities-list';
@@ -6,19 +7,19 @@ import {cities} from '../../mocks/cities';
 import {useState} from 'react';
 
 import {
-  CardClassType,
-  City
+  CardClassType
 } from '../../common/const';
 
 type MainPageProps = {
   amountPlacesToLive: number;
   offers: Offer[];
+  activeCity: City;
 };
 
-function MainScreen({amountPlacesToLive, offers}: MainPageProps): JSX.Element {
+function MainScreen({amountPlacesToLive, offers, activeCity}: MainPageProps): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
 
-  const onOfferChoose = (offer: Offer | null):void => {
+  const handleOfferChoose = (offer: Offer | null):void => {
     setActiveOffer(offer);
   };
 
@@ -58,7 +59,7 @@ function MainScreen({amountPlacesToLive, offers}: MainPageProps): JSX.Element {
           <section className="locations container">
             <CitiesList
               cities={cities}
-              activeCity={City.Amsterdam}
+              activeCity={activeCity}
             />
           </section>
         </div>
@@ -84,8 +85,8 @@ function MainScreen({amountPlacesToLive, offers}: MainPageProps): JSX.Element {
               </form>
               <OffersCitiesList
                 offers={offers}
-                activeCity={City.Amsterdam}
-                onOfferChoose={onOfferChoose}
+                activeCity={activeCity}
+                onOfferChoose={handleOfferChoose}
                 className={CardClassType.Cities}
               />
             </section>
@@ -93,7 +94,7 @@ function MainScreen({amountPlacesToLive, offers}: MainPageProps): JSX.Element {
               <section className="cities__map map">
                 <Map
                   offers={offers}
-                  city={cities[3]}
+                  activeCity={activeCity}
                   selectedOffer={activeOffer}
                 />
               </section>

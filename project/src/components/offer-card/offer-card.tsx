@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, CardClassType, OfferCardPhotoSize } from '../../common/const';
@@ -6,13 +7,13 @@ import { percentageRating } from '../../utils/utils';
 
 type OfferCardProps = {
   offer: Offer;
-  className: CardClassType | null;
+  className?: CardClassType;
 }
 
 function OfferCard({offer, className}: OfferCardProps): JSX.Element {
   return(
     <React.Fragment>
-      {offer.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
+      {offer.isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={`${className ? className : 'favorites'}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Offer}${offer.id}`}>
           <img className="place-card__image"
@@ -23,7 +24,7 @@ function OfferCard({offer, className}: OfferCardProps): JSX.Element {
           />
         </Link>
       </div>
-      <div className={`${!className && 'favorites__card-info '}place-card__info`}>
+      <div className={`${clsx(!className && 'favorites__card-info ')}place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{offer.price}</b>

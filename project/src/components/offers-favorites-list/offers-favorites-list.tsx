@@ -3,10 +3,9 @@ import {OfferFavoriteCard} from '../offer-favorite-card/offer-favorite-card';
 
 type OffersFavoritesListProps = {
   offers: Offer[];
-  className: null;
 }
 
-function OffersFavoritesList({offers, className}: OffersFavoritesListProps): JSX.Element{
+function OffersFavoritesList({offers}: OffersFavoritesListProps): JSX.Element{
   const distinctPlaces = new Set<string>();
 
   offers.forEach((offer) => distinctPlaces.add(offer.city.name));
@@ -32,7 +31,6 @@ function OffersFavoritesList({offers, className}: OffersFavoritesListProps): JSX
                       <OfferFavoriteCard
                         offer={location}
                         key={location.id}
-                        className={className}
                       />
                     ),
                     )

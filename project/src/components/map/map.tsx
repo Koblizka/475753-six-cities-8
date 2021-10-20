@@ -15,7 +15,7 @@ import {
 
 type MapProps = {
   offers: Offer[];
-  city: City;
+  activeCity: City;
   selectedOffer: Offer | null;
 }
 
@@ -31,9 +31,9 @@ const customPin = new Icon({
   iconAnchor: [12, 40],
 });
 
-function Map({offers, city, selectedOffer}: MapProps): JSX.Element {
+function Map({offers, activeCity, selectedOffer}: MapProps): JSX.Element {
   const mapRef = useRef<HTMLDivElement | null>(null);
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef, activeCity);
 
   useEffect(() => {
     if (map) {

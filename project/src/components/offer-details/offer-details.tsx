@@ -1,4 +1,5 @@
 import {Offer} from '../../types/offer';
+import {City} from '../../types/city';
 import {Review } from '../../types/review';
 import {UserReview } from '../review/review';
 import {ReviewForm} from '../review-form/review-form';
@@ -24,9 +25,10 @@ const OFFERS_LENGTH_CONSTRAINT = 3;
 type OfferScreenProps = {
   offers: Offer[];
   reviews: Review[];
+  activeCity: City;
 }
 
-function OfferScreen({offers, reviews}: OfferScreenProps): JSX.Element{
+function OfferScreen({offers, reviews, activeCity}: OfferScreenProps): JSX.Element{
   const { id }  = useParams<{id: string}>();
 
   const offersNear = offers.slice(0, OFFERS_LENGTH_CONSTRAINT);
@@ -141,14 +143,7 @@ function OfferScreen({offers, reviews}: OfferScreenProps): JSX.Element{
                   <span className="property__user-name">
                     {offerData.host.userName}
                   </span>
-                  {
-                    offerData.host.isPro
-                      && (
-                        <span className="property__user-status">
-                          Pro
-                        </span>
-                      )
-                  }
+                  {offerData.host.isPro && <span className="property__user-status">Pro</span>}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
@@ -161,11 +156,12 @@ function OfferScreen({offers, reviews}: OfferScreenProps): JSX.Element{
                 <ul className="reviews__list">
                   {
                     reviewData
-                      .map((review) =>(
+                      .map((review) => (
                         <UserReview
-                          review={review }
+                          review={review}
                           key={review.reviewId}
-                        />),
+                        />
+                      ),
                       )
                   }
                 </ul>
@@ -178,7 +174,7 @@ function OfferScreen({offers, reviews}: OfferScreenProps): JSX.Element{
           >
             <Map
               offers={offersNear}
-              city={cities[3]}
+              activeCity={cities[3]}
               selectedOffer={null}
             />
           </section>
