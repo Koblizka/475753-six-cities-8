@@ -52,6 +52,11 @@ enum City {
   Dusseldorf = 'Dusseldorf',
 }
 
+enum CardClassType {
+  Cities = 'cities',
+  NearPlaces = 'near-places',
+}
+
 export {
   TimeGap,
   MAX_PERCENTAGE,
@@ -62,5 +67,6 @@ export {
   Setting,
   OfferCardPhotoSize,
   City,
-  UrlMarker
+  UrlMarker,
+  CardClassType
 };

@@ -15,25 +15,25 @@ import {
 
 type MapProps = {
   offers: Offer[];
-  city: City;
+  activeCity: City;
   selectedOffer: Offer | null;
 }
 
 const defaultPin = new Icon({
   iconUrl: UrlMarker.Default,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: [28, 40],
+  iconAnchor: [12, 40],
 });
 
 const customPin = new Icon({
   iconUrl: UrlMarker.Custom,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: [28, 40],
+  iconAnchor: [12, 40],
 });
 
-function Map({offers, city, selectedOffer}: MapProps): JSX.Element {
-  const mapRef = useRef<HTMLElement | null>(null);
-  const map = useMap(mapRef, city);
+function Map({offers, activeCity, selectedOffer}: MapProps): JSX.Element {
+  const mapRef = useRef<HTMLDivElement | null>(null);
+  const map = useMap(mapRef, activeCity);
 
   useEffect(() => {
     if (map) {
@@ -55,12 +55,11 @@ function Map({offers, city, selectedOffer}: MapProps): JSX.Element {
   }, [map, offers, selectedOffer]);
 
   return (
-    <section
-      className="cities__map map"
-      style={ {height: '100%', width: '512px'} }
+    <div
+      style={ {height: '100%'} }
       ref={mapRef}
     >
-    </section>
+    </div>
   );
 }
 

@@ -6,10 +6,14 @@ import {NotFoundScreen} from '../not-found/not-found';
 import {PrivateRoute} from '../private-route/private-route';
 import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
+import {useState} from 'react';
+import {City as ActiveCity} from '../../types/city';
+import {getCity} from '../../utils/utils';
 
 import {
   AppRoute,
-  AuthorizationStatus
+  AuthorizationStatus,
+  City
 } from '../../common/const';
 import {
   BrowserRouter,
@@ -24,6 +28,8 @@ type AppProps = {
 };
 
 function App({amountPlacesToLive, offers, reviews}: AppProps): JSX.Element {
+  const [activeCity] = useState<ActiveCity>(getCity(City.Amsterdam));
+
   return (
     <BrowserRouter>
       <Switch>
@@ -31,6 +37,7 @@ function App({amountPlacesToLive, offers, reviews}: AppProps): JSX.Element {
           <MainScreen
             amountPlacesToLive={amountPlacesToLive}
             offers={offers}
+            activeCity={activeCity}
           />
         </Route>
         <PrivateRoute
@@ -43,6 +50,7 @@ function App({amountPlacesToLive, offers, reviews}: AppProps): JSX.Element {
           <OfferScreen
             offers={offers}
             reviews={reviews}
+            activeCity={activeCity}
           />
         </Route>
         <Route exact path={AppRoute.SignIn}>

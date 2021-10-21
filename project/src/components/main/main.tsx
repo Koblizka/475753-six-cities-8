@@ -1,17 +1,22 @@
 import {Offer} from '../../types/offer';
-import {OffersList} from '../../components/offers-list/offers-list';
+import {City} from '../../types/city';
+import {OffersCitiesList} from '../offers-cities-list/offers-cities-list';
 import {Map} from '../../components/map/map';
 import {CitiesList} from '../cities-list/cities-list';
 import {cities} from '../../mocks/cities';
-import {City} from '../../common/const';
 import {useState} from 'react';
+
+import {
+  CardClassType
+} from '../../common/const';
 
 type MainPageProps = {
   amountPlacesToLive: number;
   offers: Offer[];
+  activeCity: City;
 };
 
-function MainScreen({amountPlacesToLive, offers}: MainPageProps): JSX.Element {
+function MainScreen({amountPlacesToLive, offers, activeCity}: MainPageProps): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
 
   const handleOfferChoose = (offer: Offer | null):void => {
@@ -54,7 +59,7 @@ function MainScreen({amountPlacesToLive, offers}: MainPageProps): JSX.Element {
           <section className="locations container">
             <CitiesList
               cities={cities}
-              activeCity={City.Amsterdam}
+              activeCity={activeCity}
             />
           </section>
         </div>
@@ -78,17 +83,21 @@ function MainScreen({amountPlacesToLive, offers}: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OffersList
+              <OffersCitiesList
                 offers={offers}
-                handleOfferChoose={handleOfferChoose}
+                activeCity={activeCity}
+                onOfferChoose={handleOfferChoose}
+                className={CardClassType.Cities}
               />
             </section>
             <div className="cities__right-section">
-              <Map
-                offers={offers}
-                city={cities[3]}
-                selectedOffer={activeOffer}
-              />
+              <section className="cities__map map">
+                <Map
+                  offers={offers}
+                  activeCity={activeCity}
+                  selectedOffer={activeOffer}
+                />
+              </section>
             </div>
           </div>
         </div>
