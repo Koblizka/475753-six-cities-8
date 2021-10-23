@@ -1,28 +1,36 @@
 import {Offer} from '../../types/offer';
-import {City} from '../../types/city';
 import {OffersCitiesList} from '../offers-cities-list/offers-cities-list';
 import {Map} from '../../components/map/map';
-import {CitiesList} from '../cities-list/cities-list';
+import CitiesList from '../cities-list/cities-list';
 import {cities} from '../../mocks/cities';
-import {useState} from 'react';
+import {Dispatch} from 'react';
+import {CardClassType} from '../../common/const';
+import {State} from '../../types/state';
+import {chooseActiveOffer} from '../../store/actions';
+import {Actions} from '../../types/actions';
+import {connect, ConnectedProps} from 'react-redux';
 
-import {
-  CardClassType
-} from '../../common/const';
 
-type MainPageProps = {
-  amountPlacesToLive: number;
-  offers: Offer[];
-  activeCity: City;
-};
+const mapStateToProps = ({activeCity, offers, activeOffer}: State) => ({
+  activeCity,
+  offers,
+  activeOffer,
+});
 
-function MainScreen({amountPlacesToLive, offers, activeCity}: MainPageProps): JSX.Element {
-  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => (
+  {
+    handleOfferChoose(offer: Offer | null) {
+      dispatch(chooseActiveOffer(offer));
+    },
+  }
+);
 
-  const handleOfferChoose = (offer: Offer | null):void => {
-    setActiveOffer(offer);
-  };
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ConnectedComponentProps = PropsFromRedux;
+
+function MainScreen({offers, activeCity, activeOffer, handleOfferChoose}: ConnectedComponentProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -67,7 +75,7 @@ function MainScreen({amountPlacesToLive, offers, activeCity}: MainPageProps): JS
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{amountPlacesToLive} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in {activeCity.name}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -107,3 +115,4 @@ function MainScreen({amountPlacesToLive, offers, activeCity}: MainPageProps): JS
 }
 
 export {MainScreen};
+export default connector(MainScreen);

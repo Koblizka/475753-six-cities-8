@@ -1,12 +1,17 @@
 import {OffersFavoritesList} from '../offers-favorites-list/offers-favorites-list';
 import {getFavoritesPlaces} from '../../utils/utils';
-import {Offer} from '../../types/offer';
+import { connect, ConnectedProps } from 'react-redux';
+import { State } from '../../types/state';
 
-type favoritesScreenProps = {
-  offers: Offer[]
-}
+const mapStateToProps = ({offers}: State) => ({
+  offers,
+});
 
-function FavoritesScreen({offers}: favoritesScreenProps): JSX.Element {
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function FavoritesScreen({offers}: PropsFromRedux): JSX.Element {
   return (
     <div className="page">
       <header className="header">
@@ -56,3 +61,4 @@ function FavoritesScreen({offers}: favoritesScreenProps): JSX.Element {
 }
 
 export {FavoritesScreen};
+export default connector(FavoritesScreen);

@@ -133,8 +133,8 @@ const offers: Offer[] = [
     goods: ['Heating', 'Kitchen', 'Coffee machine', 'Dishwasher'],
     host: users[1],
     location: {
-      latitude: 50.935173,
-      longitude: 6.953101,
+      latitude: 48.864716,
+      longitude: 2.349014,
       zoom: 8,
     },
     maxAdults: 4,

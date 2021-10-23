@@ -37,6 +37,7 @@ function Map({offers, activeCity, selectedOffer}: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
+      map.setView([activeCity.location.latitude, activeCity.location.longitude]);
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
@@ -52,7 +53,7 @@ function Map({offers, activeCity, selectedOffer}: MapProps): JSX.Element {
           .addTo(map);
       });
     }
-  }, [map, offers, selectedOffer]);
+  }, [map, offers, selectedOffer, activeCity]);
 
   return (
     <div

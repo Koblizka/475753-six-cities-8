@@ -37,6 +37,7 @@ const getOfferRank = (offerId: string, reviews: Review[]): number => {
 const getDateMonthYear = (date: Date): string => date.toLocaleDateString('En-en', {month: 'long', year: 'numeric'});
 
 const getCity = (cityName: string): City => cities.find((city) => cityName === city.name) as City;
+const getCityOffers = (cityName: string, offers: Offer[]): Offer[] => offers.filter((offer) => offer.city.name === cityName) as Offer[];
 
 const getOfferCapacity = (capacity: number): string => capacity === ONE_GUEST ? `${capacity} adult` : `${capacity} adults`;
 
@@ -48,5 +49,6 @@ export {
   getOfferRank,
   getDateMonthYear,
   getCity,
-  getOfferCapacity
+  getOfferCapacity,
+  getCityOffers
 };

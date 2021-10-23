@@ -1,10 +1,7 @@
 import {Offer} from '../../types/offer';
-import {City} from '../../types/city';
-import {Review } from '../../types/review';
 import {UserReview } from '../review/review';
 import {ReviewForm} from '../review-form/review-form';
 import {Map} from '../map/map';
-import {cities} from '../../mocks/cities';
 import {OffersNearList} from '../offers-near-list/offers-near-list';
 
 import {
@@ -19,16 +16,22 @@ import {
   Redirect,
   useParams
 } from 'react-router-dom';
+import { State } from '../../types/state';
+import { connect, ConnectedProps } from 'react-redux';
 
 const OFFERS_LENGTH_CONSTRAINT = 3;
 
-type OfferScreenProps = {
-  offers: Offer[];
-  reviews: Review[];
-  activeCity: City;
-}
+const mapStateToProps = ({activeCity, offers, reviews}: State) => ({
+  activeCity,
+  offers,
+  reviews,
+});
 
-function OfferScreen({offers, reviews, activeCity}: OfferScreenProps): JSX.Element{
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function OfferScreen({offers, reviews, activeCity}: PropsFromRedux): JSX.Element{
   const { id }  = useParams<{id: string}>();
 
   const offersNear = offers.slice(0, OFFERS_LENGTH_CONSTRAINT);
@@ -174,7 +177,7 @@ function OfferScreen({offers, reviews, activeCity}: OfferScreenProps): JSX.Eleme
           >
             <Map
               offers={offersNear}
-              activeCity={cities[3]}
+              activeCity={activeCity}
               selectedOffer={null}
             />
           </section>
@@ -191,3 +194,4 @@ function OfferScreen({offers, reviews, activeCity}: OfferScreenProps): JSX.Eleme
 }
 
 export {OfferScreen};
+export default connector(OfferScreen);
