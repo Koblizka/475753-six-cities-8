@@ -1,15 +1,16 @@
-import {City} from '../common/const';
 import {offers} from '../mocks/offers';
 import {reviews} from '../mocks/reviews';
 import {State} from '../types/state';
+import {City, SortType} from '../common/const';
 import {Actions, ActionType} from '../types/actions';
-import {getCity, getCityOffers} from '../utils/utils';
+import {applySort, getCity, getCityOffers} from '../utils/utils';
 
 const initialState = {
   activeCity: getCity(City.Paris),
   offers: getCityOffers(City.Paris, offers),
   activeOffer: null,
   reviews: reviews,
+  activeSort: SortType.Popular,
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -22,6 +23,9 @@ const reducer = (state: State = initialState, action: Actions): State => {
     }
     case (ActionType.ChooseActiveOffer): {
       return {...state, activeOffer: action.payload};
+    }
+    case (ActionType.ChangeSortType): {
+      return {...state, activeSort: action.payload, offers: applySort(action.payload, getCityOffers(state.activeCity.name, offers))};
     }
     default: {
       return state;

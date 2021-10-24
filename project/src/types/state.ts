@@ -7,6 +7,7 @@ type State = {
   offers: Offer[];
   activeOffer: Offer | null;
   reviews: Review[];
+  activeSort: string;
 };
 
 export type {State};

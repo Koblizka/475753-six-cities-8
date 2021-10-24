@@ -8,8 +8,8 @@ import {CardClassType} from '../../common/const';
 import {State} from '../../types/state';
 import {chooseActiveOffer} from '../../store/actions';
 import {Actions} from '../../types/actions';
+import OffersSort from '../offers-sort/offers-sort';
 import {connect, ConnectedProps} from 'react-redux';
-import { OffersSort } from '../offers-sort/offers-sort';
 
 
 const mapStateToProps = ({activeCity, offers, activeOffer}: State) => ({
@@ -20,7 +20,7 @@ const mapStateToProps = ({activeCity, offers, activeOffer}: State) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => (
   {
-    handleOfferChoose(offer: Offer | null) {
+    onOfferChoose(offer: Offer | null) {
       dispatch(chooseActiveOffer(offer));
     },
   }
@@ -31,7 +31,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = PropsFromRedux;
 
-function MainScreen({offers, activeCity, activeOffer, handleOfferChoose}: ConnectedComponentProps): JSX.Element {
+function MainScreen({offers, activeCity, activeOffer, onOfferChoose}: ConnectedComponentProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -81,7 +81,7 @@ function MainScreen({offers, activeCity, activeOffer, handleOfferChoose}: Connec
               <OffersCitiesList
                 offers={offers}
                 activeCity={activeCity}
-                onOfferChoose={handleOfferChoose}
+                onOfferChoose={onOfferChoose}
                 className={CardClassType.Cities}
               />
             </section>

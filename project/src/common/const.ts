@@ -57,6 +57,20 @@ enum CardClassType {
   NearPlaces = 'near-places',
 }
 
+enum SortType {
+  Popular = 'Popular',
+  LowToHigh = 'LowToHigh',
+  HighToLow = 'HighToLow',
+  TopRated = 'TopRated',
+}
+
+const sortTypeMap: {[key: string]: string} = {
+  [SortType.Popular]: 'Popular',
+  [SortType.LowToHigh]: 'Price: low to high',
+  [SortType.HighToLow]: 'Price: high to low',
+  [SortType.TopRated]: 'Top rated first',
+};
+
 export {
   TimeGap,
   MAX_PERCENTAGE,
@@ -68,5 +82,7 @@ export {
   OfferCardPhotoSize,
   City,
   UrlMarker,
-  CardClassType
+  CardClassType,
+  sortTypeMap,
+  SortType
 };

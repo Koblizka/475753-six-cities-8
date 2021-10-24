@@ -5,7 +5,8 @@ import {cities} from '../mocks/cities';
 import {
   MAX_PERCENTAGE,
   MAX_OFFER_RATING,
-  TimeGap
+  TimeGap,
+  SortType
 } from '../common/const';
 
 const ONE_GUEST = 1;
@@ -17,6 +18,7 @@ const getFavoritesPlaces = (places: Offer[]): Offer[] => places.filter(sortFavor
 const getRandomIntInclusive = (min: number, max: number): number => {
   min = Math.ceil(min);
   max = Math.floor(max);
+
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
@@ -41,6 +43,23 @@ const getCityOffers = (cityName: string, offers: Offer[]): Offer[] => offers.fil
 
 const getOfferCapacity = (capacity: number): string => capacity === ONE_GUEST ? `${capacity} adult` : `${capacity} adults`;
 
+const applySort = (sortType: string, offers: Offer[]): Offer[] => {
+  switch (sortType) {
+    case (SortType.LowToHigh): {
+      return offers.sort((firstOffer, anotherOffer) => firstOffer.price - anotherOffer.price);
+    }
+    case (SortType.HighToLow): {
+      return offers.sort((firstOffer, anotherOffer) => anotherOffer.price - firstOffer.price);
+    }
+    case (SortType.TopRated): {
+      return offers.sort((firstOffer, anotherOffer) => anotherOffer.rating - firstOffer.rating);
+    }
+    default: {
+      return offers;
+    }
+  }
+};
+
 export {
   percentageRating,
   sortFavoritesPlaces,
@@ -50,5 +69,6 @@ export {
   getDateMonthYear,
   getCity,
   getOfferCapacity,
-  getCityOffers
+  getCityOffers,
+  applySort
 };
