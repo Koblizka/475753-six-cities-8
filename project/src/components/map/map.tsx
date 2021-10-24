@@ -6,10 +6,12 @@ import {City} from '../../types/city';
 
 import {
   useEffect,
-  useRef
+  useRef,
+  useState
 } from 'react';
 import {
   Icon,
+  LayerGroup,
   Marker
 } from 'leaflet';
 
@@ -33,11 +35,14 @@ const customPin = new Icon({
 
 function Map({offers, activeCity, selectedOffer}: MapProps): JSX.Element {
   const mapRef = useRef<HTMLDivElement | null>(null);
+  const [markersLayer] = useState<LayerGroup>(new LayerGroup());
   const map = useMap(mapRef, activeCity);
 
   useEffect(() => {
     if (map) {
-      map.setView([activeCity.location.latitude, activeCity.location.longitude]);
+      markersLayer.clearLayers();
+      map.setView([activeCity.location.latitude, activeCity.location.longitude], activeCity.location.zoom);
+
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
@@ -49,11 +54,15 @@ function Map({offers, activeCity, selectedOffer}: MapProps): JSX.Element {
             selectedOffer !== null && offer.title === selectedOffer.title
               ? customPin
               : defaultPin,
-          )
-          .addTo(map);
+          );
+
+        marker.addTo(markersLayer as LayerGroup);
+
       });
+
+      markersLayer.addTo(map);
     }
-  }, [map, offers, selectedOffer, activeCity]);
+  }, [map, offers, selectedOffer, activeCity, markersLayer]);
 
   return (
     <div
