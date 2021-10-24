@@ -23,8 +23,9 @@ const reducer = (state: State = initialState, action: Actions): State => {
     case (ActionType.ChooseActiveOffer): {
       return {...state, activeOffer: action.payload};
     }
-    default:
+    default: {
       return state;
+    }
   }
 };
 

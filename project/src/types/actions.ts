@@ -21,11 +21,12 @@ type ChooseActiveOfferAction = {
   payload: Offer | null;
 }
 
+type Actions = ChangeActiveCityAction | FillOffersListAction | ChooseActiveOfferAction
 
 export {ActionType};
 export type {
   ChangeActiveCityAction,
   FillOffersListAction,
-  ChooseActiveOfferAction
+  ChooseActiveOfferAction,
+  Actions
 };
-export type Actions = ChangeActiveCityAction | FillOffersListAction | ChooseActiveOfferAction;

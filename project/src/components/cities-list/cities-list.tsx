@@ -13,13 +13,9 @@ type CitiesListProps ={
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => (
   {
-    onActiveCityChange(evt: MouseEvent<HTMLLIElement>, activeCityName: string) {
-      evt.preventDefault();
-
-      if (activeCityName !== evt.currentTarget.innerText) {
-        dispatch(changeActiveCity(evt.currentTarget.innerText));
-        dispatch(fillOffersList());
-      }
+    onActiveCityChange(cityName: string) {
+      dispatch(changeActiveCity(cityName));
+      dispatch(fillOffersList());
     },
   }
 );
@@ -32,16 +28,25 @@ type ConnectedComponentProps = PropsFromRedux & CitiesListProps;
 function CitiesList({cities, activeCity, onActiveCityChange}: ConnectedComponentProps): JSX.Element {
   const activeCityName: string = activeCity.name;
 
-  const handleClick = (evt: MouseEvent<HTMLLIElement>) => {
-    onActiveCityChange(evt, activeCityName);
+  const handleClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
+
+    if (evt.currentTarget.dataset.city && evt.currentTarget.dataset.city !== activeCityName) {
+      onActiveCityChange(evt.currentTarget.dataset.city);
+    }
   };
 
   return (
     <ul className="locations__list tabs__list">
       {
         cities.map((city) => (
-          <li className="locations__item" key={city.name} onClick={handleClick}>
-            <a className={`locations__item-link tabs__item ${clsx(activeCityName === city.name && 'tabs__item--active')}`} href="/">
+          <li className="locations__item" key={city.name}>
+            <a
+              className={`locations__item-link tabs__item ${clsx(activeCityName === city.name && 'tabs__item--active')}`}
+              data-city={city.name}
+              href="/"
+              onClick={handleClick}
+            >
               <span>{city.name}</span>
             </a>
           </li>
