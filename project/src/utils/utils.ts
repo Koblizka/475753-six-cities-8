@@ -46,13 +46,13 @@ const getOfferCapacity = (capacity: number): string => capacity === ONE_GUEST ? 
 const applySort = (sortType: string, offers: Offer[]): Offer[] => {
   switch (sortType) {
     case (SortType.LowToHigh): {
-      return offers.sort((firstOffer, anotherOffer) => firstOffer.price - anotherOffer.price);
+      return offers.slice().sort((firstOffer, anotherOffer) => firstOffer.price - anotherOffer.price);
     }
     case (SortType.HighToLow): {
-      return offers.sort((firstOffer, anotherOffer) => anotherOffer.price - firstOffer.price);
+      return offers.slice().sort((firstOffer, anotherOffer) => anotherOffer.price - firstOffer.price);
     }
     case (SortType.TopRated): {
-      return offers.sort((firstOffer, anotherOffer) => anotherOffer.rating - firstOffer.rating);
+      return offers.slice().sort((firstOffer, anotherOffer) => anotherOffer.rating - firstOffer.rating);
     }
     default: {
       return offers;

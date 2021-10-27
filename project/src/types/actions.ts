@@ -1,3 +1,4 @@
+import {SortType} from '../common/const';
 import {Offer} from './offer';
 
 
@@ -24,7 +25,7 @@ type ChooseActiveOfferAction = {
 
 type ChangeSortTypeAction = {
   type: ActionType.ChangeSortType;
-  payload: string;
+  payload: SortType;
 }
 
 type Actions = ChangeActiveCityAction | FillOffersListAction | ChooseActiveOfferAction | ChangeSortTypeAction;

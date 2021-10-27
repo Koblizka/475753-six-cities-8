@@ -64,7 +64,7 @@ enum SortType {
   TopRated = 'TopRated',
 }
 
-const sortTypeMap: {[key: string]: string} = {
+const sortTypeMap: Record<SortType, string> = {
   [SortType.Popular]: 'Popular',
   [SortType.LowToHigh]: 'Price: low to high',
   [SortType.HighToLow]: 'Price: high to low',

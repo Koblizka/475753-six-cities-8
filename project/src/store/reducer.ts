@@ -25,7 +25,7 @@ const reducer = (state: State = initialState, action: Actions): State => {
       return {...state, activeOffer: action.payload};
     }
     case (ActionType.ChangeSortType): {
-      return {...state, activeSort: action.payload, offers: applySort(action.payload, getCityOffers(state.activeCity.name, offers))};
+      return {...state, activeSort: action.payload, offers: applySort(action.payload, state.offers)};
     }
     default: {
       return state;

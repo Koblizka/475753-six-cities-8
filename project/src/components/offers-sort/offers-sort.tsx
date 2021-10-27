@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import {MouseEvent} from 'react';
-import {sortTypeMap} from '../../common/const';
+import {SortType, sortTypeMap} from '../../common/const';
 import {changeSortType} from '../../store/actions';
 import {Actions} from '../../types/actions';
 import {State} from '../../types/state';
@@ -14,7 +14,7 @@ const mapStateToProps = ({activeSort}: State) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => (
   {
-    onSortTypeChoose(sortType: string) {
+    onSortTypeChoose(sortType: SortType) {
       dispatch(changeSortType(sortType));
     },
   }
@@ -31,7 +31,7 @@ function OffersSort({activeSort, onSortTypeChoose}: TypeFromRedux): JSX.Element 
   const handleClick = () => setSelectState(!selectState);
 
   const handleOptionChoose = (evt: MouseEvent<HTMLLIElement>) => {
-    onSortTypeChoose(evt.currentTarget.dataset.type as string);
+    onSortTypeChoose(evt.currentTarget.dataset.type as SortType);
     setSelectState(!selectState);
   };
 

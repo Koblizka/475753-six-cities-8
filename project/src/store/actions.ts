@@ -1,4 +1,5 @@
 import {Offer} from '../types/offer';
+import {SortType} from '../common/const';
 
 import {
   ActionType,
@@ -29,7 +30,7 @@ const chooseActiveOffer = (offer: Offer | null): ChooseActiveOfferAction => (
   }
 );
 
-const changeSortType = (sortType: string): ChangeSortTypeAction => (
+const changeSortType = (sortType: SortType): ChangeSortTypeAction => (
   {
     type: ActionType.ChangeSortType,
     payload: sortType,

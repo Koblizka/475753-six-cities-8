@@ -1,3 +1,4 @@
+import {SortType} from '../common/const';
 import {City} from './city';
 import {Offer} from './offer';
 import {Review} from './review';
@@ -7,7 +8,7 @@ type State = {
   offers: Offer[];
   activeOffer: Offer | null;
   reviews: Review[];
-  activeSort: string;
+  activeSort: SortType;
 };
 
 export type {State};
