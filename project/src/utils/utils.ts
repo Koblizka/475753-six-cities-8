@@ -1,4 +1,4 @@
-import {Offer} from '../types/offer';
+import {Offer, OfferServerside} from '../types/offer';
 import {Review} from '../types/review';
 import {City} from '../types/city';
 import {cities} from '../mocks/cities';
@@ -60,6 +60,47 @@ const applySort = (sortType: string, offers: Offer[]): Offer[] => {
   }
 };
 
+const getAdaptedOffers = (adapteeOffers: OfferServerside[]): Offer[] => (
+  adapteeOffers.map((offer) =>
+    (
+      {
+        id: offer.id,
+        isPremium: offer.is_premium,
+        isFavorite: offer.is_favorite,
+        placeType: offer.type,
+        price: offer.price,
+        rating: offer.rating,
+        title: offer.title,
+        description: offer.description,
+        images: offer.images,
+        city: {
+          location: {
+            latitude: offer.city.location.latitude,
+            longitude: offer.city.location.longitude,
+            zoom: offer.city.location.zoom,
+          },
+          name: offer.city.name,
+        },
+        bedrooms: offer.bedrooms,
+        goods: offer.goods,
+        host: {
+          id: offer.host.id,
+          userName: offer.host.name,
+          userAvatar: offer.host.avatar_url,
+          isPro: offer.host.is_pro,
+        },
+        location: {
+          latitude: offer.location.latitude,
+          longitude: offer.location.longitude,
+          zoom: offer.location.zoom,
+        },
+        maxAdults: offer.max_adults,
+        previewImage: offer.preview_image,
+      }
+    ),
+  )
+);
+
 export {
   percentageRating,
   sortFavoritesPlaces,
@@ -70,5 +111,6 @@ export {
   getCity,
   getOfferCapacity,
   getCityOffers,
-  applySort
+  applySort,
+  getAdaptedOffers
 };

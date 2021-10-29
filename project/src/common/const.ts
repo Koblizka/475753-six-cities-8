@@ -27,9 +27,21 @@ enum AppRoute {
   NotFound = '/404',
 }
 
+enum ApiRoute {
+  Hotels = '/hotels',
+  Hotel = '/hotels/:id',
+  HotelsNearby = '/hotels/:hotel_id/nearby',
+  Login = '/login',
+  Logout = '/logout',
+  Comments = '/comments/:hotel_id',
+  Favorite = '/favorite',
+  FavoriteStatus = '/favorite/:hotel_id/:status',
+}
+
 enum AuthorizationStatus {
   IsAuth = 'IS_AUTH',
   NotAuth = 'NOT_AUTH',
+  Unknown = 'Unknown',
 }
 
 const Setting = {
@@ -84,5 +96,6 @@ export {
   UrlMarker,
   CardClassType,
   sortTypeMap,
-  SortType
+  SortType,
+  ApiRoute
 };

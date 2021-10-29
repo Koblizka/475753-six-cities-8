@@ -10,12 +10,16 @@ import {chooseActiveOffer} from '../../store/actions';
 import {Actions} from '../../types/actions';
 import OffersSort from '../offers-sort/offers-sort';
 import {connect, ConnectedProps} from 'react-redux';
+import {applySort, getCityOffers} from '../../utils/utils';
+import {Loader} from '../loader/loader';
 
 
-const mapStateToProps = ({activeCity, offers, activeOffer}: State) => ({
+const mapStateToProps = ({activeCity, offers, activeOffer, activeSort, isOffersLoaded}: State) => ({
   activeCity,
   offers,
   activeOffer,
+  activeSort,
+  isOffersLoaded,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => (
@@ -31,7 +35,16 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = PropsFromRedux;
 
-function MainScreen({offers, activeCity, activeOffer, onOfferChoose}: ConnectedComponentProps): JSX.Element {
+function MainScreen({offers, activeCity, activeOffer, activeSort, isOffersLoaded, onOfferChoose}: ConnectedComponentProps): JSX.Element {
+
+  if (!isOffersLoaded) {
+    return (
+      <Loader />
+    );
+  }
+
+  const cityOffers = getCityOffers(activeCity.name, offers);
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -76,11 +89,10 @@ function MainScreen({offers, activeCity, activeOffer, onOfferChoose}: ConnectedC
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {activeCity.name}</b>
+              <b className="places__found">{cityOffers.length} places to stay in {activeCity.name}</b>
               <OffersSort />
               <OffersCitiesList
-                offers={offers}
-                activeCity={activeCity}
+                offers={applySort(activeSort, cityOffers)}
                 onOfferChoose={onOfferChoose}
                 className={CardClassType.Cities}
               />
@@ -88,7 +100,7 @@ function MainScreen({offers, activeCity, activeOffer, onOfferChoose}: ConnectedC
             <div className="cities__right-section">
               <section className="cities__map map">
                 <Map
-                  offers={offers}
+                  offers={cityOffers}
                   activeCity={activeCity}
                   selectedOffer={activeOffer}
                 />

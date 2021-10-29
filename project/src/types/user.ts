@@ -5,4 +5,15 @@ type User = {
   isPro: boolean;
 }
 
-export type {User};
+type UserServerside =
+Omit<User,
+  | 'userName'
+  | 'userAvatar'
+  | 'isPro'
+  > & {
+  'name': string;
+  'avatar_url': string;
+  'is_pro': boolean;
+}
+
+export type {User, UserServerside};

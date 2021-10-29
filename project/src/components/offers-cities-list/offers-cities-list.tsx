@@ -1,21 +1,18 @@
 import {Offer} from '../../types/offer';
 import {OfferCityCard} from '../offer-city-card/offer-city-card';
 import {CardClassType} from '../../common/const';
-import {City} from '../../types/city';
 
 type OffersCitiesListProps = {
   offers: Offer[];
-  activeCity: City;
   onOfferChoose: (offer: Offer | null) => void;
   className: CardClassType
 }
 
-function OffersCitiesList({offers, onOfferChoose, activeCity, className}: OffersCitiesListProps): JSX.Element {
-  const activeCityName = activeCity.name;
+function OffersCitiesList({offers, onOfferChoose, className}: OffersCitiesListProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
       {
-        offers.filter((offer) => offer.city.name === activeCityName).map((offer): JSX.Element =>
+        offers.map((offer): JSX.Element =>
           (
             <OfferCityCard
               key={offer.id}

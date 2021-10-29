@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import {Dispatch} from 'redux';
 import {Actions} from '../../types/actions';
 import {MouseEvent} from 'react';
-import {changeActiveCity, fillOffersList} from '../../store/actions';
+import {changeActiveCity} from '../../store/actions';
 import {connect, ConnectedProps} from 'react-redux';
 
 type CitiesListProps ={
@@ -15,7 +15,6 @@ const mapDispatchToProps = (dispatch: Dispatch<Actions>) => (
   {
     onActiveCityChange(cityName: string) {
       dispatch(changeActiveCity(cityName));
-      dispatch(fillOffersList());
     },
   }
 );

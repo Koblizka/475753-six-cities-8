@@ -4,8 +4,8 @@ import {OfferCard} from '../offer-card/offer-card';
 
 type CityPlaceCardProps = {
   offer: Offer;
-  onOfferChoose: (offer: Offer | null) => void;
   className: CardClassType;
+  onOfferChoose: (offer: Offer | null) => void;
 }
 
 function OfferCityCard({offer, onOfferChoose, className}: CityPlaceCardProps): JSX.Element {

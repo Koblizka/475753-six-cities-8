@@ -9,6 +9,7 @@ import {
   CardClassType
 } from '../../common/const';
 import {
+  getCityOffers,
   getOfferCapacity,
   percentageRating
 } from '../../utils/utils';
@@ -16,28 +17,42 @@ import {
   Redirect,
   useParams
 } from 'react-router-dom';
-import { State } from '../../types/state';
-import { connect, ConnectedProps } from 'react-redux';
+import {State} from '../../types/state';
+import {connect, ConnectedProps} from 'react-redux';
+import {chooseActiveOffer} from '../../store/actions';
+import {Dispatch} from 'react';
+import {Actions} from '../../types/actions';
 
 const OFFERS_LENGTH_CONSTRAINT = 3;
 
-const mapStateToProps = ({activeCity, offers, reviews}: State) => ({
+const mapStateToProps = ({activeCity, offers, reviews, activeOffer}: State) => ({
   activeCity,
   offers,
   reviews,
+  activeOffer,
 });
 
-const connector = connect(mapStateToProps);
+const mapDispatchToProps = (dispatch: Dispatch<Actions>) => (
+  {
+    onOfferChoose(offer: Offer | null) {
+      dispatch(chooseActiveOffer(offer));
+    },
+  }
+);
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function OfferScreen({offers, reviews, activeCity}: PropsFromRedux): JSX.Element{
+function OfferScreen({offers, reviews, activeCity, activeOffer, onOfferChoose}: PropsFromRedux): JSX.Element{
   const { id }  = useParams<{id: string}>();
 
-  const offersNear = offers.slice(0, OFFERS_LENGTH_CONSTRAINT);
-  const offerData = offers.find((offer) => offer.id === id) as Offer;
+  const cityOffers = getCityOffers(activeCity.name, offers);
+  const offersNear = cityOffers.slice(0, OFFERS_LENGTH_CONSTRAINT);
+  const offerData = cityOffers.find((offer) => Number(offer.id) === Number(id)) as Offer;
   const reviewData = reviews.filter((review) => review.offerId === id);
 
+  // Не понимаю, почему после релоада страницы компонент теряет значение оффера из стора. Вместо данных берёт инициализированое на старте значение []. Дело в хистори?
   if (!offerData) {
     return <Redirect to={AppRoute.NotFound} />;
   }
@@ -76,7 +91,7 @@ function OfferScreen({offers, reviews, activeCity}: PropsFromRedux): JSX.Element
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {
-                offerData.images.map((image) => (
+                offerData.images && offerData.images.map((image) => (
                   <div className="property__image-wrapper" key={`${image}-${offerData.id}`}>
                     <img className="property__image" src={image} alt="Photography studio" />
                   </div>
@@ -178,14 +193,18 @@ function OfferScreen({offers, reviews, activeCity}: PropsFromRedux): JSX.Element
             <Map
               offers={offersNear}
               activeCity={activeCity}
-              selectedOffer={null}
+              selectedOffer={activeOffer}
             />
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OffersNearList offers={offersNear} className={CardClassType.NearPlaces} />
+            <OffersNearList
+              offers={offersNear}
+              className={CardClassType.NearPlaces}
+              onOfferChoose={onOfferChoose}
+            />
           </section>
         </div>
       </main>

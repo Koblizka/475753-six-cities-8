@@ -1,16 +1,17 @@
-import {offers} from '../mocks/offers';
 import {reviews} from '../mocks/reviews';
 import {State} from '../types/state';
-import {City, SortType} from '../common/const';
+import {AuthorizationStatus, City, SortType} from '../common/const';
 import {Actions, ActionType} from '../types/actions';
-import {applySort, getCity, getCityOffers} from '../utils/utils';
+import {getCity} from '../utils/utils';
 
 const initialState = {
   activeCity: getCity(City.Paris),
-  offers: getCityOffers(City.Paris, offers),
+  offers: [],
   activeOffer: null,
   reviews: reviews,
   activeSort: SortType.Popular,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  isOffersLoaded: false,
 };
 
 const reducer = (state: State = initialState, action: Actions): State => {
@@ -18,14 +19,20 @@ const reducer = (state: State = initialState, action: Actions): State => {
     case (ActionType.ChangeActiveCity): {
       return {...state, activeCity: getCity(action.payload)};
     }
-    case (ActionType.FillOffersList): {
-      return {...state, offers: getCityOffers(state.activeCity.name, offers)};
-    }
     case (ActionType.ChooseActiveOffer): {
       return {...state, activeOffer: action.payload};
     }
     case (ActionType.ChangeSortType): {
-      return {...state, activeSort: action.payload, offers: applySort(action.payload, state.offers)};
+      return {...state, activeSort: action.payload};
+    }
+    case (ActionType.LoadOffers): {
+      return {...state, offers: action.payload, isOffersLoaded: true};
+    }
+    case (ActionType.RequireAuthorization): {
+      return {...state, authorizationStatus: action.payload};
+    }
+    case (ActionType.RequireLogout): {
+      return {...state, authorizationStatus: AuthorizationStatus.NotAuth};
     }
     default: {
       return state;

@@ -1,13 +1,12 @@
-import {PlaceType} from '../common/const';
 import {City} from './city';
 import {Place} from './place';
-import {User} from './user';
+import {UserServerside, User} from './user';
 
 type Offer = {
   id: string;
   isPremium: boolean;
   isFavorite: boolean;
-  placeType: PlaceType;
+  placeType: string;
   price: number;
   rating: number;
   title: string;
@@ -22,4 +21,22 @@ type Offer = {
   previewImage: string;
 }
 
-export type {Offer};
+type OfferServerside =
+  Omit<Offer,
+    | 'isPremium'
+    | 'isFavorite'
+    | 'placeType'
+    | 'maxAdults'
+    | 'previewImage'
+    | 'host'
+  >
+  & {
+    'is_premium': boolean,
+    'is_favorite': boolean,
+    'type': string,
+    'max_adults': number,
+    'preview_image': string,
+    'host': UserServerside,
+  }
+
+export type {Offer, OfferServerside};

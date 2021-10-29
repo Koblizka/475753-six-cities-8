@@ -1,12 +1,15 @@
 import {Offer} from '../types/offer';
-import {SortType} from '../common/const';
+import {AuthorizationStatus, SortType} from '../common/const';
 
 import {
   ActionType,
   ChangeActiveCityAction,
   ChooseActiveOfferAction,
   ChangeSortTypeAction,
-  FillOffersListAction
+  FillOffersListAction,
+  RequireAuthorizationAction,
+  LoadOffersAction,
+  RequireLogoutAction
 } from '../types/actions';
 
 
@@ -37,10 +40,33 @@ const changeSortType = (sortType: SortType): ChangeSortTypeAction => (
   }
 );
 
+const loadOffers = (offers: Offer[]): LoadOffersAction => (
+  {
+    type: ActionType.LoadOffers,
+    payload: offers,
+  }
+);
+
+const requireLogout = (): RequireLogoutAction => (
+  {
+    type: ActionType.RequireLogout,
+  }
+);
+
+const requireAuthorization = (authorizationStatus: AuthorizationStatus): RequireAuthorizationAction => (
+  {
+    type: ActionType.RequireAuthorization,
+    payload: authorizationStatus,
+  }
+);
+
 
 export {
   changeActiveCity,
   fillOffersList,
   chooseActiveOffer,
-  changeSortType
+  changeSortType,
+  loadOffers,
+  requireLogout,
+  requireAuthorization
 };
