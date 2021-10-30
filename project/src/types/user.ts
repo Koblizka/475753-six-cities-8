@@ -5,12 +5,8 @@ type User = {
   isPro: boolean;
 }
 
-type UserServerside =
-Omit<User,
-  | 'userName'
-  | 'userAvatar'
-  | 'isPro'
-  > & {
+type UserServerside = {
+  'id': string;
   'name': string;
   'avatar_url': string;
   'is_pro': boolean;

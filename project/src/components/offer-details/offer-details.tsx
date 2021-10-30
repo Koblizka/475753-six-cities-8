@@ -52,7 +52,6 @@ function OfferScreen({offers, reviews, activeCity, activeOffer, onOfferChoose}: 
   const offerData = cityOffers.find((offer) => Number(offer.id) === Number(id)) as Offer;
   const reviewData = reviews.filter((review) => review.offerId === id);
 
-  // Не понимаю, почему после релоада страницы компонент теряет значение оффера из стора. Вместо данных берёт инициализированое на старте значение []. Дело в хистори?
   if (!offerData) {
     return <Redirect to={AppRoute.NotFound} />;
   }
@@ -91,7 +90,7 @@ function OfferScreen({offers, reviews, activeCity, activeOffer, onOfferChoose}: 
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {
-                offerData.images && offerData.images.map((image) => (
+                offerData?.images.map((image) => (
                   <div className="property__image-wrapper" key={`${image}-${offerData.id}`}>
                     <img className="property__image" src={image} alt="Photography studio" />
                   </div>
@@ -145,7 +144,7 @@ function OfferScreen({offers, reviews, activeCity, activeOffer, onOfferChoose}: 
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {offerData.goods.map((good) => (
+                  {offerData?.goods.map((good) => (
                     <li className="property__inside-item" key={`${good}-${offerData.id}`}>
                       {good}
                     </li>

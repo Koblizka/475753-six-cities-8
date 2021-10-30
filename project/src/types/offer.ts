@@ -21,22 +21,25 @@ type Offer = {
   previewImage: string;
 }
 
-type OfferServerside =
-  Omit<Offer,
-    | 'isPremium'
-    | 'isFavorite'
-    | 'placeType'
-    | 'maxAdults'
-    | 'previewImage'
-    | 'host'
-  >
-  & {
-    'is_premium': boolean,
-    'is_favorite': boolean,
-    'type': string,
-    'max_adults': number,
-    'preview_image': string,
-    'host': UserServerside,
+type OfferServerside = {
+    'id': string;
+    'placeType': string;
+    'price': number;
+    'rating': number;
+    'title': string;
+    'description': string;
+    'images': string[];
+    'city': City;
+    'bedrooms': number;
+    'goods': string[];
+    'location': Place;
+    'maxAdults': number;
+    'is_premium': boolean;
+    'is_favorite': boolean;
+    'type': string;
+    'max_adults': number;
+    'preview_image': string;
+    'host': UserServerside;
   }
 
 export type {Offer, OfferServerside};
