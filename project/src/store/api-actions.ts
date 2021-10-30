@@ -26,6 +26,7 @@ const loginAction = ({login: email, password}: AuthData): ThunkActionResult =>
     const {data: {token}} = await api.post<{token: Token}>(ApiRoute.Login, {email, password});
     saveToken(token);
     dispatch(requireAuthorization(AuthorizationStatus.IsAuth));
+    // Вроде можно вот тут применить кастомную историю, но зачем? Кажется в компоненте ОК держать редирект
   };
 
 
@@ -34,6 +35,8 @@ const logoutAction = (): ThunkActionResult =>
     api.delete(ApiRoute.Logout);
     removeToken();
     dispatch(requireLogout());
+    // Вроде можно и вот тут применить кастомную историю, но зачем? Кажется в компоненте ОК держать редирект
+
   };
 
 export {
