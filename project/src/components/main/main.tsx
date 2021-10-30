@@ -1,25 +1,27 @@
+import OffersSort from '../offers-sort/offers-sort';
+import CitiesList from '../cities-list/cities-list';
+import UserNav from '../user-nav/user-nav';
 import {Offer} from '../../types/offer';
 import {OffersCitiesList} from '../offers-cities-list/offers-cities-list';
 import {Map} from '../../components/map/map';
-import CitiesList from '../cities-list/cities-list';
 import {cities} from '../../mocks/cities';
 import {Dispatch} from 'react';
 import {CardClassType} from '../../common/const';
 import {State} from '../../types/state';
 import {chooseActiveOffer} from '../../store/actions';
 import {Actions} from '../../types/actions';
-import OffersSort from '../offers-sort/offers-sort';
 import {connect, ConnectedProps} from 'react-redux';
 import {applySort, getCityOffers} from '../../utils/utils';
 import {Loader} from '../loader/loader';
 
 
-const mapStateToProps = ({activeCity, offers, activeOffer, activeSort, isOffersLoaded}: State) => ({
+const mapStateToProps = ({activeCity, offers, activeOffer, activeSort, isOffersLoaded, authorizationStatus}: State) => ({
   activeCity,
   offers,
   activeOffer,
   activeSort,
   isOffersLoaded,
+  authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Actions>) => (
@@ -55,22 +57,7 @@ function MainScreen({offers, activeCity, activeOffer, activeSort, isOffersLoaded
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </a>
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="/profile">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="/login">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <UserNav />
           </div>
         </div>
       </header>
