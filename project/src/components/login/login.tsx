@@ -1,11 +1,18 @@
 import {FormEvent, useRef} from 'react';
 import {connect, ConnectedProps} from 'react-redux';
 import {useHistory} from 'react-router-dom';
-import {AppRoute} from '../../common/const';
+import {AppRoute, AuthorizationStatus} from '../../common/const';
 import {loginAction} from '../../store/api-actions';
 import {ThunkAppDispatch} from '../../types/actions';
 import {AuthData} from '../../types/auth-data';
+import {State} from '../../types/state';
 
+
+const mapStateToProps = ({authorizationStatus}: State) => (
+  {
+    authorizationStatus,
+  }
+);
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   onSubmit(authData: AuthData) {
@@ -13,11 +20,12 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   },
 });
 
-const connector = connect(null, mapDispatchToProps);
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
+function LoginScreen({onSubmit, authorizationStatus}: PropsFromRedux): JSX.Element {
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
@@ -32,10 +40,12 @@ function LoginScreen({onSubmit}: PropsFromRedux): JSX.Element {
         login: loginRef.current.value,
         password: passwordRef.current.value,
       });
-
-      history.push(AppRoute.Main);
     }
   };
+
+  if (authorizationStatus === AuthorizationStatus.IsAuth) {
+    history.push(AppRoute.Main);
+  }
 
   return (
     <main className="page__main page__main--login">

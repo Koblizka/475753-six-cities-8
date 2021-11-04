@@ -7,16 +7,15 @@ import PrivateRoute from '../private-route/private-route';
 
 import {AppRoute} from '../../common/const';
 import {
-  Router as BrowserRouter,
+  BrowserRouter,
   Switch,
   Route
 } from 'react-router-dom';
-import {browserHistory} from '../../browser-history';
 
 
 function App(): JSX.Element {
   return (
-    <BrowserRouter history={browserHistory}>
+    <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.Main} >
           <MainScreen />

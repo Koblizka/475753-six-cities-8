@@ -1,5 +1,5 @@
 import {Offer, OfferServerside} from '../types/offer';
-import {Review} from '../types/review';
+import {UserComment, UserCommentServerside} from '../types/user-comment';
 import {City} from '../types/city';
 import {cities} from '../mocks/cities';
 import {
@@ -28,14 +28,6 @@ const getRandomeDate = (): Date => {
   return new Date(date.setDate(date.getDate() - getRandomIntInclusive(TimeGap.Zero, TimeGap.Week)));
 };
 
-const getOfferRank = (offerId: string, reviews: Review[]): number => {
-  const offerReviews = reviews.filter((review) => review.offerId === offerId);
-
-  const reducer = (accumulator: number, currentValue:Review): number => accumulator + currentValue.rank;
-
-  return offerReviews.reduce(reducer, 0);
-};
-
 const getDateMonthYear = (date: Date): string => date.toLocaleDateString('En-en', {month: 'long', year: 'numeric'});
 
 const getCity = (cityName: string): City => cities.find((city) => cityName === city.name) as City;
@@ -60,57 +52,74 @@ const applySort = (sortType: string, offers: Offer[]): Offer[] => {
   }
 };
 
-const getAdaptedOffers = (adapteeOffers: OfferServerside[]): Offer[] => (
-  adapteeOffers.map((offer) =>
-    (
-      {
-        id: offer.id,
-        isPremium: offer.is_premium,
-        isFavorite: offer.is_favorite,
-        placeType: offer.type,
-        price: offer.price,
-        rating: offer.rating,
-        title: offer.title,
-        description: offer.description,
-        images: offer.images,
-        city: {
-          location: {
-            latitude: offer.city.location.latitude,
-            longitude: offer.city.location.longitude,
-            zoom: offer.city.location.zoom,
-          },
-          name: offer.city.name,
-        },
-        bedrooms: offer.bedrooms,
-        goods: offer.goods,
-        host: {
-          id: offer.host.id,
-          userName: offer.host.name,
-          userAvatar: offer.host.avatar_url,
-          isPro: offer.host.is_pro,
-        },
-        location: {
-          latitude: offer.location.latitude,
-          longitude: offer.location.longitude,
-          zoom: offer.location.zoom,
-        },
-        maxAdults: offer.max_adults,
-        previewImage: offer.preview_image,
-      }
-    ),
-  )
+const getAdaptedOffer = (adapteeOffer: OfferServerside): Offer => (
+  {
+    id: adapteeOffer.id,
+    isPremium: adapteeOffer.is_premium,
+    isFavorite: adapteeOffer.is_favorite,
+    placeType: adapteeOffer.type,
+    price: adapteeOffer.price,
+    rating: adapteeOffer.rating,
+    title: adapteeOffer.title,
+    description: adapteeOffer.description,
+    images: adapteeOffer.images,
+    city: {
+      location: {
+        latitude: adapteeOffer.city.location.latitude,
+        longitude: adapteeOffer.city.location.longitude,
+        zoom: adapteeOffer.city.location.zoom,
+      },
+      name: adapteeOffer.city.name,
+    },
+    bedrooms: adapteeOffer.bedrooms,
+    goods: adapteeOffer.goods,
+    host: {
+      id: adapteeOffer.host.id,
+      userName: adapteeOffer.host.name,
+      userAvatar: adapteeOffer.host.avatar_url,
+      isPro: adapteeOffer.host.is_pro,
+    },
+    location: {
+      latitude: adapteeOffer.location.latitude,
+      longitude: adapteeOffer.location.longitude,
+      zoom: adapteeOffer.location.zoom,
+    },
+    maxAdults: adapteeOffer.max_adults,
+    previewImage: adapteeOffer.preview_image,
+  }
 );
+
+const getAdaptedOffers = (adapteeOffers: OfferServerside[]): Offer[] => adapteeOffers.map(getAdaptedOffer);
+
+const getAdaptedComment = (adapteeComment: UserCommentServerside): UserComment => (
+  {
+    reviewId: adapteeComment.id,
+    user: {
+      userAvatar: adapteeComment.user.avatar_url,
+      id: adapteeComment.user.id,
+      isPro: adapteeComment.user.is_pro,
+      userName: adapteeComment.user.name,
+    },
+    review: adapteeComment.comment,
+    rank: adapteeComment.rating,
+    date: adapteeComment.date,
+  }
+);
+
+const getAdaptedComments = (adapteeComments: UserCommentServerside[]): UserComment[] => adapteeComments.map(getAdaptedComment);
 
 export {
   percentageRating,
   sortFavoritesPlaces,
   getFavoritesPlaces,
   getRandomeDate,
-  getOfferRank,
   getDateMonthYear,
   getCity,
   getOfferCapacity,
   getCityOffers,
   applySort,
-  getAdaptedOffers
+  getAdaptedOffer,
+  getAdaptedOffers,
+  getAdaptedComment,
+  getAdaptedComments
 };

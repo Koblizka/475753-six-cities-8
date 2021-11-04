@@ -1,8 +1,13 @@
 import {AxiosInstance} from 'axios';
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
-import {AuthorizationStatus, SortType} from '../common/const';
 import {Offer} from './offer';
 import {State} from './state';
+import {UserComment} from './user-comment';
+import {
+  AuthorizationStatus,
+  DataStatus,
+  SortType
+} from '../common/const';
 
 
 enum ActionType {
@@ -10,8 +15,15 @@ enum ActionType {
   ChooseActiveOffer = 'cities/chooseActiveOffer',
   FillOffersList = 'cities/fillOffersList',
   ChangeSortType = 'cities/changeSortType',
+  LoadOfferDetails = 'data/loadOfferDetails',
+  LoadNearbyOffers = 'data/loadNearbyOffers',
   LoadOffers = 'data/loadOffers',
+  LoadOfferComments = 'data/loadOfferComments',
+  RequireOfferComments = 'data/requireOfferComments',
+  RequireOfferDetails = 'data/requireOfferDetails',
+  RequireNearbyOffers = 'data/requireNearbyOffers',
   RequireAuthorization = 'user/requireAuthorization',
+  SetCommentPostStatus = 'user/setCommentPostStatus',
   RequireLogout = 'user/requireLogout',
 }
 
@@ -43,6 +55,41 @@ type RequireAuthorizationAction = {
   payload: AuthorizationStatus;
 }
 
+type LoadOfferCommentsAction = {
+  type: ActionType.LoadOfferComments;
+  payload: UserComment[];
+}
+
+type RequireOfferCommentsAction = {
+  type: ActionType.RequireOfferComments;
+  payload: DataStatus;
+}
+
+type LoadOfferDetailsAction = {
+  type: ActionType.LoadOfferDetails;
+  payload: Offer;
+}
+
+type RequireOfferDetailsAction = {
+  type: ActionType.RequireOfferDetails;
+  payload: DataStatus;
+}
+
+type SetCommentPostStatusAction = {
+  type: ActionType.SetCommentPostStatus;
+  payload: DataStatus;
+}
+
+type LoadNearbyOffersAction = {
+  type: ActionType.LoadNearbyOffers;
+  payload: Offer[];
+}
+
+type RequireNearbyOffersAction = {
+  type: ActionType.RequireNearbyOffers;
+  payload: DataStatus;
+}
+
 type LoadOffersAction = {
   type: ActionType.LoadOffers;
   payload: Offer[];
@@ -55,7 +102,14 @@ type Actions =
   | ChangeSortTypeAction
   | LoadOffersAction
   | RequireLogoutAction
-  | RequireAuthorizationAction;
+  | RequireAuthorizationAction
+  | LoadOfferDetailsAction
+  | LoadNearbyOffersAction
+  | LoadOfferCommentsAction
+  | RequireOfferDetailsAction
+  | RequireNearbyOffersAction
+  | SetCommentPostStatusAction
+  | RequireOfferCommentsAction;
 
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
 
@@ -69,6 +123,13 @@ export type {
   ChangeSortTypeAction,
   RequireAuthorizationAction,
   RequireLogoutAction,
+  RequireOfferDetailsAction,
+  RequireNearbyOffersAction,
+  RequireOfferCommentsAction,
+  SetCommentPostStatusAction,
+  LoadOfferDetailsAction,
+  LoadOfferCommentsAction,
+  LoadNearbyOffersAction,
   LoadOffersAction,
   Actions,
   ThunkActionResult,

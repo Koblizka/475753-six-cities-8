@@ -1,41 +1,74 @@
 import {Offer} from '../../types/offer';
-import {UserReview } from '../review/review';
-import {ReviewForm} from '../review-form/review-form';
+import ReviewForm from '../review-form/review-form';
 import {Map} from '../map/map';
 import {OffersNearList} from '../offers-near-list/offers-near-list';
+import {useEffect} from 'react';
+import {Loader} from '../loader/loader';
+import {ReviewList} from '../review-list/review-list';
+import {State} from '../../types/state';
+import {connect, ConnectedProps} from 'react-redux';
+import {chooseActiveOffer} from '../../store/actions';
+import {ThunkAppDispatch} from '../../types/actions';
 
 import {
   AppRoute,
-  CardClassType
+  AuthorizationStatus,
+  CardClassType,
+  DataStatus
 } from '../../common/const';
 import {
-  getCityOffers,
   getOfferCapacity,
   percentageRating
 } from '../../utils/utils';
 import {
+  Link,
   Redirect,
   useParams
 } from 'react-router-dom';
-import {State} from '../../types/state';
-import {connect, ConnectedProps} from 'react-redux';
-import {chooseActiveOffer} from '../../store/actions';
-import {Dispatch} from 'react';
-import {Actions} from '../../types/actions';
+import {
+  fetchNearbyOffersAction,
+  fetchOfferCommentsAction,
+  fetchOfferDetailsAction
+} from '../../store/api-actions';
 
-const OFFERS_LENGTH_CONSTRAINT = 3;
+const mapStateToProps = (
+  {
+    activeCity,
+    reviews,
+    activeOffer,
+    currentOffer,
+    nearbyOffers,
+    isOfferDetailsLoaded,
+    isNearbyOffersLoaded,
+    isOfferCommnetsLoaded,
+    authorizationStatus,
+  }: State) => (
+  {
+    activeCity,
+    reviews,
+    activeOffer,
+    currentOffer,
+    nearbyOffers,
+    isOfferDetailsLoaded,
+    isNearbyOffersLoaded,
+    isOfferCommnetsLoaded,
+    authorizationStatus,
+  }
+);
 
-const mapStateToProps = ({activeCity, offers, reviews, activeOffer}: State) => ({
-  activeCity,
-  offers,
-  reviews,
-  activeOffer,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => (
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => (
   {
     onOfferChoose(offer: Offer | null) {
       dispatch(chooseActiveOffer(offer));
+    },
+    fetchOfferDetails(offerId: string) {
+      dispatch(fetchOfferDetailsAction(offerId));
+    },
+    fetchNearbyOffers(offerId: string) {
+      dispatch(fetchNearbyOffersAction(offerId));
+    },
+    fetchOfferComments(offerId: string) {
+      dispatch(fetchOfferCommentsAction(offerId));
     },
   }
 );
@@ -44,16 +77,39 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function OfferScreen({offers, reviews, activeCity, activeOffer, onOfferChoose}: PropsFromRedux): JSX.Element{
+function OfferScreen(
+  {
+    reviews,
+    activeCity,
+    activeOffer,
+    currentOffer,
+    nearbyOffers,
+    onOfferChoose,
+    fetchOfferDetails,
+    fetchNearbyOffers,
+    fetchOfferComments,
+    isOfferDetailsLoaded,
+    isOfferCommnetsLoaded,
+    authorizationStatus,
+  }: PropsFromRedux): JSX.Element {
+
   const { id }  = useParams<{id: string}>();
 
-  const cityOffers = getCityOffers(activeCity.name, offers);
-  const offersNear = cityOffers.slice(0, OFFERS_LENGTH_CONSTRAINT);
-  const offerData = cityOffers.find((offer) => Number(offer.id) === Number(id)) as Offer;
-  const reviewData = reviews.filter((review) => review.offerId === id);
+  useEffect(() => {
+    fetchOfferDetails(id);
+    fetchNearbyOffers(id);
+    fetchOfferComments(id);
+  }, [id, fetchOfferDetails, fetchNearbyOffers, fetchOfferComments]);
 
-  if (!offerData) {
+  const offerData = currentOffer as Offer;
+  const offersNear = nearbyOffers as Offer[];
+
+  if (isOfferDetailsLoaded === DataStatus.NotLoaded) {
     return <Redirect to={AppRoute.NotFound} />;
+  }
+
+  if (isOfferCommnetsLoaded === DataStatus.NotLoaded) {
+    return <Loader />;
   }
 
   return (
@@ -62,9 +118,9 @@ function OfferScreen({offers, reviews, activeCity, activeOffer, onOfferChoose}: 
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <Link className="header__logo-link" to={AppRoute.Main}>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -101,7 +157,7 @@ function OfferScreen({offers, reviews, activeCity, activeOffer, onOfferChoose}: 
           <div className="property__container container">
             <div className="property__wrapper">
               {
-                offerData.isPremium
+                offerData?.isPremium
                   && (
                     <div className="property__mark">
                       <span>Premium</span>
@@ -110,42 +166,45 @@ function OfferScreen({offers, reviews, activeCity, activeOffer, onOfferChoose}: 
               }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {offerData.title}
+                  {offerData?.title}
                 </h1>
-                <button className={(offerData.isFavorite) ? 'property__bookmark-button property__bookmark-button--active button' : 'property__bookmark-button button'} type="button">
+                <button
+                  className={(offerData?.isFavorite) ? 'property__bookmark-button property__bookmark-button--active button' : 'property__bookmark-button button'}
+                  type="button"
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
-                  <span className="visually-hidden">{(offerData.isFavorite) ? 'In bookmarks' : 'To bookmarks'}</span>
+                  <span className="visually-hidden">{(offerData?.isFavorite) ? 'In bookmarks' : 'To bookmarks'}</span>
                 </button>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={ {width: `${percentageRating(offerData.rating)}%`} }></span>
+                  <span style={ {width: `${percentageRating(offerData?.rating)}%`} }></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{offerData.rating}</span>
+                <span className="property__rating-value rating__value">{offerData?.rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {offerData.placeType}
+                  {offerData?.placeType}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {offerData.bedrooms} Bedrooms
+                  {offerData?.bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {getOfferCapacity(offerData.maxAdults)}
+                  Max {getOfferCapacity(offerData?.maxAdults)}
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">{offerData.price}</b>
+                <b className="property__price-value">{offerData?.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
                   {offerData?.goods.map((good) => (
-                    <li className="property__inside-item" key={`${good}-${offerData.id}`}>
+                    <li className="property__inside-item" key={`${good}-${offerData?.id}`}>
                       {good}
                     </li>
                   ))}
@@ -155,55 +214,51 @@ function OfferScreen({offers, reviews, activeCity, activeOffer, onOfferChoose}: 
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={offerData.host.userAvatar} width="74" height="74" alt="Host avatar" />
+                    <img className="property__avatar user__avatar" src={offerData?.host?.userAvatar} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
-                    {offerData.host.userName}
+                    {offerData?.host.userName}
                   </span>
-                  {offerData.host.isPro && <span className="property__user-status">Pro</span>}
+                  {offerData?.host.isPro && <span className="property__user-status">Pro</span>}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    {offerData.description}
+                    {offerData?.description}
                   </p>
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewData.length}</span></h2>
-                <ul className="reviews__list">
-                  {
-                    reviewData
-                      .map((review) => (
-                        <UserReview
-                          review={review}
-                          key={review.reviewId}
-                        />
-                      ),
-                      )
-                  }
-                </ul>
-                <ReviewForm />
+                {reviews && <ReviewList reviews={reviews}/>}
+                {authorizationStatus === AuthorizationStatus.IsAuth && <ReviewForm offerId={offerData?.id}/>}
               </section>
             </div>
           </div>
-          <section className="property__map map"
-            style={ {maxWidth: '1144px', margin: '0 auto 50px'} }
-          >
-            <Map
-              offers={offersNear}
-              activeCity={activeCity}
-              selectedOffer={activeOffer}
-            />
+          <section className="property__map map" style={ {maxWidth: '1144px', margin: '0 auto 50px'} }>
+            {
+              offersNear &&
+              (
+                <Map
+                  offers={offersNear}
+                  activeCity={activeCity}
+                  selectedOffer={activeOffer}
+                />
+              )
+            }
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OffersNearList
-              offers={offersNear}
-              className={CardClassType.NearPlaces}
-              onOfferChoose={onOfferChoose}
-            />
+            {
+              offersNear &&
+              (
+                <OffersNearList
+                  offers={offersNear}
+                  className={CardClassType.NearPlaces}
+                  onOfferChoose={onOfferChoose}
+                />
+              )
+            }
           </section>
         </div>
       </main>

@@ -1,14 +1,16 @@
-import {Review} from '../../types/review';
+import {UserComment} from '../../types/user-comment';
 import {
   getDateMonthYear,
   percentageRating
 } from '../../utils/utils';
 
 type ReviewProps = {
-  review: Review
+  review: UserComment
 };
 
 function UserReview({review}: ReviewProps): JSX.Element {
+  const date = new Date(review.date);
+
   return(
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -29,7 +31,7 @@ function UserReview({review}: ReviewProps): JSX.Element {
         <p className="reviews__text">
           {review.review}
         </p>
-        <time className="reviews__time" dateTime={ review.date.toISOString() }>{getDateMonthYear(review.date)}</time>
+        <time className="reviews__time" dateTime={date.toISOString()}>{getDateMonthYear(date)}</time>
       </div>
     </li>
   );

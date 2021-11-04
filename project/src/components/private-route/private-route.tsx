@@ -27,7 +27,7 @@ type ConnectedComponentProps = PropsFromRedux & PrivateRouteProps;
 function PrivateRoute(props: ConnectedComponentProps): JSX.Element {
   const {authorizationStatus, render, ...rest} = props;
 
-  const checkAuthoriztion = () => (
+  const handleAuthoriztionCheck = () => (
     (authorizationStatus === AuthorizationStatus.IsAuth)
       ? render()
       : <Redirect to={AppRoute.SignIn}/>
@@ -36,7 +36,7 @@ function PrivateRoute(props: ConnectedComponentProps): JSX.Element {
   return (
     <Route
       {...rest}
-      render={checkAuthoriztion}
+      render={handleAuthoriztionCheck}
     />
   );
 }

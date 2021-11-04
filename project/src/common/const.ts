@@ -1,5 +1,30 @@
 const MAX_PERCENTAGE = 100 as const;
 const MAX_OFFER_RATING = 5 as const;
+const MIN_COMMENT_LENGTH = 50;
+const MAX_COMMENT_LENGTH = 300;
+
+const Ratings = [
+  {
+    rank: '5',
+    title: 'perfect',
+  },
+  {
+    rank: '4',
+    title: 'good',
+  },
+  {
+    rank: '3',
+    title: 'not bad',
+  },
+  {
+    rank: '2',
+    title: 'badly',
+  },
+  {
+    rank: '1',
+    title: 'terribly',
+  },
+];
 
 enum UrlMarker {
   Default = 'img/pin.svg',
@@ -33,7 +58,7 @@ enum ApiRoute {
   HotelsNearby = '/hotels/:hotel_id/nearby',
   Login = '/login',
   Logout = '/logout',
-  Comments = '/comments/:hotel_id',
+  Comments = '/comments',
   Favorite = '/favorite',
   FavoriteStatus = '/favorite/:hotel_id/:status',
 }
@@ -42,6 +67,14 @@ enum AuthorizationStatus {
   IsAuth = 'IS_AUTH',
   NotAuth = 'NOT_AUTH',
   Unknown = 'Unknown',
+}
+
+enum DataStatus {
+  IsLoaded = 'IS_LOADED',
+  NotLoaded = 'NOT_LOADED',
+  IsSended = 'IS_SENDED',
+  NotSended = 'NOT_SENDED',
+  Default = 'DEFAULT',
 }
 
 const Setting = {
@@ -97,5 +130,9 @@ export {
   CardClassType,
   sortTypeMap,
   SortType,
-  ApiRoute
+  ApiRoute,
+  DataStatus,
+  MIN_COMMENT_LENGTH,
+  MAX_COMMENT_LENGTH,
+  Ratings
 };
