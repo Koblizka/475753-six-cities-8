@@ -38,9 +38,9 @@ const mapStateToProps = (
     activeOffer,
     currentOffer,
     nearbyOffers,
-    isOfferDetailsLoaded,
-    isNearbyOffersLoaded,
-    isOfferCommnetsLoaded,
+    offerDetailsLoadStatus,
+    nearbyOffersLoadStatus,
+    offerCommnetsLoadStatus,
     authorizationStatus,
   }: State) => (
   {
@@ -49,9 +49,9 @@ const mapStateToProps = (
     activeOffer,
     currentOffer,
     nearbyOffers,
-    isOfferDetailsLoaded,
-    isNearbyOffersLoaded,
-    isOfferCommnetsLoaded,
+    offerDetailsLoadStatus,
+    nearbyOffersLoadStatus,
+    offerCommnetsLoadStatus,
     authorizationStatus,
   }
 );
@@ -61,13 +61,13 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => (
     onOfferChoose(offer: Offer | null) {
       dispatch(chooseActiveOffer(offer));
     },
-    fetchOfferDetails(offerId: string) {
+    onFetchOfferDetails(offerId: string) {
       dispatch(fetchOfferDetailsAction(offerId));
     },
-    fetchNearbyOffers(offerId: string) {
+    onFetchNearbyOffers(offerId: string) {
       dispatch(fetchNearbyOffersAction(offerId));
     },
-    fetchOfferComments(offerId: string) {
+    onFetchOfferComments(offerId: string) {
       dispatch(fetchOfferCommentsAction(offerId));
     },
   }
@@ -85,30 +85,30 @@ function OfferScreen(
     currentOffer,
     nearbyOffers,
     onOfferChoose,
-    fetchOfferDetails,
-    fetchNearbyOffers,
-    fetchOfferComments,
-    isOfferDetailsLoaded,
-    isOfferCommnetsLoaded,
+    onFetchOfferDetails,
+    onFetchNearbyOffers,
+    onFetchOfferComments,
+    offerDetailsLoadStatus,
+    offerCommnetsLoadStatus,
     authorizationStatus,
   }: PropsFromRedux): JSX.Element {
 
   const { id }  = useParams<{id: string}>();
 
   useEffect(() => {
-    fetchOfferDetails(id);
-    fetchNearbyOffers(id);
-    fetchOfferComments(id);
-  }, [id, fetchOfferDetails, fetchNearbyOffers, fetchOfferComments]);
+    onFetchOfferDetails(id);
+    onFetchNearbyOffers(id);
+    onFetchOfferComments(id);
+  }, [id, onFetchOfferDetails, onFetchNearbyOffers, onFetchOfferComments]);
 
   const offerData = currentOffer as Offer;
   const offersNear = nearbyOffers as Offer[];
 
-  if (isOfferDetailsLoaded === DataStatus.NotLoaded) {
+  if (offerDetailsLoadStatus === DataStatus.NotLoaded) {
     return <Redirect to={AppRoute.NotFound} />;
   }
 
-  if (isOfferCommnetsLoaded === DataStatus.NotLoaded) {
+  if (offerCommnetsLoadStatus === DataStatus.NotLoaded) {
     return <Loader />;
   }
 

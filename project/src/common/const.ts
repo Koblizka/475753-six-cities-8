@@ -3,28 +3,13 @@ const MAX_OFFER_RATING = 5 as const;
 const MIN_COMMENT_LENGTH = 50;
 const MAX_COMMENT_LENGTH = 300;
 
-const Ratings = [
-  {
-    rank: '5',
-    title: 'perfect',
-  },
-  {
-    rank: '4',
-    title: 'good',
-  },
-  {
-    rank: '3',
-    title: 'not bad',
-  },
-  {
-    rank: '2',
-    title: 'badly',
-  },
-  {
-    rank: '1',
-    title: 'terribly',
-  },
-];
+const RatingsToValuesMap = {
+  perfect: '5',
+  good: '4',
+  'not bad': '3',
+  badly: '2',
+  terribly: '1',
+};
 
 enum UrlMarker {
   Default = 'img/pin.svg',
@@ -134,5 +119,5 @@ export {
   DataStatus,
   MIN_COMMENT_LENGTH,
   MAX_COMMENT_LENGTH,
-  Ratings
+  RatingsToValuesMap
 };

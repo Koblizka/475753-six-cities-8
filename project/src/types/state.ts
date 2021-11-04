@@ -16,11 +16,11 @@ type State = {
   reviews: UserComment[] | null;
   activeSort: SortType;
   authorizationStatus: AuthorizationStatus;
-  isOffersLoaded: DataStatus;
-  isOfferDetailsLoaded: DataStatus;
-  isNearbyOffersLoaded: DataStatus;
-  isOfferCommnetsLoaded: DataStatus;
-  isCommentPosted: DataStatus;
+  offersLoadStatus: DataStatus;
+  offerDetailsLoadStatus: DataStatus;
+  nearbyOffersLoadStatus: DataStatus;
+  offerCommnetsLoadStatus: DataStatus;
+  commentPostStatus: DataStatus;
 };
 
 export type {State};

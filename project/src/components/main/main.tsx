@@ -15,7 +15,7 @@ import {applySort, getCityOffers} from '../../utils/utils';
 import {Loader} from '../loader/loader';
 
 
-const mapStateToProps = ({activeCity, offers, activeOffer, activeSort, isOffersLoaded, authorizationStatus}: State) => ({
+const mapStateToProps = ({activeCity, offers, activeOffer, activeSort, offersLoadStatus: isOffersLoaded, authorizationStatus}: State) => ({
   activeCity,
   offers,
   activeOffer,

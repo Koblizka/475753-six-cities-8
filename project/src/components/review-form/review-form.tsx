@@ -14,7 +14,7 @@ import {
   DataStatus,
   MAX_COMMENT_LENGTH,
   MIN_COMMENT_LENGTH,
-  Ratings
+  RatingsToValuesMap
 } from '../../common/const';
 
 
@@ -22,8 +22,8 @@ type ReviewFormProps = {
   offerId: string,
 }
 
-const mapStateToProps = ({isCommentPosted}: State) => ({
-  isCommentPosted,
+const mapStateToProps = ({commentPostStatus}: State) => ({
+  commentPostStatus: commentPostStatus,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
@@ -38,7 +38,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type ConnectedComponentProps = PropsFromRedux & ReviewFormProps;
 
 
-function ReviewForm({offerId, isCommentPosted, onPostReview}: ConnectedComponentProps): JSX.Element {
+function ReviewForm({offerId, commentPostStatus, onPostReview}: ConnectedComponentProps): JSX.Element {
   const [review, setReview] = useState<{rating: number, comment: string}>({
     rating: 0,
     comment: '',
@@ -66,20 +66,20 @@ function ReviewForm({offerId, isCommentPosted, onPostReview}: ConnectedComponent
   };
 
   useEffect(() => {
-    if (isCommentPosted === DataStatus.NotSended) {
+    if (commentPostStatus === DataStatus.NotSended) {
       setReview({
         'rating': 0,
         'comment': '',
       });
     }
-  }, [isCommentPosted]);
+  }, [commentPostStatus]);
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {
-          Ratings.map(({rank, title}): JSX.Element => (
+          Object.entries(RatingsToValuesMap).map(([title, rank]): JSX.Element => (
             <Fragment key={`${rank}-${title}`}>
               <input
                 className="form__rating-input visually-hidden"
@@ -118,7 +118,7 @@ function ReviewForm({offerId, isCommentPosted, onPostReview}: ConnectedComponent
         <button className="reviews__submit form__submit button" type="submit" disabled={!isFormCompleted}>Submit</button>
       </div>
       {
-        isCommentPosted === DataStatus.NotSended &&
+        commentPostStatus === DataStatus.NotSended &&
           (
             <p style={ {color: 'red'} }>Comment wasnt poste cause some error</p>
           )
