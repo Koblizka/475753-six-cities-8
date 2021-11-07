@@ -2,36 +2,25 @@ import clsx from 'clsx';
 import {MouseEvent} from 'react';
 import {SortType, sortTypeMap} from '../../common/const';
 import {changeSortType} from '../../store/actions';
-import {Actions} from '../../types/actions';
-import {State} from '../../types/state';
-import {Dispatch, useState} from 'react';
-import {connect, ConnectedProps} from 'react-redux';
+import {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {getActiveSort} from '../../store/processes/selectors';
 
 
-const mapStateToProps = ({activeSort}: State) => ({
-  activeSort,
-});
+function OffersSort(): JSX.Element {
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => (
-  {
-    onSortTypeChoose(sortType: SortType) {
-      dispatch(changeSortType(sortType));
-    },
-  }
-);
+  const activeSort = useSelector(getActiveSort);
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type TypeFromRedux = ConnectedProps<typeof connector>;
+  const handleSortTypeChoose = (sortType: SortType) => dispatch(changeSortType(sortType));
 
 
-function OffersSort({activeSort, onSortTypeChoose}: TypeFromRedux): JSX.Element {
   const [selectState, setSelectState] = useState<boolean>(false);
 
   const handleClick = () => setSelectState(!selectState);
 
   const handleOptionChoose = (evt: MouseEvent<HTMLLIElement>) => {
-    onSortTypeChoose(evt.currentTarget.dataset.type as SortType);
+    handleSortTypeChoose(evt.currentTarget.dataset.type as SortType);
     setSelectState(!selectState);
   };
 
@@ -64,4 +53,4 @@ function OffersSort({activeSort, onSortTypeChoose}: TypeFromRedux): JSX.Element 
 }
 
 export {OffersSort};
-export default connector(OffersSort);
+export default OffersSort;

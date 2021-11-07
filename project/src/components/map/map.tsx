@@ -2,7 +2,8 @@ import 'leaflet/dist/leaflet.css';
 import {Offer} from '../../types/offer';
 import {UrlMarker} from '../../common/const';
 import {useMap} from '../../hooks/use-map';
-import {City} from '../../types/city';
+import {useSelector } from 'react-redux';
+import {getActiveCity, getActiveOffer} from '../../store/processes/selectors';
 
 import {
   useEffect,
@@ -15,10 +16,8 @@ import {
   Marker
 } from 'leaflet';
 
-type MapProps = {
+type CityMapProps = {
   offers: Offer[];
-  activeCity: City;
-  selectedOffer: Offer | null;
 }
 
 const defaultPin = new Icon({
@@ -33,7 +32,11 @@ const customPin = new Icon({
   iconAnchor: [12, 40],
 });
 
-function Map({offers, activeCity, selectedOffer}: MapProps): JSX.Element {
+function CityMap({offers}: CityMapProps): JSX.Element {
+  const activeCity = useSelector(getActiveCity);
+  const activeOffer = useSelector(getActiveOffer);
+
+
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [markersLayer] = useState<LayerGroup>(new LayerGroup());
   const map = useMap(mapRef, activeCity);
@@ -51,7 +54,7 @@ function Map({offers, activeCity, selectedOffer}: MapProps): JSX.Element {
 
         marker
           .setIcon(
-            selectedOffer !== null && offer.title === selectedOffer.title
+            activeOffer && offer.id === activeOffer.id
               ? customPin
               : defaultPin,
           );
@@ -62,7 +65,7 @@ function Map({offers, activeCity, selectedOffer}: MapProps): JSX.Element {
 
       markersLayer.addTo(map);
     }
-  }, [map, offers, selectedOffer, activeCity, markersLayer]);
+  }, [map, offers, activeOffer, activeCity, markersLayer]);
 
   return (
     <div
@@ -73,4 +76,4 @@ function Map({offers, activeCity, selectedOffer}: MapProps): JSX.Element {
   );
 }
 
-export {Map};
+export default CityMap;

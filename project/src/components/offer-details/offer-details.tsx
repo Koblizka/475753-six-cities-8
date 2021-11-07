@@ -1,14 +1,13 @@
 import {Offer} from '../../types/offer';
 import ReviewForm from '../review-form/review-form';
-import {Map} from '../map/map';
-import {OffersNearList} from '../offers-near-list/offers-near-list';
-import {useEffect} from 'react';
+import CityMap from '../map/map';
+import OffersNearList from '../offers-near-list/offers-near-list';
+import {useCallback, useEffect} from 'react';
 import {Loader} from '../loader/loader';
 import {ReviewList} from '../review-list/review-list';
-import {State} from '../../types/state';
-import {connect, ConnectedProps} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {chooseActiveOffer} from '../../store/actions';
-import {ThunkAppDispatch} from '../../types/actions';
+import PageHeader from '../header/header';
 
 import {
   AppRoute,
@@ -21,7 +20,6 @@ import {
   percentageRating
 } from '../../utils/utils';
 import {
-  Link,
   Redirect,
   useParams
 } from 'react-router-dom';
@@ -30,76 +28,46 @@ import {
   fetchOfferCommentsAction,
   fetchOfferDetailsAction
 } from '../../store/api-actions';
+import { getNearbyOffers, getOffersDetailsLoadStatus } from '../../store/offers/selectors';
+import { getOfferCommnetsLoadStatus, getReviews } from '../../store/user-comments/selectors';
+import {getCurrentOffer} from '../../store/processes/selectors';
+import { getAuthorizationStatus } from '../../store/user/selectors';
 
-const mapStateToProps = (
-  {
-    activeCity,
-    reviews,
-    activeOffer,
-    currentOffer,
-    nearbyOffers,
-    offerDetailsLoadStatus,
-    nearbyOffersLoadStatus,
-    offerCommnetsLoadStatus,
-    authorizationStatus,
-  }: State) => (
-  {
-    activeCity,
-    reviews,
-    activeOffer,
-    currentOffer,
-    nearbyOffers,
-    offerDetailsLoadStatus,
-    nearbyOffersLoadStatus,
-    offerCommnetsLoadStatus,
-    authorizationStatus,
-  }
-);
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => (
-  {
-    onOfferChoose(offer: Offer | null) {
-      dispatch(chooseActiveOffer(offer));
-    },
-    onFetchOfferDetails(offerId: string) {
-      dispatch(fetchOfferDetailsAction(offerId));
-    },
-    onFetchNearbyOffers(offerId: string) {
-      dispatch(fetchNearbyOffersAction(offerId));
-    },
-    onFetchOfferComments(offerId: string) {
-      dispatch(fetchOfferCommentsAction(offerId));
-    },
-  }
-);
+function OfferScreen(): JSX.Element {
+  const dispatch = useDispatch();
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+  const nearbyOffers = useSelector(getNearbyOffers);
+  const offerDetailsLoadStatus = useSelector(getOffersDetailsLoadStatus);
+  const reviews = useSelector(getReviews);
+  const offerCommnetsLoadStatus = useSelector(getOfferCommnetsLoadStatus);
+  const currentOffer = useSelector(getCurrentOffer);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
+  const handleOfferChoose = (offer: Offer | null) => dispatch(chooseActiveOffer(offer));
 
-function OfferScreen(
-  {
-    reviews,
-    activeCity,
-    activeOffer,
-    currentOffer,
-    nearbyOffers,
-    onOfferChoose,
-    onFetchOfferDetails,
-    onFetchNearbyOffers,
-    onFetchOfferComments,
-    offerDetailsLoadStatus,
-    offerCommnetsLoadStatus,
-    authorizationStatus,
-  }: PropsFromRedux): JSX.Element {
+
+  const handleFetchOfferDetails = useCallback(
+    (offerId: string) => dispatch(fetchOfferDetailsAction(offerId)),
+    [dispatch],
+  );
+  const handleFetchNearbyOffers = useCallback(
+    (offerId: string) => dispatch(fetchNearbyOffersAction(offerId)),
+    [dispatch],
+  );
+  const handleFetchOfferComments = useCallback(
+    (offerId: string) => dispatch(fetchOfferCommentsAction(offerId)),
+    [dispatch],
+  );
+
 
   const { id }  = useParams<{id: string}>();
 
   useEffect(() => {
-    onFetchOfferDetails(id);
-    onFetchNearbyOffers(id);
-    onFetchOfferComments(id);
-  }, [id, onFetchOfferDetails, onFetchNearbyOffers, onFetchOfferComments]);
+    handleFetchOfferDetails(id);
+    handleFetchNearbyOffers(id);
+    handleFetchOfferComments(id);
+  }, [id, handleFetchOfferDetails, handleFetchNearbyOffers, handleFetchOfferComments]);
 
   const offerData = currentOffer as Offer;
   const offersNear = nearbyOffers as Offer[];
@@ -114,33 +82,7 @@ function OfferScreen(
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link className="header__logo-link" to={AppRoute.Main}>
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </Link>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="/">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="/">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <PageHeader />
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
@@ -237,10 +179,8 @@ function OfferScreen(
             {
               offersNear &&
               (
-                <Map
+                <CityMap
                   offers={offersNear}
-                  activeCity={activeCity}
-                  selectedOffer={activeOffer}
                 />
               )
             }
@@ -255,7 +195,7 @@ function OfferScreen(
                 <OffersNearList
                   offers={offersNear}
                   className={CardClassType.NearPlaces}
-                  onOfferChoose={onOfferChoose}
+                  onOfferChoose={handleOfferChoose}
                 />
               )
             }
@@ -267,4 +207,4 @@ function OfferScreen(
 }
 
 export {OfferScreen};
-export default connector(OfferScreen);
+export default OfferScreen;

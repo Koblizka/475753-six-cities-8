@@ -1,26 +1,46 @@
 import {City} from './city';
 import {Offer} from './offer';
 import {UserComment} from './user-comment';
+import {RootState} from '../store/root-reducer';
+
 import {
   AuthorizationStatus,
   DataStatus,
   SortType
 } from '../common/const';
 
-type State = {
-  activeCity: City;
+
+type OffersData = {
   offers: Offer[];
-  currentOffer: Offer | null;
   nearbyOffers: Offer[] | null;
-  activeOffer: Offer | null;
-  reviews: UserComment[] | null;
-  activeSort: SortType;
-  authorizationStatus: AuthorizationStatus;
   offersLoadStatus: DataStatus;
   offerDetailsLoadStatus: DataStatus;
   nearbyOffersLoadStatus: DataStatus;
+};
+
+type ProcessesData = {
+  activeCity: City;
+  currentOffer: Offer | null;
+  activeOffer: Offer | null;
+  activeSort: SortType;
+};
+
+type UserCommentsData = {
+  reviews: UserComment[] | null;
   offerCommnetsLoadStatus: DataStatus;
   commentPostStatus: DataStatus;
 };
 
-export type {State};
+type UserData = {
+  authorizationStatus: AuthorizationStatus;
+};
+
+type State = RootState;
+
+export type {
+  OffersData,
+  ProcessesData,
+  UserCommentsData,
+  UserData,
+  State
+};

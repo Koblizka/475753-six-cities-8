@@ -3,6 +3,8 @@ import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {Offer} from './offer';
 import {State} from './state';
 import {UserComment} from './user-comment';
+import {Action} from 'redux';
+
 import {
   AuthorizationStatus,
   DataStatus,
@@ -95,25 +97,9 @@ type LoadOffersAction = {
   payload: Offer[];
 }
 
-type Actions =
-  | ChangeActiveCityAction
-  | FillOffersListAction
-  | ChooseActiveOfferAction
-  | ChangeSortTypeAction
-  | LoadOffersAction
-  | RequireLogoutAction
-  | RequireAuthorizationAction
-  | LoadOfferDetailsAction
-  | LoadNearbyOffersAction
-  | LoadOfferCommentsAction
-  | RequireOfferDetailsAction
-  | RequireNearbyOffersAction
-  | SetCommentPostStatusAction
-  | RequireOfferCommentsAction;
+type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 
-type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>;
-
-type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
+type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Action>;
 
 export {ActionType};
 export type {
@@ -131,7 +117,6 @@ export type {
   LoadOfferCommentsAction,
   LoadNearbyOffersAction,
   LoadOffersAction,
-  Actions,
   ThunkActionResult,
   ThunkAppDispatch
 };

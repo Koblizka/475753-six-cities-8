@@ -1,28 +1,17 @@
-import {connect, ConnectedProps} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {AuthorizationStatus} from '../../common/const';
+import {AppRoute, AuthorizationStatus} from '../../common/const';
 import {logoutAction} from '../../store/api-actions';
-import {ThunkAppDispatch} from '../../types/actions';
-import {State} from '../../types/state';
+import {getAuthorizationStatus} from '../../store/user/selectors';
 
 
-const mapStateToProps = ({authorizationStatus}: State) => (
-  {
-    authorizationStatus,
-  }
-);
+function UserNav(): JSX.Element {
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  onSignOut() {
-    dispatch(logoutAction());
-  },
-});
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+  const handleSignOut = () => dispatch(logoutAction());
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function UserNav({authorizationStatus, onSignOut}: PropsFromRedux): JSX.Element {
   return (
     <nav className="header__nav">
       {
@@ -30,17 +19,17 @@ function UserNav({authorizationStatus, onSignOut}: PropsFromRedux): JSX.Element 
           ? (
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <a className="header__nav-link header__nav-link--profile" href="/profile">
+                <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
                   <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                </a>
+                </Link>
               </li>
               <li className="header__nav-item">
                 <Link
                   className="header__nav-link"
                   to="/login"
-                  onClick={onSignOut}
+                  onClick={handleSignOut}
                 >
                   <span className="header__signout">Sign out</span>
                 </Link>
@@ -63,4 +52,4 @@ function UserNav({authorizationStatus, onSignOut}: PropsFromRedux): JSX.Element 
 }
 
 export {UserNav};
-export default connector(UserNav);
+export default UserNav;

@@ -14,7 +14,7 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map |
   const [map, setMap] = useState<Map | null>(null);
 
   useEffect(() => {
-    if (mapRef.current !== null && map === null) {
+    if (mapRef.current && !map) {
       const instance = new Map(mapRef.current, {
         zoom: city.location.zoom,
       });

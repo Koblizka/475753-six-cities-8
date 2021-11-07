@@ -1,6 +1,7 @@
 import {Offer} from '../../types/offer';
 import {OfferCityCard} from '../offer-city-card/offer-city-card';
 import {CardClassType} from '../../common/const';
+import React from 'react';
 
 type OffersCitiesListProps = {
   offers: Offer[];
@@ -27,4 +28,4 @@ function OffersCitiesList({offers, onOfferChoose, className}: OffersCitiesListPr
   );
 }
 
-export {OffersCitiesList};
+export default React.memo(OffersCitiesList);

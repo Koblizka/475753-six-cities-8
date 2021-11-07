@@ -1,3 +1,4 @@
+import React from 'react';
 import {CardClassType} from '../../common/const';
 import {Offer} from '../../types/offer';
 import {OfferNearCard} from '../offer-near-card/offer-near-card';
@@ -28,4 +29,4 @@ function OffersNearList({offers, className, onOfferChoose}: OffersNearListProps)
   );
 }
 
-export {OffersNearList};
+export default React.memo(OffersNearList);

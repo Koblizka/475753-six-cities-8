@@ -1,37 +1,29 @@
 import {City} from '../../types/city';
 import clsx from 'clsx';
-import {Dispatch} from 'redux';
-import {Actions} from '../../types/actions';
 import {MouseEvent} from 'react';
 import {changeActiveCity} from '../../store/actions';
-import {connect, ConnectedProps} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import React from 'react';
 
 type CitiesListProps ={
   cities: City[];
   activeCity: City;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => (
-  {
-    onActiveCityChange(cityName: string) {
-      dispatch(changeActiveCity(cityName));
-    },
-  }
-);
+function CitiesList({cities, activeCity}: CitiesListProps): JSX.Element {
+  const dispatch = useDispatch();
 
-const connector = connect(null, mapDispatchToProps);
+  const handleActiveCityChange = (cityName: string) => {
+    dispatch(changeActiveCity(cityName));
+  };
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux & CitiesListProps;
-
-function CitiesList({cities, activeCity, onActiveCityChange}: ConnectedComponentProps): JSX.Element {
   const activeCityName: string = activeCity.name;
 
   const handleClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
 
     if (evt.currentTarget.dataset.city && evt.currentTarget.dataset.city !== activeCityName) {
-      onActiveCityChange(evt.currentTarget.dataset.city);
+      handleActiveCityChange(evt.currentTarget.dataset.city);
     }
   };
 
@@ -57,4 +49,4 @@ function CitiesList({cities, activeCity, onActiveCityChange}: ConnectedComponent
 }
 
 export {CitiesList};
-export default connector(CitiesList);
+export default React.memo(CitiesList);

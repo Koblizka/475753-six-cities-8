@@ -1,32 +1,16 @@
-import UserNav from '../user-nav/user-nav';
 import {OffersFavoritesList} from '../offers-favorites-list/offers-favorites-list';
+import PageHeader from '../../components/header/header';
 import {getFavoritesPlaces} from '../../utils/utils';
-import {connect, ConnectedProps} from 'react-redux';
-import {State} from '../../types/state';
+import {useSelector} from 'react-redux';
+import {getOffers} from '../../store/offers/selectors';
 
-const mapStateToProps = ({offers}: State) => ({
-  offers,
-});
 
-const connector = connect(mapStateToProps);
+function FavoritesScreen(): JSX.Element {
+  const offers = useSelector(getOffers);
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function FavoritesScreen({offers}: PropsFromRedux): JSX.Element {
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
-            </div>
-            <UserNav />
-          </div>
-        </div>
-      </header>
+      <PageHeader />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
@@ -47,4 +31,4 @@ function FavoritesScreen({offers}: PropsFromRedux): JSX.Element {
 }
 
 export {FavoritesScreen};
-export default connector(FavoritesScreen);
+export default FavoritesScreen;

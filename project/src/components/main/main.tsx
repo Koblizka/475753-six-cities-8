@@ -1,67 +1,50 @@
 import OffersSort from '../offers-sort/offers-sort';
 import CitiesList from '../cities-list/cities-list';
-import UserNav from '../user-nav/user-nav';
 import {Offer} from '../../types/offer';
-import {OffersCitiesList} from '../offers-cities-list/offers-cities-list';
-import {Map} from '../../components/map/map';
+import OffersCitiesList from '../offers-cities-list/offers-cities-list';
+import CityMap from '../../components/map/map';
 import {cities} from '../../mocks/cities';
-import {Dispatch} from 'react';
+import {useMemo} from 'react';
 import {CardClassType} from '../../common/const';
-import {State} from '../../types/state';
 import {chooseActiveOffer} from '../../store/actions';
-import {Actions} from '../../types/actions';
-import {connect, ConnectedProps} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {applySort, getCityOffers} from '../../utils/utils';
 import {Loader} from '../loader/loader';
+import PageHeader from '../header/header';
+import {getActiveCity, getActiveSort} from '../../store/processes/selectors';
+import {getOffers, getOffersLoadStatus} from '../../store/offers/selectors';
 
 
-const mapStateToProps = ({activeCity, offers, activeOffer, activeSort, offersLoadStatus: isOffersLoaded, authorizationStatus}: State) => ({
-  activeCity,
-  offers,
-  activeOffer,
-  activeSort,
-  isOffersLoaded,
-  authorizationStatus,
-});
+function MainScreen(): JSX.Element {
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch: Dispatch<Actions>) => (
-  {
-    onOfferChoose(offer: Offer | null) {
-      dispatch(chooseActiveOffer(offer));
-    },
-  }
-);
+  const activeCity = useSelector(getActiveCity);
+  const activeSort = useSelector(getActiveSort);
+  const offers = useSelector(getOffers);
+  const offersLoadStatus = useSelector(getOffersLoadStatus);
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+  const handleOfferChoose = (offer: Offer | null) => dispatch(chooseActiveOffer(offer));
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type ConnectedComponentProps = PropsFromRedux;
 
-function MainScreen({offers, activeCity, activeOffer, activeSort, isOffersLoaded, onOfferChoose}: ConnectedComponentProps): JSX.Element {
+  const cityOffers = useMemo(
+    () => getCityOffers(activeCity.name, offers),
+    [offers, activeCity.name],
+  );
 
-  if (!isOffersLoaded) {
+  const sortedOffers = useMemo(
+    () => applySort(activeSort, cityOffers),
+    [activeSort, cityOffers],
+  );
+
+  if (!offersLoadStatus) {
     return (
       <Loader />
     );
   }
 
-  const cityOffers = getCityOffers(activeCity.name, offers);
-
   return (
     <div className="page page--gray page--main">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link header__logo-link--active" href="/">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
-            </div>
-            <UserNav />
-          </div>
-        </div>
-      </header>
-
+      <PageHeader />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -79,17 +62,15 @@ function MainScreen({offers, activeCity, activeOffer, activeSort, isOffersLoaded
               <b className="places__found">{cityOffers.length} places to stay in {activeCity.name}</b>
               <OffersSort />
               <OffersCitiesList
-                offers={applySort(activeSort, cityOffers)}
-                onOfferChoose={onOfferChoose}
+                offers={sortedOffers}
+                onOfferChoose={handleOfferChoose}
                 className={CardClassType.Cities}
               />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map
+                <CityMap
                   offers={cityOffers}
-                  activeCity={activeCity}
-                  selectedOffer={activeOffer}
                 />
               </section>
             </div>
@@ -101,4 +82,4 @@ function MainScreen({offers, activeCity, activeOffer, activeSort, isOffersLoaded
 }
 
 export {MainScreen};
-export default connector(MainScreen);
+export default MainScreen;

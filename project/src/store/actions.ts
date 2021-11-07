@@ -2,119 +2,96 @@ import {Offer} from '../types/offer';
 import {UserComment} from '../types/user-comment';
 import {AuthorizationStatus, DataStatus, SortType} from '../common/const';
 
-import {
-  ActionType,
-  ChangeActiveCityAction,
-  ChooseActiveOfferAction,
-  ChangeSortTypeAction,
-  FillOffersListAction,
-  RequireAuthorizationAction,
-  LoadOffersAction,
-  LoadNearbyOffersAction,
-  RequireLogoutAction,
-  LoadOfferDetailsAction,
-  RequireOfferDetailsAction,
-  RequireNearbyOffersAction,
-  LoadOfferCommentsAction,
-  RequireOfferCommentsAction,
-  SetCommentPostStatusAction
-} from '../types/actions';
+import {ActionType} from '../types/actions';
+import {createAction} from '@reduxjs/toolkit';
 
 
-const changeActiveCity = (activeCity: string): ChangeActiveCityAction => (
-  {
-    type: ActionType.ChangeActiveCity,
+const changeActiveCity = createAction(
+  ActionType.ChangeActiveCity,
+  (activeCity: string) => ({
     payload: activeCity,
-  }
+  }),
 );
 
-const fillOffersList = (): FillOffersListAction => (
-  {
-    type: ActionType.FillOffersList,
-  }
-);
+const fillOffersList = createAction(ActionType.FillOffersList);
 
-const chooseActiveOffer = (offer: Offer | null): ChooseActiveOfferAction => (
-  {
-    type: ActionType.ChooseActiveOffer,
+const chooseActiveOffer = createAction(
+  ActionType.ChooseActiveOffer,
+  (offer: Offer | null) => ({
     payload: offer,
-  }
+  }),
 );
 
-const changeSortType = (sortType: SortType): ChangeSortTypeAction => (
-  {
-    type: ActionType.ChangeSortType,
+const changeSortType = createAction(
+  ActionType.ChangeSortType,
+  (sortType: SortType) => ({
     payload: sortType,
-  }
+  }),
 );
 
-const loadOfferComments = (comments: UserComment[]): LoadOfferCommentsAction => (
-  {
-    type: ActionType.LoadOfferComments,
+const loadOfferComments = createAction(
+  ActionType.LoadOfferComments,
+  (comments: UserComment[]) => ({
     payload: comments,
-  }
+  }),
 );
 
-const loadOfferDetails = (offer: Offer): LoadOfferDetailsAction => (
-  {
-    type: ActionType.LoadOfferDetails,
+const loadOfferDetails = createAction(
+  ActionType.LoadOfferDetails,
+  (offer: Offer) => ({
     payload: offer,
-  }
+  }),
 );
 
-const loadNearbyOffers = (offers: Offer[]): LoadNearbyOffersAction => (
-  {
-    type: ActionType.LoadNearbyOffers,
+const loadNearbyOffers = createAction(
+  ActionType.LoadNearbyOffers,
+  (offers: Offer[]) => ({
     payload: offers,
-  }
+  }),
 );
 
-const loadOffers = (offers: Offer[]): LoadOffersAction => (
-  {
-    type: ActionType.LoadOffers,
+const loadOffers = createAction(
+  ActionType.LoadOffers,
+  (offers: Offer[]) => ({
     payload: offers,
-  }
+  }),
 );
 
-const requireLogout = (): RequireLogoutAction => (
-  {
-    type: ActionType.RequireLogout,
-  }
-);
+const requireLogout = createAction(ActionType.RequireLogout);
 
-const requireOfferDetails = (isOfferDetailsLoaded: DataStatus): RequireOfferDetailsAction => (
-  {
-    type: ActionType.RequireOfferDetails,
+const requireOfferDetails = createAction(
+  ActionType.RequireOfferDetails,
+  (isOfferDetailsLoaded: DataStatus) => ({
     payload: isOfferDetailsLoaded,
-  }
+  }),
 );
 
-const requireOfferComments = (isOfferCommentsLoaded: DataStatus): RequireOfferCommentsAction => (
-  {
-    type: ActionType.RequireOfferComments,
+const requireOfferComments = createAction(
+  ActionType.RequireOfferComments,
+  (isOfferCommentsLoaded: DataStatus) => ({
     payload: isOfferCommentsLoaded,
-  }
+  }),
 );
 
-const requireNearbyOffers = (isNearbyOffersLoaded: DataStatus): RequireNearbyOffersAction => (
-  {
-    type: ActionType.RequireNearbyOffers,
+const requireNearbyOffers = createAction(
+  ActionType.RequireNearbyOffers,
+  (isNearbyOffersLoaded: DataStatus) => ({
     payload: isNearbyOffersLoaded,
-  }
+  }),
 );
 
-const setCommentPostStatus = (isCommentSended: DataStatus): SetCommentPostStatusAction => (
-  {
-    type: ActionType.SetCommentPostStatus,
+const setCommentPostStatus = createAction(
+  ActionType.SetCommentPostStatus,
+  (isCommentSended: DataStatus) => ({
     payload: isCommentSended,
-  }
+  }),
 );
 
-const requireAuthorization = (authorizationStatus: AuthorizationStatus): RequireAuthorizationAction => (
-  {
-    type: ActionType.RequireAuthorization,
+const requireAuthorization = createAction(
+  ActionType.RequireAuthorization,
+  (authorizationStatus: AuthorizationStatus) => ({
     payload: authorizationStatus,
-  }
+  }),
 );
 
 
