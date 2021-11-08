@@ -23,6 +23,7 @@ import {
   loadOfferDetails,
   loadOffers,
   requireAuthorization,
+  requireOffers,
   requireLogout,
   requireOfferComments,
   requireOfferDetails,
@@ -32,8 +33,13 @@ import {
 
 const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
+    dispatch(requireOffers(DataStatus.IsLoading));
+
     const {data} = await api.get<OfferServerside[]>(ApiRoute.Hotels);
     dispatch(loadOffers(getAdaptedOffers(data)));
+    // catch {
+    //   dispatch(requireOffers(DataStatus.NotLoaded));
+    // }
   };
 
 const fetchOfferDetailsAction = (offerId: string): ThunkActionResult =>

@@ -21,6 +21,7 @@ enum ActionType {
   LoadNearbyOffers = 'data/loadNearbyOffers',
   LoadOffers = 'data/loadOffers',
   LoadOfferComments = 'data/loadOfferComments',
+  RequireOffers = 'data/requireOffers',
   RequireOfferComments = 'data/requireOfferComments',
   RequireOfferDetails = 'data/requireOfferDetails',
   RequireNearbyOffers = 'data/requireNearbyOffers',
@@ -36,6 +37,11 @@ type ChangeActiveCityAction = {
 
 type FillOffersListAction = {
   type: ActionType.FillOffersList;
+}
+
+type RequireOffersAction = {
+  type: ActionType.RequireOffers;
+  payload: DataStatus;
 }
 
 type ChooseActiveOfferAction = {
@@ -112,6 +118,7 @@ export type {
   RequireOfferDetailsAction,
   RequireNearbyOffersAction,
   RequireOfferCommentsAction,
+  RequireOffersAction,
   SetCommentPostStatusAction,
   LoadOfferDetailsAction,
   LoadOfferCommentsAction,

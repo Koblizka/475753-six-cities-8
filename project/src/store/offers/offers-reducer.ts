@@ -5,6 +5,7 @@ import {OffersData} from '../../types/state';
 import {
   loadNearbyOffers,
   loadOffers,
+  requireOffers,
   requireNearbyOffers,
   requireOfferDetails
 } from '../actions';
@@ -25,6 +26,9 @@ const offersReducer = createReducer(
       .addCase(loadOffers, (state, action) => {
         state.offers = action.payload;
         state.offersLoadStatus = DataStatus.IsLoaded;
+      })
+      .addCase(requireOffers, (state, action) => {
+        state.offersLoadStatus = action.payload;
       })
       .addCase(requireOfferDetails, (state, action) => {
         state.offerDetailsLoadStatus = action.payload;

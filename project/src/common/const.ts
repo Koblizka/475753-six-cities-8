@@ -60,6 +60,7 @@ enum DataStatus {
   IsSended = 'IS_SENDED',
   NotSended = 'NOT_SENDED',
   Default = 'DEFAULT',
+  IsLoading = 'IS_LOADING',
 }
 
 const Setting = {

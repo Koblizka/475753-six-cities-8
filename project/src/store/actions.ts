@@ -57,33 +57,40 @@ const loadOffers = createAction(
   }),
 );
 
+const requireOffers = createAction(
+  ActionType.RequireOffers,
+  (offersLoadStatus: DataStatus) => ({
+    payload: offersLoadStatus,
+  }),
+);
+
 const requireLogout = createAction(ActionType.RequireLogout);
 
 const requireOfferDetails = createAction(
   ActionType.RequireOfferDetails,
-  (isOfferDetailsLoaded: DataStatus) => ({
-    payload: isOfferDetailsLoaded,
+  (offerDetailsLoadStatus: DataStatus) => ({
+    payload: offerDetailsLoadStatus,
   }),
 );
 
 const requireOfferComments = createAction(
   ActionType.RequireOfferComments,
-  (isOfferCommentsLoaded: DataStatus) => ({
-    payload: isOfferCommentsLoaded,
+  (offerCommentsLoadStatus: DataStatus) => ({
+    payload: offerCommentsLoadStatus,
   }),
 );
 
 const requireNearbyOffers = createAction(
   ActionType.RequireNearbyOffers,
-  (isNearbyOffersLoaded: DataStatus) => ({
-    payload: isNearbyOffersLoaded,
+  (nearbyOffersLoadStatus: DataStatus) => ({
+    payload: nearbyOffersLoadStatus,
   }),
 );
 
 const setCommentPostStatus = createAction(
   ActionType.SetCommentPostStatus,
-  (isCommentSended: DataStatus) => ({
-    payload: isCommentSended,
+  (commentPostStatus: DataStatus) => ({
+    payload: commentPostStatus,
   }),
 );
 
@@ -107,6 +114,7 @@ export {
   requireLogout,
   requireNearbyOffers,
   requireOfferComments,
+  requireOffers,
   setCommentPostStatus,
   requireOfferDetails,
   requireAuthorization
