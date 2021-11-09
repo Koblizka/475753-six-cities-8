@@ -16,6 +16,7 @@ type OffersData = {
   offersLoadStatus: DataStatus;
   offerDetailsLoadStatus: DataStatus;
   nearbyOffersLoadStatus: DataStatus;
+  favoriteOffers: Offer[] | null;
 };
 
 type ProcessesData = {

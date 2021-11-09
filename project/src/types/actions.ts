@@ -28,6 +28,8 @@ enum ActionType {
   RequireAuthorization = 'user/requireAuthorization',
   SetCommentPostStatus = 'user/setCommentPostStatus',
   RequireLogout = 'user/requireLogout',
+  UpdateOffer = 'cities/updateOffer',
+  LoadFavorites = 'favorites/loadFavorites',
 }
 
 type ChangeActiveCityAction = {
@@ -78,6 +80,16 @@ type LoadOfferDetailsAction = {
   payload: Offer;
 }
 
+type LoadFavoritesAction = {
+  type: ActionType.LoadFavorites;
+  payload: Offer[];
+}
+
+type UpdateOfferAction = {
+  type: ActionType.UpdateOffer;
+  payload: Offer;
+}
+
 type RequireOfferDetailsAction = {
   type: ActionType.RequireOfferDetails;
   payload: DataStatus;
@@ -122,7 +134,9 @@ export type {
   SetCommentPostStatusAction,
   LoadOfferDetailsAction,
   LoadOfferCommentsAction,
+  LoadFavoritesAction,
   LoadNearbyOffersAction,
+  UpdateOfferAction,
   LoadOffersAction,
   ThunkActionResult,
   ThunkAppDispatch

@@ -27,7 +27,9 @@ import {
   requireLogout,
   requireOfferComments,
   requireOfferDetails,
-  setCommentPostStatus
+  setCommentPostStatus,
+  updateOffer,
+  loadFavorites
 } from './actions';
 
 
@@ -35,11 +37,13 @@ const fetchOffersAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     dispatch(requireOffers(DataStatus.IsLoading));
 
-    const {data} = await api.get<OfferServerside[]>(ApiRoute.Hotels);
-    dispatch(loadOffers(getAdaptedOffers(data)));
-    // catch {
-    //   dispatch(requireOffers(DataStatus.NotLoaded));
-    // }
+    try {
+      const {data} = await api.get<OfferServerside[]>(ApiRoute.Hotels);
+      dispatch(loadOffers(getAdaptedOffers(data)));
+    }
+    catch {
+      dispatch(requireOffers(DataStatus.NotLoaded));
+    }
   };
 
 const fetchOfferDetailsAction = (offerId: string): ThunkActionResult =>
@@ -120,12 +124,28 @@ const logoutAction = (): ThunkActionResult =>
     dispatch(requireLogout());
   };
 
+const bookmarkAction = (offerId: string, status: boolean): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    const {data} = await api.post<OfferServerside>(`${ApiRoute.Favorite}/${offerId}/${Number(!status)}`);
+
+    dispatch(updateOffer(getAdaptedOffer(data)));
+  };
+
+const fetchFavoritesAction = (): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    const {data} = await api.get<OfferServerside[]>(ApiRoute.Favorite);
+
+    dispatch(loadFavorites(getAdaptedOffers(data)));
+  };
+
 export {
   fetchOffersAction,
   fetchOfferDetailsAction,
   fetchNearbyOffersAction,
   fetchOfferCommentsAction,
   postCommentAction,
+  fetchFavoritesAction,
+  bookmarkAction,
   checkAuthAction,
   loginAction,
   logoutAction

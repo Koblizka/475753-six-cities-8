@@ -1,14 +1,21 @@
-import {Offer} from '../../types/offer';
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchFavoritesAction} from '../../store/api-actions';
+import {getFavoriteOffers} from '../../store/offers/selectors';
+import {getCityOffers} from '../../utils/utils';
 import {OfferFavoriteCard} from '../offer-favorite-card/offer-favorite-card';
 
-type OffersFavoritesListProps = {
-  offers: Offer[];
-}
+function OffersFavoritesList(): JSX.Element{
+  const dispatch = useDispatch();
+  const offers = useSelector(getFavoriteOffers);
 
-function OffersFavoritesList({offers}: OffersFavoritesListProps): JSX.Element{
   const distinctPlaces = new Set<string>();
 
-  offers.forEach((offer) => distinctPlaces.add(offer.city.name));
+  useEffect(()=> {
+    dispatch(fetchFavoritesAction());
+  },[dispatch]);
+
+  offers?.forEach((offer) => distinctPlaces.add(offer.city.name));
 
   return (
     <ul className="favorites__list">
@@ -25,8 +32,7 @@ function OffersFavoritesList({offers}: OffersFavoritesListProps): JSX.Element{
               </div>
               <div className="favorites__places">
                 {
-                  offers
-                    .filter((offer) => offer.city.name === city)
+                  offers && getCityOffers(city ,offers)
                     .map((location): JSX.Element => (
                       <OfferFavoriteCard
                         offer={location}

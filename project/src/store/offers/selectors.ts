@@ -8,11 +8,13 @@ const getNearbyOffers = (state: State): Offer[] | null => state[NameSpace.Offers
 const getOffersDetailsLoadStatus = (state: State): DataStatus => state[NameSpace.Offers].offerDetailsLoadStatus;
 const getNearbyOffersLoadStatus = (state: State): DataStatus => state[NameSpace.Offers].nearbyOffersLoadStatus;
 const getOffersLoadStatus = (state: State): DataStatus => state[NameSpace.Offers].offersLoadStatus;
+const getFavoriteOffers = (state: State): Offer[] | null => state[NameSpace.Offers].favoriteOffers;
 
 export {
   getOffers,
   getOffersDetailsLoadStatus,
   getNearbyOffers,
   getNearbyOffersLoadStatus,
-  getOffersLoadStatus
+  getOffersLoadStatus,
+  getFavoriteOffers
 };

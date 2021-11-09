@@ -1,13 +1,8 @@
 import {OffersFavoritesList} from '../offers-favorites-list/offers-favorites-list';
 import PageHeader from '../../components/header/header';
-import {getFavoritesPlaces} from '../../utils/utils';
-import {useSelector} from 'react-redux';
-import {getOffers} from '../../store/offers/selectors';
 
 
 function FavoritesScreen(): JSX.Element {
-  const offers = useSelector(getOffers);
-
   return (
     <div className="page">
       <PageHeader />
@@ -15,9 +10,7 @@ function FavoritesScreen(): JSX.Element {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <OffersFavoritesList
-              offers={getFavoritesPlaces(offers)}
-            />
+            <OffersFavoritesList />
           </section>
         </div>
       </main>

@@ -57,6 +57,20 @@ const loadOffers = createAction(
   }),
 );
 
+const updateOffer = createAction(
+  ActionType.UpdateOffer,
+  (offer: Offer) => ({
+    payload: offer,
+  }),
+);
+
+const loadFavorites = createAction(
+  ActionType.LoadFavorites,
+  (offers: Offer[]) => ({
+    payload: offers,
+  }),
+);
+
 const requireOffers = createAction(
   ActionType.RequireOffers,
   (offersLoadStatus: DataStatus) => ({
@@ -115,6 +129,8 @@ export {
   requireNearbyOffers,
   requireOfferComments,
   requireOffers,
+  updateOffer,
+  loadFavorites,
   setCommentPostStatus,
   requireOfferDetails,
   requireAuthorization
