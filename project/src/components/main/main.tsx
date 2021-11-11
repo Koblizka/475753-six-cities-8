@@ -14,7 +14,7 @@ function MainScreen(): JSX.Element {
   const activeCity = useSelector(getActiveCity);
   const offers = useSelector(getOffers);
   const offersLoadStatus = useSelector(getOffersLoadStatus);
-  const isOffers = Boolean(offersLoadStatus === DataStatus.IsLoaded || offers.length);
+  const hasOffers = Boolean(offersLoadStatus === DataStatus.IsLoaded || offers.length);
 
   return (
     <div className="page page--gray page--main">
@@ -30,7 +30,7 @@ function MainScreen(): JSX.Element {
           </section>
         </div>
         <div className="cities">
-          <div className={`cities__places-container ${clsx(isOffers && 'cities__places-container--empty')} container`}>
+          <div className={`cities__places-container ${clsx(hasOffers && 'cities__places-container--empty')} container`}>
             {
               offersLoadStatus === DataStatus.IsLoading
                 ?
@@ -40,7 +40,7 @@ function MainScreen(): JSX.Element {
                 :
                 (
                   <CityOffersContainer
-                    isOffers={isOffers}
+                    isOffers={hasOffers}
                   />
                 )
             }

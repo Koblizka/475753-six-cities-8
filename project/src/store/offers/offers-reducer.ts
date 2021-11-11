@@ -19,7 +19,7 @@ const initialState: OffersData = {
   offersLoadStatus: DataStatus.Default,
   offerDetailsLoadStatus: DataStatus.Default,
   nearbyOffersLoadStatus: DataStatus.Default,
-  favoriteOffers: null,
+  favoriteOffers: [],
 };
 
 const offersReducer = createReducer(
@@ -34,18 +34,7 @@ const offersReducer = createReducer(
         state.offersLoadStatus = action.payload;
       })
       .addCase(updateOffer, (state, action) => {
-        const offerToUpdate = state.offers.find((offer) => offer.id === action.payload.id);
-        const updateOfferIndex = state.offers.findIndex((offer) => offer.id === action.payload.id);
-
-        if (offerToUpdate) {
-          offerToUpdate.isFavorite = action.payload.isFavorite;
-
-          state.offers = [
-            ...state.offers.slice(0, updateOfferIndex),
-            offerToUpdate,
-            ...state.offers.slice(updateOfferIndex + 1),
-          ];
-        }
+        state.offers = state.offers.map((offer) => offer.id === action.payload.id ? action.payload : offer);
       })
       .addCase(requireOfferDetails, (state, action) => {
         state.offerDetailsLoadStatus = action.payload;
