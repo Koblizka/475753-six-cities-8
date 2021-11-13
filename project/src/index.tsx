@@ -8,6 +8,7 @@ import {requireAuthorization} from './store/actions';
 import {AuthorizationStatus} from './common/const';
 import {checkAuthAction, fetchOffersAction} from './store/api-actions';
 import { configureStore } from '@reduxjs/toolkit';
+import { BrowserRouter } from 'react-router-dom';
 
 const api = createApi(
   () => store.dispatch(requireAuthorization(AuthorizationStatus.NotAuth)),
@@ -29,7 +30,9 @@ store.dispatch(fetchOffersAction());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));
