@@ -28,7 +28,6 @@ function OfferCard({offer, className}: OfferCardProps): JSX.Element {
   const handleBookmark = () => {
     if (authorizationStatus !== AuthorizationStatus.IsAuth) {
       history.push(AppRoute.SignIn);
-      return;
     }
 
     dispatch(bookmarkAction(offer.id, offer.isFavorite));

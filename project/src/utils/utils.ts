@@ -102,7 +102,7 @@ const getAdaptedComment = (adapteeComment: UserCommentServerside): UserComment =
     },
     review: adapteeComment.comment,
     rank: adapteeComment.rating,
-    date: adapteeComment.date,
+    date: new Date(adapteeComment.date),
   }
 );
 
