@@ -13,7 +13,7 @@ type UserCommentServerside = {
   'user': UserServerside;
   'comment': string
   'rating': number;
-  'date': Date;
+  'date': string;
 }
 
 type NewComment = {

@@ -23,7 +23,6 @@ type Offer = {
 
 type OfferServerside = {
     'id': string;
-    'placeType': string;
     'price': number;
     'rating': number;
     'title': string;
@@ -33,7 +32,6 @@ type OfferServerside = {
     'bedrooms': number;
     'goods': string[];
     'location': Place;
-    'maxAdults': number;
     'is_premium': boolean;
     'is_favorite': boolean;
     'type': string;
