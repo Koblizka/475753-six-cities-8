@@ -89,7 +89,7 @@ function OfferScreen(): JSX.Element {
             <div className="property__gallery">
               {
                 offerData?.images.map((image) => (
-                  <div className="property__image-wrapper" key={`${image}-${offerData.id}`}>
+                  <div className="property__image-wrapper" key={`${image}-${offerData.id}-${offerData.title}`}>
                     <img className="property__image" src={image} alt="Photography studio" />
                   </div>
                 ))

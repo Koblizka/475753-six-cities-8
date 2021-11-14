@@ -97,10 +97,13 @@ const postCommentAction = ({comment, rating}: NewComment, offerId: string): Thun
   };
 
 const checkAuthAction = (): ThunkActionResult =>
-  async (dispatch, _getState, api): Promise<void> => {
+  async (dispatch, _getState, api) => {
     await api.get(ApiRoute.Login)
       .then(() => {
         dispatch(requireAuthorization(AuthorizationStatus.IsAuth));
+      })
+      .catch(() => {
+        dispatch(requireAuthorization(AuthorizationStatus.NotAuth));
       });
   };
 

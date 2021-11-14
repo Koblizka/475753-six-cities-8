@@ -9,10 +9,10 @@ import CitiesOffersEmpty from '../cities-offers-empty/cities-offers-empty';
 import CitiesOffers from '../cities-offers/cities-offers';
 
 type CityOffersContainerProps = {
-  isOffers: boolean
+  hasOffers: boolean
 }
 
-function CityOffersContainer({isOffers}: CityOffersContainerProps): JSX.Element {
+function CityOffersContainer({hasOffers}: CityOffersContainerProps): JSX.Element {
   const dispatch = useDispatch();
 
   const activeCity = useSelector(getActiveCity);
@@ -33,7 +33,7 @@ function CityOffersContainer({isOffers}: CityOffersContainerProps): JSX.Element 
 
 
   return (
-    isOffers
+    hasOffers
       ?
       (
         <CitiesOffers

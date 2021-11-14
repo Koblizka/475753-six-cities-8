@@ -40,7 +40,7 @@ function MainScreen(): JSX.Element {
                 :
                 (
                   <CityOffersContainer
-                    isOffers={hasOffers}
+                    hasOffers={hasOffers}
                   />
                 )
             }

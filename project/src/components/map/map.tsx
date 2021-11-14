@@ -71,6 +71,7 @@ function CityMap({offers}: CityMapProps): JSX.Element {
     <div
       style={ {height: '100%'} }
       ref={mapRef}
+      data-testid='city-map'
     >
     </div>
   );

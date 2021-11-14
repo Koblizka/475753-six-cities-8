@@ -7,16 +7,17 @@ import App from './app';
 import { AppRoute, AuthorizationStatus, City, DataStatus, SortType } from '../../common/const';
 import { offers } from '../../mocks/offers';
 import { getCity } from '../../utils/utils';
+import { NameSpace } from '../../store/root-reducer';
 
 const mockStore = configureMockStore();
 
 const store = mockStore({
-  USER: {authorizationStatus: AuthorizationStatus.NotAuth},
-  OFFERS: {
+  [NameSpace.User]: {authorizationStatus: AuthorizationStatus.NotAuth},
+  [NameSpace.Offers]: {
     offers: offers,
     offersLoadStatus: DataStatus.IsLoaded,
   },
-  PROCESSES: {
+  [NameSpace.Processes]: {
     activeCity: getCity(City.Paris),
     currentOffer: null,
     activeOffer: null,
