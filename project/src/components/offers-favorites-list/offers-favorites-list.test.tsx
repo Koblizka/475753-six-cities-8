@@ -36,4 +36,4 @@ describe('Component: OffersFavoritesList', () => {
     expect(description).toBeInTheDocument();
   });
 
-})
+});
