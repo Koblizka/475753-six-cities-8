@@ -12,4 +12,20 @@ type UserServerside = {
   'is_pro': boolean;
 }
 
-export type {User, UserServerside};
+type UserAuthData = User & {
+  email: string;
+  token: string;
+}
+
+type UserAuthDataServerside = UserServerside & {
+  'email': string;
+  'token': string;
+}
+
+
+export type {
+  User,
+  UserServerside,
+  UserAuthData,
+  UserAuthDataServerside
+};

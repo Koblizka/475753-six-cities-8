@@ -10,6 +10,7 @@ import {
   DataStatus,
   SortType
 } from '../common/const';
+import { UserAuthData } from './user';
 
 
 enum ActionType {
@@ -30,6 +31,7 @@ enum ActionType {
   RequireLogout = 'user/requireLogout',
   UpdateOffer = 'cities/updateOffer',
   LoadFavorites = 'favorites/loadFavorites',
+  LoginUser = 'user/loginUser'
 }
 
 type ChangeActiveCityAction = {
@@ -115,6 +117,11 @@ type LoadOffersAction = {
   payload: Offer[];
 }
 
+type LoginUserAction = {
+  type: ActionType.LoginUser;
+  payload: UserAuthData;
+}
+
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 
 type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Action>;
@@ -138,6 +145,7 @@ export type {
   LoadNearbyOffersAction,
   UpdateOfferAction,
   LoadOffersAction,
+  LoginUserAction,
   ThunkActionResult,
   ThunkAppDispatch
 };

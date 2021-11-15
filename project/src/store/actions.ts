@@ -4,6 +4,7 @@ import {AuthorizationStatus, DataStatus, SortType} from '../common/const';
 
 import {ActionType} from '../types/actions';
 import {createAction} from '@reduxjs/toolkit';
+import { UserAuthData } from '../types/user';
 
 
 const changeActiveCity = createAction(
@@ -115,6 +116,13 @@ const requireAuthorization = createAction(
   }),
 );
 
+const loginUser = createAction(
+  ActionType.LoginUser,
+  (userAuthData: UserAuthData) => ({
+    payload: userAuthData,
+  }),
+);
+
 
 export {
   changeActiveCity,
@@ -133,5 +141,6 @@ export {
   loadFavorites,
   setCommentPostStatus,
   requireOfferDetails,
-  requireAuthorization
+  requireAuthorization,
+  loginUser
 };

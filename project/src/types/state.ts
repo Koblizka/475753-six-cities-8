@@ -8,6 +8,7 @@ import {
   DataStatus,
   SortType
 } from '../common/const';
+import { UserAuthData } from './user';
 
 
 type OffersData = {
@@ -34,6 +35,7 @@ type UserCommentsData = {
 
 type UserData = {
   authorizationStatus: AuthorizationStatus;
+  userAuthData: UserAuthData | null;
 };
 
 type State = RootState;

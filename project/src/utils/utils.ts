@@ -8,6 +8,7 @@ import {
   TimeGap,
   SortType
 } from '../common/const';
+import { UserAuthData, UserAuthDataServerside } from '../types/user';
 
 const ONE_GUEST = 1;
 
@@ -108,6 +109,18 @@ const getAdaptedComment = (adapteeComment: UserCommentServerside): UserComment =
 
 const getAdaptedComments = (adapteeComments: UserCommentServerside[]): UserComment[] => adapteeComments.map(getAdaptedComment);
 
+const getAdaptedUserAuthData = (userAuthData: UserAuthDataServerside): UserAuthData => (
+  {
+    id: userAuthData.id,
+    userName: userAuthData.name,
+    userAvatar: userAuthData.avatar_url,
+    isPro: userAuthData.is_pro,
+    email: userAuthData.email,
+    token: userAuthData.token,
+  }
+);
+
+
 export {
   percentageRating,
   sortFavoritesPlaces,
@@ -121,5 +134,6 @@ export {
   getAdaptedOffer,
   getAdaptedOffers,
   getAdaptedComment,
-  getAdaptedComments
+  getAdaptedComments,
+  getAdaptedUserAuthData
 };

@@ -1,7 +1,7 @@
 import {ThunkActionResult} from '../types/actions';
 import {AuthData} from '../types/auth-data';
 import {OfferServerside} from '../types/offer';
-import {removeToken, saveToken, Token} from '../utils/token';
+import {removeToken, saveToken} from '../utils/token';
 
 import {
   ApiRoute,
@@ -15,7 +15,8 @@ import {
 import {
   getAdaptedComments,
   getAdaptedOffer,
-  getAdaptedOffers
+  getAdaptedOffers,
+  getAdaptedUserAuthData
 } from '../utils/utils';
 import {
   loadNearbyOffers,
@@ -29,8 +30,10 @@ import {
   requireOfferDetails,
   setCommentPostStatus,
   updateOffer,
-  loadFavorites
+  loadFavorites,
+  loginUser
 } from './actions';
+import { UserAuthDataServerside } from '../types/user';
 
 
 const fetchOffersAction = (): ThunkActionResult =>
@@ -98,8 +101,9 @@ const postCommentAction = ({comment, rating}: NewComment, offerId: string): Thun
 
 const checkAuthAction = (): ThunkActionResult =>
   async (dispatch, _getState, api) => {
-    await api.get(ApiRoute.Login)
-      .then(() => {
+    await api.get<UserAuthDataServerside>(ApiRoute.Login)
+      .then(({data}) => {
+        dispatch(loginUser(getAdaptedUserAuthData(data)));
         dispatch(requireAuthorization(AuthorizationStatus.IsAuth));
       })
       .catch(() => {
@@ -110,9 +114,10 @@ const checkAuthAction = (): ThunkActionResult =>
 const loginAction = ({login: email, password}: AuthData): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
-      const {data: {token}} = await api.post<{token: Token}>(ApiRoute.Login, {email, password});
+      const {data} = await api.post<UserAuthDataServerside>(ApiRoute.Login, {email, password});
 
-      saveToken(token);
+      saveToken(data.token);
+      dispatch(loginUser(getAdaptedUserAuthData(data)));
       dispatch(requireAuthorization(AuthorizationStatus.IsAuth));
     }
     catch {

@@ -1,6 +1,6 @@
 import {FormEvent, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {useHistory} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../common/const';
 import {loginAction} from '../../store/api-actions';
 import {getAuthorizationStatus} from '../../store/user/selectors';
@@ -13,8 +13,6 @@ function LoginScreen(): JSX.Element {
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const history = useHistory();
-
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
@@ -31,7 +29,7 @@ function LoginScreen(): JSX.Element {
   };
 
   if (authorizationStatus === AuthorizationStatus.IsAuth) {
-    history.push(AppRoute.Main);
+    return <Redirect to={AppRoute.Main} />;
   }
 
   return (

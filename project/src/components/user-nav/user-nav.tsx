@@ -2,13 +2,14 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../common/const';
 import {logoutAction} from '../../store/api-actions';
-import {getAuthorizationStatus} from '../../store/user/selectors';
+import {getAuthorizationStatus, getUserAuthData} from '../../store/user/selectors';
 
 
 function UserNav(): JSX.Element {
   const dispatch = useDispatch();
 
   const authorizationStatus = useSelector(getAuthorizationStatus);
+  const userAuthData = useSelector(getUserAuthData);
 
   const handleSignOut = () => dispatch(logoutAction());
 
@@ -20,9 +21,9 @@ function UserNav(): JSX.Element {
             <ul className="header__nav-list">
               <li className="header__nav-item user">
                 <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
-                  <div className="header__avatar-wrapper user__avatar-wrapper">
+                  <div className="header__avatar-wrapper user__avatar-wrapper" style={ {backgroundImage: `url(${userAuthData?.userAvatar})`} }>
                   </div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                  <span className="header__user-name user__name">{userAuthData?.email}</span>
                 </Link>
               </li>
               <li className="header__nav-item">
