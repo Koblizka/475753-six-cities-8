@@ -35,6 +35,7 @@ function ReviewForm({offerId}: ReviewFormProps): JSX.Element {
   });
 
   const isFormCompleted = Boolean(review.rating) && (review.comment.length >= MIN_COMMENT_LENGTH);
+  const isFormEnabled = commentPostStatus === DataStatus.IsSending;
 
   const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>): void => {
     setReview({...review, rating: Number(evt.target.value)});
@@ -79,6 +80,7 @@ function ReviewForm({offerId}: ReviewFormProps): JSX.Element {
                 type="radio"
                 checked={Number(rank) === review.rating}
                 onChange={handleRatingChange}
+                disabled={isFormEnabled}
               />
               <label htmlFor={`${rank}-stars`} className="reviews__rating-label form__rating-label" title={title}>
                 <svg className="form__star-image" width="37" height="33">
@@ -99,6 +101,7 @@ function ReviewForm({offerId}: ReviewFormProps): JSX.Element {
         minLength={MIN_COMMENT_LENGTH}
         maxLength={MAX_COMMENT_LENGTH}
         value={review.comment}
+        disabled={isFormEnabled}
       >
       </textarea>
       <div className="reviews__button-wrapper">

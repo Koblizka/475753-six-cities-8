@@ -57,11 +57,12 @@ enum AuthorizationStatus {
 
 enum DataStatus {
   IsLoaded = 'IS_LOADED',
+  IsLoading = 'IS_LOADING',
   NotLoaded = 'NOT_LOADED',
   IsSended = 'IS_SENDED',
+  IsSending = 'IS_SENDING',
   NotSended = 'NOT_SENDED',
   Default = 'DEFAULT',
-  IsLoading = 'IS_LOADING',
 }
 
 const Setting = {

@@ -88,6 +88,8 @@ const fetchOfferCommentsAction = (offerId: string): ThunkActionResult =>
 
 const postCommentAction = ({comment, rating}: NewComment, offerId: string): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
+    dispatch(setCommentPostStatus(DataStatus.IsSending));
+
     try {
       const {data} = await api.post<UserCommentServerside[]>(`${ApiRoute.Comments}/${offerId}`, {comment, rating});
 
