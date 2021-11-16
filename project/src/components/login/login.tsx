@@ -7,12 +7,37 @@ import {getAuthorizationStatus} from '../../store/user/selectors';
 
 
 function LoginScreen(): JSX.Element {
+  const PASSWORD_MIN_LENGTH = 2;
   const dispatch = useDispatch();
 
   const authorizationStatus = useSelector(getAuthorizationStatus);
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const validatePassword = (passwordValue: string) => {
+    const passwordReg = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
+
+    if (passwordValue.length < PASSWORD_MIN_LENGTH)
+    {
+      passwordRef.current?.setCustomValidity('Пароль не может быть меньше 2ух знаков');
+      passwordRef.current?.reportValidity();
+    }
+    else if (!passwordReg.test(passwordValue))
+    {
+      passwordRef.current?.setCustomValidity('Пароль должен включать в себя и цифры, и буквы');
+      passwordRef.current?.reportValidity();
+    }
+    else
+    {
+      passwordRef.current?.setCustomValidity('');
+      passwordRef.current?.reportValidity();
+    }
+  };
+
+  const handlePasswordChange = (evt: FormEvent<HTMLInputElement>) => {
+    validatePassword(evt.currentTarget.value);
+  };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
@@ -74,7 +99,8 @@ function LoginScreen(): JSX.Element {
                 name="password"
                 placeholder="Password"
                 data-testid="password"
-                id="email"
+                id="password"
+                onChange={handlePasswordChange}
                 required
               />
             </div>
