@@ -2,6 +2,7 @@ const MAX_PERCENTAGE = 100 as const;
 const MAX_OFFER_RATING = 5 as const;
 const MIN_COMMENT_LENGTH = 50;
 const MAX_COMMENT_LENGTH = 300;
+const REVIEWS_LIMIT_ON_PAGE = 10;
 
 const RatingsToValuesMap = {
   'perfect': '5',
@@ -120,5 +121,6 @@ export {
   DataStatus,
   MIN_COMMENT_LENGTH,
   MAX_COMMENT_LENGTH,
-  RatingsToValuesMap
+  RatingsToValuesMap,
+  REVIEWS_LIMIT_ON_PAGE
 };

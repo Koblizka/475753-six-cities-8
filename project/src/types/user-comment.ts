@@ -5,7 +5,7 @@ type UserComment = {
   user: User;
   review: string
   rank: number;
-  date: Date;
+  date: string;
 }
 
 type UserCommentServerside = {
