@@ -8,7 +8,7 @@ import { ApiRoute, AuthorizationStatus, DataStatus } from '../common/const';
 import { AuthData } from '../types/auth-data';
 import {offersServerside} from '../mocks/offers';
 import {userCommentPost, userCommentsServerside} from '../mocks/user-comment';
-import {getAdaptedComments, getAdaptedOffer, getAdaptedOffers } from '../utils/utils';
+import {getAdaptedComments, getAdaptedOffer, getAdaptedOffers, getAdaptedUserAuthData } from '../utils/utils';
 import {
   bookmarkAction,
   checkAuthAction,
@@ -27,6 +27,7 @@ import {
   loadOfferComments,
   loadOfferDetails,
   loadOffers,
+  loginUser,
   requireAuthorization,
   requireLogout,
   requireOfferComments,
@@ -39,6 +40,14 @@ import {
 
 describe('Async actions', () => {
   const onFakeUnauthorized = jest.fn();
+  const fakeUserAuthData = {
+    'avatar_url': 'img/avatar-angelina.jpg',
+    'email': 'test@test.test',
+    'id': '1',
+    'is_pro': true,
+    'name': 'Vasja',
+    'token': 'secret',
+  };
   const api = createApi(onFakeUnauthorized());
   const mockAPI = new MockAdapter(api);
   const middlewares = [thunk.withExtraArgument(api)];
@@ -56,13 +65,14 @@ describe('Async actions', () => {
 
     mockAPI
       .onGet(ApiRoute.Login)
-      .reply(200, []);
+      .reply(200, fakeUserAuthData);
 
     expect(store.getActions()).toEqual([]);
 
     await store.dispatch(checkAuthAction());
 
     expect(store.getActions()).toEqual([
+      loginUser(getAdaptedUserAuthData(fakeUserAuthData)),
       requireAuthorization(AuthorizationStatus.IsAuth),
     ]);
   });
@@ -72,7 +82,7 @@ describe('Async actions', () => {
 
     mockAPI
       .onPost(ApiRoute.Login)
-      .reply(200, {token: 'secret'});
+      .reply(200, fakeUserAuthData);
 
     const store = mockStore();
 
@@ -81,6 +91,7 @@ describe('Async actions', () => {
     await store.dispatch(loginAction(fakeUser));
 
     expect(store.getActions()).toEqual([
+      loginUser(getAdaptedUserAuthData(fakeUserAuthData)),
       requireAuthorization(AuthorizationStatus.IsAuth),
     ]);
 
@@ -175,6 +186,7 @@ describe('Async actions', () => {
     await store.dispatch(postCommentAction(userCommentPost, offerId));
 
     expect(store.getActions()).toEqual([
+      setCommentPostStatus(DataStatus.IsSending),
       loadOfferComments(getAdaptedComments(userCommentsServerside)),
       setCommentPostStatus(DataStatus.IsSended),
     ]);
