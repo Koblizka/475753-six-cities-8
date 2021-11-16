@@ -33,6 +33,7 @@ const customPin = new Icon({
 });
 
 function CityMap({offers}: CityMapProps): JSX.Element {
+  const NORMAL_CITY_ZOOM = 12;
   const activeCity = useSelector(getActiveCity);
   const activeOffer = useSelector(getActiveOffer);
 
@@ -44,7 +45,7 @@ function CityMap({offers}: CityMapProps): JSX.Element {
   useEffect(() => {
     if (map) {
       markersLayer.clearLayers();
-      map.setView([activeCity.location.latitude, activeCity.location.longitude], activeCity.location.zoom);
+      map.setView([activeCity.location.latitude, activeCity.location.longitude], NORMAL_CITY_ZOOM);
 
       offers.forEach((offer) => {
         const marker = new Marker({
