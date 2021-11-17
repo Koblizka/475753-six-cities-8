@@ -34,6 +34,7 @@ import {
   requireOfferDetails,
   requireOffers,
   setCommentPostStatus,
+  updateFavoriteOffer,
   updateOffer
 } from './actions';
 
@@ -204,6 +205,7 @@ describe('Async actions', () => {
 
     expect(store.getActions()).toEqual([
       updateOffer(getAdaptedOffer(offersServerside[0])),
+      updateFavoriteOffer(getAdaptedOffer(offersServerside[0])),
     ]);
   });
 

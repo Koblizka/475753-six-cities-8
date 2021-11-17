@@ -15,7 +15,7 @@ describe('Component: OffersFavoritesList', () => {
 
     const mockStore = configureMockStore();
     const store = mockStore({
-      [NameSpace.Offers]: {favoriteOffers: [offers[0]]},
+      [NameSpace.Offers]: {favoriteOffers: offers},
       [NameSpace.User]: {authorizationStatus: AuthorizationStatus.IsAuth},
     });
 
@@ -26,7 +26,7 @@ describe('Component: OffersFavoritesList', () => {
     const {getByText} = render(
       <Router history={history}>
         <Provider store={store}>
-          <OffersFavoritesList />
+          <OffersFavoritesList offers={offers} />
         </Provider>
       </Router>,
     );

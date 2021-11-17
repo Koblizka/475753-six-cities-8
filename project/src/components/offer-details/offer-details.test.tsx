@@ -17,7 +17,7 @@ describe('Component: OfferScreen', () => {
 
     const mockStore = configureMockStore();
     const store = mockStore({
-      [NameSpace.Offers]: {favoriteOffers: [offers[0]]},
+      [NameSpace.Offers]: {nearbyOffers: offers},
       [NameSpace.User]: {authorizationStatus: AuthorizationStatus.IsAuth},
       [NameSpace.UserComments]: {
         reviews: userComments,
