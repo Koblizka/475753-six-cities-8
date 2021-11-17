@@ -135,5 +135,6 @@ export {
   getAdaptedOffers,
   getAdaptedComment,
   getAdaptedComments,
-  getAdaptedUserAuthData
+  getAdaptedUserAuthData,
+  getRandomIntInclusive
 };

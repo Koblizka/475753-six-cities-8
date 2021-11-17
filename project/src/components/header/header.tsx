@@ -3,8 +3,11 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../common/const';
 import UserNav from '../user-nav/user-nav';
 
+type PageHeaderProps = {
+  isLoginPage?: boolean;
+}
 
-function PageHeader(): JSX.Element {
+function PageHeader({isLoginPage}: PageHeaderProps): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -14,7 +17,7 @@ function PageHeader(): JSX.Element {
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
             </Link>
           </div>
-          <UserNav />
+          {!isLoginPage && <UserNav />}
         </div>
       </div>
     </header>
