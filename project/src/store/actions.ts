@@ -65,6 +65,27 @@ const updateOffer = createAction(
   }),
 );
 
+const updateNearbyOffer = createAction(
+  ActionType.UpdateNearbyOffer,
+  (offer: Offer) => ({
+    payload: offer,
+  }),
+);
+
+const updateFavoriteOffer = createAction(
+  ActionType.UpdateFavoriteOffer,
+  (offer: Offer) => ({
+    payload: offer,
+  }),
+);
+
+const updateOfferDetails = createAction(
+  ActionType.UpdateOfferDetails,
+  (offer: Offer) => ({
+    payload: offer,
+  }),
+);
+
 const loadFavorites = createAction(
   ActionType.LoadFavorites,
   (offers: Offer[]) => ({
@@ -138,6 +159,9 @@ export {
   requireOfferComments,
   requireOffers,
   updateOffer,
+  updateOfferDetails,
+  updateFavoriteOffer,
+  updateNearbyOffer,
   loadFavorites,
   setCommentPostStatus,
   requireOfferDetails,

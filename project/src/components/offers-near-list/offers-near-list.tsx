@@ -6,11 +6,10 @@ import {OfferNearCard} from '../offer-near-card/offer-near-card';
 type OffersNearListProps = {
   offers: Offer[];
   className: CardClassType;
-  onOfferChoose: (offer: Offer | null) => void;
 }
 
 
-function OffersNearList({offers, className, onOfferChoose}: OffersNearListProps): JSX.Element {
+function OffersNearList({offers, className}: OffersNearListProps): JSX.Element {
   return (
     <div className="near-places__list places__list">
       {
@@ -20,7 +19,6 @@ function OffersNearList({offers, className, onOfferChoose}: OffersNearListProps)
               offer={offer}
               key={offer.id}
               className={className}
-              onOfferChoose={onOfferChoose}
             />
           ),
         )

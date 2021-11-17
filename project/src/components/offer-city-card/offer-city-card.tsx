@@ -9,7 +9,6 @@ type CityPlaceCardProps = {
 }
 
 function OfferCityCard({offer, onOfferChoose, className}: CityPlaceCardProps): JSX.Element {
-
   const handleMouseEnter = () => onOfferChoose(offer);
   const handleMouseLeave = () => onOfferChoose(null);
 
@@ -19,7 +18,10 @@ function OfferCityCard({offer, onOfferChoose, className}: CityPlaceCardProps): J
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <OfferCard offer={offer} className={className}/>
+      <OfferCard
+        offer={offer}
+        className={className}
+      />
     </article>
   );
 }

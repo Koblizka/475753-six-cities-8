@@ -16,7 +16,7 @@ function LoginScreen(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const validatePassword = (passwordValue: string) => {
-    const passwordReg = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
+    const passwordReg = /(?=.*[a-zA-Z])(?=.*[0-9])/;
 
     if (passwordValue.length < PASSWORD_MIN_LENGTH)
     {
@@ -25,7 +25,7 @@ function LoginScreen(): JSX.Element {
     }
     else if (!passwordReg.test(passwordValue))
     {
-      passwordRef.current?.setCustomValidity('Пароль должен включать в себя и цифры, и буквы');
+      passwordRef.current?.setCustomValidity('Пароль должен включать в себя и цифры, и  лат.буквы');
       passwordRef.current?.reportValidity();
     }
     else

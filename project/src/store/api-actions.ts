@@ -31,7 +31,8 @@ import {
   setCommentPostStatus,
   updateOffer,
   loadFavorites,
-  loginUser
+  loginUser,
+  updateFavoriteOffer
 } from './actions';
 import { UserAuthDataServerside } from '../types/user';
 
@@ -139,6 +140,7 @@ const bookmarkAction = (offerId: string, status: boolean): ThunkActionResult =>
     const {data} = await api.post<OfferServerside>(`${ApiRoute.Favorite}/${offerId}/${Number(!status)}`);
 
     dispatch(updateOffer(getAdaptedOffer(data)));
+    dispatch(updateFavoriteOffer(getAdaptedOffer(data)));
   };
 
 const fetchFavoritesAction = (): ThunkActionResult =>

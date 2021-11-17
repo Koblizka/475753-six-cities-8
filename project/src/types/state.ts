@@ -13,7 +13,7 @@ import { UserAuthData } from './user';
 
 type OffersData = {
   offers: Offer[];
-  nearbyOffers: Offer[] | null;
+  nearbyOffers: Offer[];
   offersLoadStatus: DataStatus;
   offerDetailsLoadStatus: DataStatus;
   nearbyOffersLoadStatus: DataStatus;

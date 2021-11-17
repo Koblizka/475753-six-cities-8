@@ -9,13 +9,15 @@ import {
   requireOffers,
   requireNearbyOffers,
   requireOfferDetails,
-  loadFavorites
+  loadFavorites,
+  updateFavoriteOffer,
+  updateNearbyOffer
 } from '../actions';
 
 
 const initialState: OffersData = {
   offers: [],
-  nearbyOffers: null,
+  nearbyOffers: [],
   offersLoadStatus: DataStatus.Default,
   offerDetailsLoadStatus: DataStatus.Default,
   nearbyOffersLoadStatus: DataStatus.Default,
@@ -35,6 +37,23 @@ const offersReducer = createReducer(
       })
       .addCase(updateOffer, (state, action) => {
         state.offers = state.offers.map((offer) => offer.id === action.payload.id ? action.payload : offer);
+      })
+      .addCase(updateNearbyOffer, (state, action) => {
+        state.nearbyOffers = state.nearbyOffers.map((offer) => {
+          if (offer.id === action.payload.id) {
+            return Object.assign(
+              offer,
+              {
+                isFavorite: !(action.payload.isFavorite),
+              },
+            );
+          }
+
+          return offer;
+        });
+      })
+      .addCase(updateFavoriteOffer, (state, action) => {
+        state.favoriteOffers = state.favoriteOffers.filter((offer) => offer.id !== action.payload.id);
       })
       .addCase(requireOfferDetails, (state, action) => {
         state.offerDetailsLoadStatus = action.payload;

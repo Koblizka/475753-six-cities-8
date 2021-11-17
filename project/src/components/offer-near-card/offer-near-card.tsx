@@ -1,24 +1,30 @@
+import {useDispatch} from 'react-redux';
 import {CardClassType} from '../../common/const';
+import {updateNearbyOffer} from '../../store/actions';
 import {Offer} from '../../types/offer';
 import {OfferCard} from '../offer-card/offer-card';
 
 type OfferNearCardProps = {
   offer: Offer;
   className: CardClassType;
-  onOfferChoose: (offer: Offer | null) => void;
 }
 
-function OfferNearCard({offer, className, onOfferChoose}: OfferNearCardProps): JSX.Element{
-  const handleMouseEnter = () => onOfferChoose(offer);
-  const handleMouseLeave = () => onOfferChoose(null);
+function OfferNearCard({offer, className}: OfferNearCardProps): JSX.Element{
+  const dispatch = useDispatch();
+
+  const handleBookmark = () => {
+    dispatch(updateNearbyOffer(offer));
+  };
 
   return(
     <article
       className="near-places__card place-card"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
-      <OfferCard offer={offer} className={className} />
+      <OfferCard
+        offer={offer}
+        className={className}
+        onBookmark={handleBookmark}
+      />
     </article>
   );
 }

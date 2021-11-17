@@ -1,9 +1,11 @@
 import OffersSort from '../offers-sort/offers-sort';
 import OffersCitiesList from '../offers-cities-list/offers-cities-list';
-import { Offer } from '../../types/offer';
-import { CardClassType } from '../../common/const';
+import {Offer} from '../../types/offer';
+import {CardClassType} from '../../common/const';
 import CityMap from '../map/map';
-import { Fragment } from 'react';
+import {Fragment} from 'react';
+import {useSelector} from 'react-redux';
+import {getActiveOffer} from '../../store/processes/selectors';
 
 type CitiesOffersProps = {
   offersAmount: number;
@@ -14,6 +16,8 @@ type CitiesOffersProps = {
 }
 
 function CitiesOffers({offersAmount, activeCity, offers, onOfferChoose, cityOffers}: CitiesOffersProps): JSX.Element {
+  const activeOffer = useSelector(getActiveOffer);
+
   return (
     <Fragment>
       <section className="cities__places places">
@@ -30,6 +34,7 @@ function CitiesOffers({offersAmount, activeCity, offers, onOfferChoose, cityOffe
         <section className="cities__map map">
           <CityMap
             offers={cityOffers}
+            activeOffer={activeOffer as Offer}
           />
         </section>
       </div>

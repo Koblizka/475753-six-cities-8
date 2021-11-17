@@ -10,7 +10,8 @@ import {
   changeActiveCity,
   changeSortType,
   chooseActiveOffer,
-  loadOfferDetails
+  loadOfferDetails,
+  updateOfferDetails
 } from '../actions';
 
 const initialState: ProcessesData = {
@@ -35,6 +36,14 @@ const processesReducer = createReducer(
       })
       .addCase(loadOfferDetails, (state, action) => {
         state.currentOffer = action.payload;
+      })
+      .addCase(updateOfferDetails, (state, action) => {
+        Object.assign(
+          state.currentOffer,
+          {
+            isFavorite: !(action.payload.isFavorite),
+          },
+        );
       });
   },
 );

@@ -3,7 +3,7 @@ import {Offer} from '../../types/offer';
 import {UrlMarker} from '../../common/const';
 import {useMap} from '../../hooks/use-map';
 import {useSelector } from 'react-redux';
-import {getActiveCity, getActiveOffer} from '../../store/processes/selectors';
+import {getActiveCity} from '../../store/processes/selectors';
 
 import {
   useEffect,
@@ -18,6 +18,7 @@ import {
 
 type CityMapProps = {
   offers: Offer[];
+  activeOffer: Offer;
 }
 
 const defaultPin = new Icon({
@@ -32,11 +33,9 @@ const customPin = new Icon({
   iconAnchor: [12, 40],
 });
 
-function CityMap({offers}: CityMapProps): JSX.Element {
+function CityMap({offers, activeOffer}: CityMapProps): JSX.Element {
   const NORMAL_CITY_ZOOM = 12;
   const activeCity = useSelector(getActiveCity);
-  const activeOffer = useSelector(getActiveOffer);
-
 
   const mapRef = useRef<HTMLDivElement | null>(null);
   const [markersLayer] = useState<LayerGroup>(new LayerGroup());

@@ -18,9 +18,10 @@ import {
 type OfferCardProps = {
   offer: Offer;
   className?: CardClassType;
+  onBookmark?: () => void;
 }
 
-function OfferCard({offer, className}: OfferCardProps): JSX.Element {
+function OfferCard({offer, className, onBookmark}: OfferCardProps): JSX.Element {
   const dispatch = useDispatch();
   const history = useHistory();
   const authorizationStatus = useSelector(getAuthorizationStatus);
@@ -32,6 +33,10 @@ function OfferCard({offer, className}: OfferCardProps): JSX.Element {
     }
 
     dispatch(bookmarkAction(offer.id, offer.isFavorite));
+
+    if (onBookmark) {
+      onBookmark();
+    }
   };
 
   return(

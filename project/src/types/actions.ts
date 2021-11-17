@@ -18,20 +18,23 @@ enum ActionType {
   ChooseActiveOffer = 'cities/chooseActiveOffer',
   FillOffersList = 'cities/fillOffersList',
   ChangeSortType = 'cities/changeSortType',
-  LoadOfferDetails = 'data/loadOfferDetails',
+  LoadOfferDetails = 'details/loadOfferDetails',
   LoadNearbyOffers = 'data/loadNearbyOffers',
   LoadOffers = 'data/loadOffers',
   LoadOfferComments = 'data/loadOfferComments',
   RequireOffers = 'data/requireOffers',
   RequireOfferComments = 'data/requireOfferComments',
-  RequireOfferDetails = 'data/requireOfferDetails',
+  RequireOfferDetails = 'details/requireOfferDetails',
   RequireNearbyOffers = 'data/requireNearbyOffers',
   RequireAuthorization = 'user/requireAuthorization',
   SetCommentPostStatus = 'user/setCommentPostStatus',
   RequireLogout = 'user/requireLogout',
   UpdateOffer = 'cities/updateOffer',
   LoadFavorites = 'favorites/loadFavorites',
-  LoginUser = 'user/loginUser'
+  LoginUser = 'user/loginUser',
+  UpdateFavoriteOffer = 'favorites/updateFavoriteOffer',
+  UpdateOfferDetails = 'details/updateOfferDetails',
+  UpdateNearbyOffer = 'details/updateNearbyOffer',
 }
 
 type ChangeActiveCityAction = {
@@ -92,6 +95,21 @@ type UpdateOfferAction = {
   payload: Offer;
 }
 
+type UpdateNearbyOfferAction = {
+  type: ActionType.UpdateNearbyOffer;
+  payload: Offer;
+}
+
+type UpdateFavoriteOfferAction = {
+  type: ActionType.UpdateFavoriteOffer;
+  payload: Offer;
+}
+
+type UpdateOfferDetailsAction = {
+  type: ActionType.UpdateOfferDetails;
+  payload: Offer;
+}
+
 type RequireOfferDetailsAction = {
   type: ActionType.RequireOfferDetails;
   payload: DataStatus;
@@ -144,6 +162,9 @@ export type {
   LoadFavoritesAction,
   LoadNearbyOffersAction,
   UpdateOfferAction,
+  UpdateOfferDetailsAction,
+  UpdateNearbyOfferAction,
+  UpdateFavoriteOfferAction,
   LoadOffersAction,
   LoginUserAction,
   ThunkActionResult,

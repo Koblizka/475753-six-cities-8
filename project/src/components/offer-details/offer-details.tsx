@@ -2,11 +2,11 @@ import {Offer} from '../../types/offer';
 import ReviewForm from '../review-form/review-form';
 import CityMap from '../map/map';
 import OffersNearList from '../offers-near-list/offers-near-list';
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useMemo} from 'react';
 import {Loader} from '../loader/loader';
 import {ReviewList} from '../review-list/review-list';
 import {useDispatch, useSelector} from 'react-redux';
-import {chooseActiveOffer} from '../../store/actions';
+import {updateOfferDetails} from '../../store/actions';
 import PageHeader from '../header/header';
 
 import {
@@ -21,9 +21,11 @@ import {
 } from '../../utils/utils';
 import {
   Redirect,
+  useHistory,
   useParams
 } from 'react-router-dom';
 import {
+  bookmarkAction,
   fetchNearbyOffersAction,
   fetchOfferCommentsAction,
   fetchOfferDetailsAction
@@ -36,15 +38,14 @@ import { getAuthorizationStatus } from '../../store/user/selectors';
 
 function OfferScreen(): JSX.Element {
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const nearbyOffers = useSelector(getNearbyOffers);
-  const offerDetailsLoadStatus = useSelector(getOffersDetailsLoadStatus);
-  const reviews = useSelector(getReviews);
-  const offerCommnetsLoadStatus = useSelector(getOfferCommnetsLoadStatus);
   const currentOffer = useSelector(getCurrentOffer);
+  const nearbyOffers = useSelector(getNearbyOffers);
+  const reviews = useSelector(getReviews);
+  const offerDetailsLoadStatus = useSelector(getOffersDetailsLoadStatus);
+  const offerCommnetsLoadStatus = useSelector(getOfferCommnetsLoadStatus);
   const authorizationStatus = useSelector(getAuthorizationStatus);
-
-  const handleOfferChoose = (offer: Offer | null) => dispatch(chooseActiveOffer(offer));
 
 
   const handleFetchOfferDetails = useCallback(
@@ -60,8 +61,19 @@ function OfferScreen(): JSX.Element {
     [dispatch],
   );
 
-
   const { id }  = useParams<{id: string}>();
+
+  const offerData = currentOffer as Offer;
+  const offersNear = nearbyOffers as Offer[];
+  const offersForMap = useMemo(
+    () => {
+      if (!currentOffer) {
+        return [];
+      }
+
+      return [...nearbyOffers, currentOffer];
+    }, [currentOffer, nearbyOffers],
+  );
 
   useEffect(() => {
     handleFetchOfferDetails(id);
@@ -69,8 +81,16 @@ function OfferScreen(): JSX.Element {
     handleFetchOfferComments(id);
   }, [id, handleFetchOfferDetails, handleFetchNearbyOffers, handleFetchOfferComments]);
 
-  const offerData = currentOffer as Offer;
-  const offersNear = nearbyOffers as Offer[];
+  const handleBookmark = () => {
+    if (authorizationStatus !== AuthorizationStatus.IsAuth) {
+      history.push(AppRoute.SignIn);
+      return;
+    }
+
+    dispatch(bookmarkAction(offerData.id, offerData.isFavorite));
+    dispatch(updateOfferDetails(offerData));
+  };
+
 
   if (offerDetailsLoadStatus === DataStatus.NotLoaded) {
     return <Redirect to={AppRoute.NotFound} />;
@@ -113,6 +133,7 @@ function OfferScreen(): JSX.Element {
                 <button
                   className={(offerData?.isFavorite) ? 'property__bookmark-button property__bookmark-button--active button' : 'property__bookmark-button button'}
                   type="button"
+                  onClick={handleBookmark}
                 >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
@@ -180,7 +201,8 @@ function OfferScreen(): JSX.Element {
               offersNear &&
               (
                 <CityMap
-                  offers={offersNear}
+                  offers={offersForMap}
+                  activeOffer={offerData}
                 />
               )
             }
@@ -195,7 +217,6 @@ function OfferScreen(): JSX.Element {
                 <OffersNearList
                   offers={offersNear}
                   className={CardClassType.NearPlaces}
-                  onOfferChoose={handleOfferChoose}
                 />
               )
             }
