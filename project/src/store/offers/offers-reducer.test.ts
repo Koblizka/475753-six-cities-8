@@ -7,7 +7,7 @@ import { offersReducer } from './offers-reducer';
 describe('Reducer: offersReducer', () => {
   const state = {
     offers: [],
-    nearbyOffers: null,
+    nearbyOffers: [],
     offersLoadStatus: DataStatus.Default,
     offerDetailsLoadStatus: DataStatus.Default,
     nearbyOffersLoadStatus: DataStatus.Default,
