@@ -1,7 +1,7 @@
 import { createMemoryHistory } from 'history';
 import {render } from '@testing-library/react';
 import { Router } from 'react-router-dom';
-import PageHeader from './header';
+import PageHeader from './page-header';
 import UserNav from '../user-nav/user-nav';
 import { AuthorizationStatus } from '../../common/const';
 import { configureMockStore } from '@jedmao/redux-mock-store';

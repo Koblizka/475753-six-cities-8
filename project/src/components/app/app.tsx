@@ -1,5 +1,5 @@
 import MainScreen from '../main/main';
-import FavoritesScreen from '../favorites/favorites';
+import FavoritesScreen from '../favorites-screen/favorites-screen';
 import OfferScreen from '../offer-details/offer-details';
 import LoginScreen from '../login/login';
 import {NotFoundScreen} from '../not-found/not-found';

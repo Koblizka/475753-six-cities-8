@@ -1,7 +1,7 @@
 import {Fragment} from 'react';
 import { REVIEWS_LIMIT_ON_PAGE } from '../../common/const';
 import {UserComment} from '../../types/user-comment';
-import {UserReview} from '../review/review';
+import {UserReview} from '../user-review/user-review';
 
 type ReviewListProps = {
   reviews: UserComment[];

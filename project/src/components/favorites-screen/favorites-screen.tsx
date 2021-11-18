@@ -1,5 +1,5 @@
 import {OffersFavoritesList} from '../offers-favorites-list/offers-favorites-list';
-import PageHeader from '../../components/header/header';
+import PageHeader from '../page-header/page-header';
 import {useDispatch, useSelector} from 'react-redux';
 import {getFavoriteOffers} from '../../store/offers/selectors';
 import {useEffect} from 'react';

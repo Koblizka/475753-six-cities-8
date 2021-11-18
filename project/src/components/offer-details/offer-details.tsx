@@ -7,7 +7,7 @@ import {Loader} from '../loader/loader';
 import {ReviewList} from '../review-list/review-list';
 import {useDispatch, useSelector} from 'react-redux';
 import {updateOfferDetails} from '../../store/actions';
-import PageHeader from '../header/header';
+import PageHeader from '../page-header/page-header';
 
 import {
   AppRoute,

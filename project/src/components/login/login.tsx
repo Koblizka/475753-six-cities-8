@@ -4,7 +4,7 @@ import {Link, Redirect} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus, City} from '../../common/const';
 import {loginAction} from '../../store/api-actions';
 import {getAuthorizationStatus} from '../../store/user/selectors';
-import PageHeader from '../header/header';
+import PageHeader from '../page-header/page-header';
 import {getRandomIntInclusive} from '../../utils/utils';
 import {changeActiveCity} from '../../store/actions';
 

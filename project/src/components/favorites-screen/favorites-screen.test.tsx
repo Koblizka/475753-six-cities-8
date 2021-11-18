@@ -6,7 +6,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { NameSpace } from '../../store/root-reducer';
 import { offers } from '../../mocks/offers';
 import { AuthorizationStatus, DataStatus } from '../../common/const';
-import FavoritesScreen from './favorites';
+import FavoritesScreen from './favorites-screen';
 import * as Redux from 'react-redux';
 
 

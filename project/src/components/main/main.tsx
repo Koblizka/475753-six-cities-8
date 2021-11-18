@@ -2,7 +2,7 @@ import CitiesList from '../cities-list/cities-list';
 import {cities} from '../../mocks/cities';
 import {DataStatus} from '../../common/const';
 import {useSelector} from 'react-redux';
-import PageHeader from '../header/header';
+import PageHeader from '../page-header/page-header';
 import {getActiveCity} from '../../store/processes/selectors';
 import {getOffers, getOffersLoadStatus} from '../../store/offers/selectors';
 import clsx from 'clsx';
