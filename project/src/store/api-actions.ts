@@ -6,7 +6,8 @@ import {removeToken, saveToken} from '../utils/token';
 import {
   ApiRoute,
   AuthorizationStatus,
-  DataStatus
+  DataStatus,
+  FailMessage
 } from '../common/const';
 import {
   NewComment,
@@ -35,6 +36,7 @@ import {
   updateFavoriteOffer
 } from './actions';
 import { UserAuthDataServerside } from '../types/user';
+import { toast } from 'react-toastify';
 
 
 const fetchOffersAction = (): ThunkActionResult =>
@@ -47,6 +49,7 @@ const fetchOffersAction = (): ThunkActionResult =>
     }
     catch {
       dispatch(requireOffers(DataStatus.NotLoaded));
+      toast.warning(FailMessage.NotLoadedOffers);
     }
   };
 
@@ -59,6 +62,7 @@ const fetchOfferDetailsAction = (offerId: string): ThunkActionResult =>
     }
     catch {
       dispatch(requireOfferDetails(DataStatus.NotLoaded));
+      toast.warning(FailMessage.NotLoadedOfferDetails);
     }
   };
 
@@ -71,6 +75,7 @@ const fetchNearbyOffersAction = (offerId: string): ThunkActionResult =>
     }
     catch {
       dispatch(requireOfferDetails(DataStatus.NotLoaded));
+      toast.warning(FailMessage.NotLoadedNearbyOffers);
     }
   };
 
@@ -84,6 +89,7 @@ const fetchOfferCommentsAction = (offerId: string): ThunkActionResult =>
     }
     catch {
       dispatch(requireOfferDetails(DataStatus.NotLoaded));
+      toast.warning(FailMessage.NotLoadedComments);
     }
   };
 
@@ -99,6 +105,7 @@ const postCommentAction = ({comment, rating}: NewComment, offerId: string): Thun
     }
     catch {
       dispatch(setCommentPostStatus(DataStatus.NotSended));
+      toast.warning(FailMessage.NotPostedReview);
     }
   };
 
@@ -111,6 +118,7 @@ const checkAuthAction = (): ThunkActionResult =>
       })
       .catch(() => {
         dispatch(requireAuthorization(AuthorizationStatus.NotAuth));
+        toast.info(FailMessage.NotAuth);
       });
   };
 
@@ -125,6 +133,7 @@ const loginAction = ({login: email, password}: AuthData): ThunkActionResult =>
     }
     catch {
       dispatch(requireAuthorization(AuthorizationStatus.NotAuth));
+      toast.error(FailMessage.LoginError);
     }
   };
 

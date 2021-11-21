@@ -12,14 +12,19 @@ const RatingsToValuesMap = {
   'terribly': '1',
 };
 
+enum FailMessage {
+  NotAuth = 'Вы не авторизированы',
+  NotPostedReview = 'Отзыв не отправлен',
+  NotLoadedComments = 'Отзыв не отправлен',
+  NotLoadedOffers = 'Предложения не загружены',
+  NotLoadedOfferDetails = 'Предложение не загружено',
+  NotLoadedNearbyOffers = 'Отзывы пососедству не загружены',
+  LoginError = 'Ошибка входа: Проверьте корректность введённых данных',
+}
+
 enum UrlMarker {
   Default = 'img/pin.svg',
   Custom = 'img/pin-active.svg',
-}
-
-enum TimeGap {
-  Zero = 0,
-  Week = 7,
 }
 
 enum PlaceType {
@@ -65,10 +70,6 @@ enum DataStatus {
   Default = 'DEFAULT',
 }
 
-const Setting = {
-  PlaceAmount: 132,
-} as const;
-
 enum OfferCardPhotoSize {
   smallWidth = '150',
   smallHeight = '110',
@@ -105,13 +106,11 @@ const sortTypeMap: Record<SortType, string> = {
 };
 
 export {
-  TimeGap,
   MAX_PERCENTAGE,
   MAX_OFFER_RATING,
   AppRoute,
   PlaceType,
   AuthorizationStatus,
-  Setting,
   OfferCardPhotoSize,
   City,
   UrlMarker,
@@ -123,5 +122,6 @@ export {
   MIN_COMMENT_LENGTH,
   MAX_COMMENT_LENGTH,
   RatingsToValuesMap,
-  REVIEWS_LIMIT_ON_PAGE
+  REVIEWS_LIMIT_ON_PAGE,
+  FailMessage
 };
