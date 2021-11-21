@@ -2,7 +2,7 @@ import OffersSort from '../offers-sort/offers-sort';
 import OffersCitiesList from '../offers-cities-list/offers-cities-list';
 import {Offer} from '../../types/offer';
 import {CardClassType} from '../../common/const';
-import CityMap from '../map/map';
+import CityMap from '../city-map/city-map';
 import {Fragment} from 'react';
 import {useSelector} from 'react-redux';
 import {getActiveOffer} from '../../store/processes/selectors';

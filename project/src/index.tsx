@@ -9,6 +9,8 @@ import {AuthorizationStatus} from './common/const';
 import {checkAuthAction, fetchOffersAction} from './store/api-actions';
 import { configureStore } from '@reduxjs/toolkit';
 import { BrowserRouter } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const api = createApi(
   () => store.dispatch(requireAuthorization(AuthorizationStatus.NotAuth)),
@@ -31,6 +33,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
+        <ToastContainer />
         <App />
       </BrowserRouter>
     </Provider>

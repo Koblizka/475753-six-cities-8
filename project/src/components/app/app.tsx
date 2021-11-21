@@ -1,8 +1,8 @@
-import MainScreen from '../main/main';
+import MainScreen from '../main-screen/main-screen';
 import FavoritesScreen from '../favorites-screen/favorites-screen';
-import OfferScreen from '../offer-details/offer-details';
-import LoginScreen from '../login/login';
-import {NotFoundScreen} from '../not-found/not-found';
+import OfferScreen from '../offer-screen/offer-screen';
+import LoginScreen from '../login-screen/login-screen';
+import {NotFoundScreen} from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 
 import {AppRoute} from '../../common/const';

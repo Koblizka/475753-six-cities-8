@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import CityMap from './map';
+import CityMap from './city-map';
 import { offers } from '../../mocks/offers';
 import { Router } from 'react-router';
 import { Provider } from 'react-redux';
@@ -27,6 +27,7 @@ describe('Component: CityMap', () => {
         <Provider store={store}>
           <CityMap
             offers={offers}
+            activeOffer={offers[0]}
           />
         </Provider>
       </Router>,

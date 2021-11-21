@@ -5,29 +5,28 @@ import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { NameSpace } from '../../store/root-reducer';
 import { offers } from '../../mocks/offers';
-import { AuthorizationStatus, City, DataStatus, SortType } from '../../common/const';
 import * as Redux from 'react-redux';
-import OfferScreen from './offer-details';
-import { userComments } from '../../mocks/user-comment';
 import { getCity } from '../../utils/utils';
+import MainScreen from './main-screen';
+import {
+  AuthorizationStatus,
+  City,
+  DataStatus,
+  SortType
+} from '../../common/const';
 
-describe('Component: OfferScreen', () => {
+describe('Component: MainScreen', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
 
     const mockStore = configureMockStore();
     const store = mockStore({
-      [NameSpace.Offers]: {nearbyOffers: offers},
+      [NameSpace.Offers]: {
+        offers: offers,
+        offersLoadStatus: DataStatus.IsLoaded},
       [NameSpace.User]: {authorizationStatus: AuthorizationStatus.IsAuth},
-      [NameSpace.UserComments]: {
-        reviews: userComments,
-        offerCommnetsLoadStatus: DataStatus.IsLoaded,
-        commentPostStatus: DataStatus.Default,
-      },
       [NameSpace.Processes]: {
-        activeCity: getCity(City.Paris),
-        currentOffer: offers[0],
-        activeOffer: offers[0],
+        activeCity: getCity(City.Amsterdam),
         activeSort: SortType.Popular,
       },
     });
@@ -39,12 +38,12 @@ describe('Component: OfferScreen', () => {
     const {getByText} = render(
       <Router history={history}>
         <Provider store={store}>
-          <OfferScreen />
+          <MainScreen />
         </Provider>
       </Router>,
     );
 
-    const description = getByText(offers[0].description);
+    const description = getByText(offers[0].title);
 
     expect(description).toBeInTheDocument();
   });

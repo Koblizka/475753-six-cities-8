@@ -5,7 +5,7 @@ import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import { AuthorizationStatus } from '../../common/const';
-import LoginScreen from './login';
+import LoginScreen from './login-screen';
 
 const mockStore = configureMockStore();
 const store = mockStore({

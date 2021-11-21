@@ -1,6 +1,6 @@
 import {Offer} from '../../types/offer';
 import ReviewForm from '../review-form/review-form';
-import CityMap from '../map/map';
+import CityMap from '../city-map/city-map';
 import OffersNearList from '../offers-near-list/offers-near-list';
 import {useCallback, useEffect, useMemo} from 'react';
 import {Loader} from '../loader/loader';

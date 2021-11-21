@@ -1,7 +1,7 @@
 import { createMemoryHistory } from 'history';
 import { render } from '@testing-library/react';
 import { Router } from 'react-router-dom';
-import { NotFoundScreen } from './not-found';
+import { NotFoundScreen } from './not-found-screen';
 
 
 describe('Component: NotFoundScreen', () => {
